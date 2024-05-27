@@ -37,7 +37,7 @@ const MainSection = ({ joined, setJoined }) => {
     );
   };
 
-  console.log("MainSection----");
+  // console.log("MainSection----");
   let progress;
 
   // useEffect(() => {
@@ -61,13 +61,13 @@ const MainSection = ({ joined, setJoined }) => {
         <div>
           <div className="stepper">
             <FaArrowLeft />
-            <div class="progress_bar_box">
+            <div className="progress_bar_box">
               <div
-                class="progress_bar"
+                className="progress_bar"
                 style={{ height: "3px", width: "25%" }}
               ></div>
             </div>
-            <span className="span_progress">{`${'1'}/4`}</span>
+            <span className="span_progress">{`${"1"}/4`}</span>
           </div>
 
           <SignUpForm step={step} setStep={setStep} />

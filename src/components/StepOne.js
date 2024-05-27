@@ -1,6 +1,11 @@
 import React from "react";
 
-const StepOne = ({ setStep }) => {
+const StepOne = ({ setStep, inputFields, setInputFields }) => {
+
+  const setNextStep = () => {
+    setStep(2);
+  };
+
   return (
     <>
       <div className="fields_box">
@@ -9,48 +14,54 @@ const StepOne = ({ setStep }) => {
         </label>
         <input
           className="form_input"
-          type="text"
           id="email"
+          name="email"
+          type="email"
           placeholder="Email"
           // value={searchTerm}
-          onChange={(event) => {
-            // setSearchTerm(event.target.value);
+          onChange={(e) => {
+            console.log("email value--", e.target.value);
+            setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
           required
         />
 
-        <label htmlFor="first name" className="input_label">
+        <label htmlFor="firstName" className="input_label">
           First name
         </label>
         <input
           className="form_input"
           type="text"
-          id="first name"
+          id="firstName"
+          name="firstName"
           placeholder="First name"
           // value={searchTerm}
-          onChange={(event) => {
-            // setSearchTerm(event.target.value);
+          onChange={(e) => {
+            // console.log("firstName value--", e.target.value);
+            setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
           required
         />
 
-        <label htmlFor="last name" className="input_label">
+        <label htmlFor="lastName" className="input_label">
           Last name
         </label>
         <input
           className="form_input"
           type="text"
-          id="last name"
+          id="lastName"
+          name="lastName"
           placeholder="Last name"
           // value={searchTerm}
-          onChange={(event) => {
-            // setSearchTerm(event.target.value);
+          onChange={(e) => {
+            // console.log("lastName value--", e.target.value);
+            setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
           required
         />
       </div>
       <div className="next_btn_box">
-        <button className="main_btn next_btn" onClick={() => setStep(2)}>
+        <button className="main_btn next_btn" onClick={setNextStep}>
           Next
         </button>
       </div>

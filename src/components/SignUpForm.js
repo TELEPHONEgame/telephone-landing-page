@@ -3,6 +3,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
+import FinalCard from "./FinalCard";
 
 const SignUpForm = ({ step, setStep }) => {
   const [inputFields, setInputFields] = useState({
@@ -17,19 +18,37 @@ const SignUpForm = ({ step, setStep }) => {
     sampleTwo: "",
     sampleThree: "",
   });
-  console.log("SIgnupForm----");
-  console.log("step----", step);
+  console.log("SignupForm inputFields----", inputFields);
+  // console.log("step----", step);
 
   return (
     <form className="sign_up_form">
       {step === 1 ? (
-        <StepOne setStep={setStep} />
+        <StepOne
+          setStep={setStep}
+          inputFields={inputFields}
+          setInputFields={setInputFields}
+        />
       ) : step === 2 ? (
-        <StepTwo setStep={setStep} />
+        <StepTwo
+          setStep={setStep}
+          inputFields={inputFields}
+          setInputFields={setInputFields}
+        />
       ) : step === 3 ? (
-        <StepThree setStep={setStep} />
+        <StepThree
+          setStep={setStep}
+          inputFields={inputFields}
+          setInputFields={setInputFields}
+        />
       ) : step === 4 ? (
-        <StepFour setStep={setStep} />
+        <StepFour
+          setStep={setStep}
+          inputFields={inputFields}
+          setInputFields={setInputFields}
+        />
+      ) : step === 5 ? (
+        <FinalCard />
       ) : null}
     </form>
   );

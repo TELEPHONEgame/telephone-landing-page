@@ -1,6 +1,21 @@
 import React from "react";
+import Papa from "papaparse";
+import Countries from "../files/Countries.csv";
 
-const StepTwo = ({ setStep }) => {
+const StepTwo = ({ setStep, inputFields, setInputFields }) => {
+  // Papa.parse(file, config);
+  // const csv = Papa.unparse(data[config]);
+  // Parse local CSV file
+  // Papa.parse(Countries, {
+  //   complete: function (results) {
+  //     console.log("Finished:", results.data);
+  //   },
+  // });
+  // get headers  
+const headers = Countries[0].split(",");
+  let result = Papa.parse(Countries, { header: headers, dynamicTyping: true });
+  console.log("Result:", result);
+
   return (
     <div className="fields_box">
       <label htmlFor="country" className="input_label first_label">
@@ -23,19 +38,21 @@ const StepTwo = ({ setStep }) => {
       <label htmlFor="city" className="input_label">
         City
       </label>
-      <select
+      <input
         className="form_input"
+        type="text"
         id="city"
+        name="city"
         placeholder="City"
         // value={age}
-        onChange={(event) => {
-          console.log("event--", event.target);
-          // setAge(event.target.value);
+        onChange={(e) => {
+          console.log("e--", e.target);
+          setInputFields({ ...inputFields, [e.target.name]: e.target.value });
         }}
         required
       >
         {/* <option value="english">English (Default)</option> */}
-      </select>
+      </input>
 
       <label htmlFor="art form" className="input_label">
         What form does your art take? What art form is closest to what you do?
