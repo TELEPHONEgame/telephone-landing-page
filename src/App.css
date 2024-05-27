@@ -132,9 +132,8 @@ select {
     font-weight: 200;
   }
   .fields_box {
-    /* height: 550px; */
-    /* width: 350px; */
-    height: 670px;
+    height: 550px;
+    width: 350px;
   }
   .first_label {
     padding-top: 100px;
