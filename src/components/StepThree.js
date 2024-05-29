@@ -3,41 +3,50 @@ import React from "react";
 
 const StepThree = ({ setStep, inputFields, setInputFields }) => {
   const handleInputEvent = e => {
-    // this will give us access to a value 1-10
     setInputFields(prev => ({
       ...prev,
       abstract: e.target.value,
     }));
   };
   return (
-    <div className="fields_box">
+    <>
       <div className="fields_box">
-        <label htmlFor="abstract" className="input_label question_label">
-          How abstract is your art?
-        </label>
-        <span>Take your best guess, no need to stress it.</span>
+        <section className="field_header">
+          <label htmlFor="abstract" className="input_label question_label">
+            <h1>How abstract is your art?</h1>
+          </label>
+          <p>Take your best guess, no need to stress it.</p>
+        </section>
 
-        <input
-          type="range"
-          id="abstract"
-          name="abstract"
-          className="abstract_meter"
-          min="0"
-          max="10"
-          style={{
-            background: `linear-gradient(to right, #0A0C0E ${
-              inputFields.abstract * 10
-            }%, #D9D9D9 ${inputFields.abstract * 10}%)`,
-          }}
-          value={inputFields.abstract}
-          onInput={handleInputEvent}
-        />
+        <article>
+          <span className="abstract_amount">{inputFields.abstract}</span>
 
-        <button className="main_btn" onClick={() => setStep(4)}>
-          Next
-        </button>
+          <input
+            type="range"
+            id="abstract"
+            name="abstract"
+            className="abstract_meter"
+            min="0"
+            max="10"
+            // necessary inorder to style the track based on the amount
+            style={{
+              background: `linear-gradient(to right, #0A0C0E ${
+                inputFields.abstract * 10
+              }%, #D9D9D9 ${inputFields.abstract * 10}%)`,
+            }}
+            value={inputFields.abstract}
+            onInput={handleInputEvent}
+          />
+          <section className="abstract_level">
+            <p>Not at all</p>
+            <p>Really abstract</p>
+          </section>
+        </article>
       </div>
-    </div>
+      <button className="main_btn" onClick={() => setStep(4)}>
+        Next
+      </button>
+    </>
   );
 };
 

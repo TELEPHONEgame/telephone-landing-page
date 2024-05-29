@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Inter:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Inter:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 select::-ms-expand {
   display: none;
@@ -11,6 +12,48 @@ select {
   -moz-appearance: none;
   /* for Chrome */
   -webkit-appearance: none;
+}
+
+html * {
+  /* font-family: "Crimson Pro"; */
+  font-family: "Inter";
+}
+
+.main_section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.fields_box {
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ height: 40%;
+ padding: 1rem 0;
+}
+
+.sign_up_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 16px;
+}
+
+.main_btn {
+  color: white;
+  background-color: black;
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 0px;
+  border-radius: 10px;
+  font-family: "JetBrains mono";
+}
+
+.question_label {
+  font-size: 32px;
 }
 
 
@@ -60,10 +103,7 @@ select {
   }
 
   /* main section  */
-  .main_section {
-    width: 390px;
-    /* height: 844px; */
-  }
+
   .main_section_box {
     padding: 10px 15px;
     margin-top: 10px;
@@ -79,16 +119,7 @@ select {
     height: 550px;
     /* height: 500px; */
   }
-  .main_btn {
-    color: white;
-    background-color: black;
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px 0px;
-    border-radius: 10px;
-    font-family: "JetBrains mono";
-  }
+
   .btn_white {
     color: black;
     background-color: white;
@@ -111,11 +142,7 @@ select {
   }
 
   /* sign up form  */
-  .sign_up_form {
-    padding: 15px 15px;
-    font-family: "Inter";
-    font-size: 16px;
-  }
+
   .input_label {
     display: block;
     padding: 10px;
@@ -131,18 +158,9 @@ select {
     font-size: 14px;
     font-weight: 200;
   }
-  .fields_box {
-    height: 550px;
-    width: 350px;
-  }
+ 
   .first_label {
     padding-top: 100px;
-  }
-  .next_btn_box {
-    height: 100px;
-  }
-  .question_label {
-    font-size: 32px;
   }
 
   .span_progress{
