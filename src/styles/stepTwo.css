@@ -1,0 +1,18 @@
+
+
+.art_form_box{
+  width: 350px;
+  height: 190px;
+  padding: 10px;
+}
+.art_form_btn{
+  border-radius: 10px;
+  width: 88px;
+  height: 50px;
+  background: hsl(0deg 0% 100%);
+  border: 1px solid hsl(0deg 0% 49.41%);
+  color: hsl(0deg 0% 49.41%);
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-weight: 300;
+}

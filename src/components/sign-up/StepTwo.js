@@ -1,15 +1,19 @@
 import React from "react";
-import { list } from "../files/countries";
+import { list } from "../../files/countries";
+import "../../styles/stepTwo.css";
 
 const StepTwo = ({ setStep, inputFields, setInputFields }) => {
   const parseCountryList = () => {
-    console.log("list-", list);
-    return list.split("\n").map((elem) => elem.split(", "));
-    // .map((elem) => elem.split(","));
+    const arrList = list.split("\n").map((elem) => elem.split(", "));
+    const newArrList = arrList.map((elem) => {
+      const newElem = elem[0].split(",");
+      newElem.pop();
+      return newElem;
+    });
+    return newArrList;
   };
 
   const countryList = parseCountryList();
-  console.log("countryList---", countryList);
 
   return (
     <>
@@ -19,16 +23,23 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
         </label>
         <select
           className="form_input"
+          name="country"
           id="country"
           placeholder="Country"
-          // value={age}
-          onChange={(event) => {
-            console.log("event--", event.target);
-            // setAge(event.target.value);
+          value={inputFields.country}
+          onChange={(e) => {
+            setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
           required
         >
-          {/* <option value="english">English (Default)</option> */}
+          <option value={null} disabled>
+            Country
+          </option>
+          {countryList.map((elem) => (
+            <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
+              {elem[1]}
+            </option>
+          ))}
         </select>
 
         <label htmlFor="city" className="input_label">
@@ -40,19 +51,117 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
           id="city"
           name="city"
           placeholder="City"
-          // value={age}
+          value={inputFields.city}
           onChange={(e) => {
-            console.log("e--", e.target);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
           required
-        >
-          {/* <option value="english">English (Default)</option> */}
-        </input>
+        ></input>
+
+        <label htmlFor="hometown" className="input_label">
+          Hometown
+        </label>
+        <input
+          className="form_input"
+          type="text"
+          id="hometown"
+          name="hometown"
+          placeholder="Hometown (Optional)"
+          value={inputFields.hometown}
+          onChange={(e) => {
+            setInputFields({ ...inputFields, [e.target.name]: e.target.value });
+          }}
+        ></input>
 
         <label htmlFor="art form" className="input_label">
           What form does your art take? What art form is closest to what you do?
         </label>
+        <div className="art_form_box">
+          <button
+            className="art_form_btn"
+            name="Drawing"
+            onClick={(e) =>
+              setInputFields({
+                ...inputFields,
+                artForm: e.target.name,
+              })
+            }
+          >
+            Drawing
+          </button>
+          <button
+            className="art_form_btn"
+            name="Film"
+            onClick={(e) =>
+              setInputFields({
+                ...inputFields,
+                artForm: e.target.name,
+              })
+            }
+          >
+            Film
+          </button>
+          <button
+            className="art_form_btn"
+            name="Music"
+            onClick={(e) =>
+              setInputFields({
+                ...inputFields,
+                artForm: e.target.name,
+              })
+            }
+          >
+            Music
+          </button>
+          <button
+            className="art_form_btn"
+            name="Literature"
+            onClick={(e) =>
+              setInputFields({
+                ...inputFields,
+                artForm: e.target.name,
+              })
+            }
+          >
+            Literature
+          </button>
+          <button
+            className="art_form_btn"
+            name="Painting"
+            onClick={(e) =>
+              setInputFields({
+                ...inputFields,
+                artForm: e.target.name,
+              })
+            }
+          >
+            Painting
+          </button>
+          <button
+            className="art_form_btn"
+            name="Dance"
+            onClick={(e) =>
+              setInputFields({
+                ...inputFields,
+                artForm: e.target.name,
+              })
+            }
+          >
+            Dance
+          </button>
+          <button
+            className="art_form_btn"
+            name="Film"
+            onClick={(e) =>
+              setInputFields({
+                ...inputFields,
+                artForm: e.target.name,
+              })
+            }
+          >
+            Film
+          </button>
+        </div>
       </div>
 
       <div className="next_btn_box">
