@@ -58,7 +58,7 @@ const MainSection = ({ joined, setJoined }) => {
       {joined === false ? (
         renderInitialScreen()
       ) : (
-        <div>
+        <>
           <div className="stepper">
             <FaArrowLeft />
             <div className="progress_bar_box">
@@ -71,7 +71,7 @@ const MainSection = ({ joined, setJoined }) => {
           </div>
 
           <SignUpForm step={step} setStep={setStep} />
-        </div>
+        </>
       )}
     </section>
   );

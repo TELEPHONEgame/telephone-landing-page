@@ -13,7 +13,7 @@ const SignUpForm = ({ step, setStep }) => {
     country: "",
     city: "",
     artForm: "",
-    abstract: "",
+    abstract: 0,
     sampleOne: "",
     sampleTwo: "",
     sampleThree: "",
