@@ -2,6 +2,7 @@ import React from "react";
 
 const StepOne = ({ setStep, inputFields, setInputFields }) => {
   const setNextStep = () => {
+    // add validation
     setStep(2);
   };
 
@@ -17,7 +18,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           name="email"
           type="email"
           placeholder="Email"
-          // value={searchTerm}
+          value={inputFields.email}
           onChange={e => {
             console.log("email value--", e.target.value);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
@@ -34,7 +35,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           id="firstName"
           name="firstName"
           placeholder="First name"
-          // value={searchTerm}
+          value={inputFields.firstName}
           onChange={e => {
             // console.log("firstName value--", e.target.value);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
@@ -51,7 +52,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           id="lastName"
           name="lastName"
           placeholder="Last name"
-          // value={searchTerm}
+          value={inputFields.lastName}
           onChange={e => {
             // console.log("lastName value--", e.target.value);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
@@ -61,7 +62,12 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
       </div>
       {/* this outer box might not be needed */}
       <div className="next_btn_box">
-        <button className="main_btn next_btn" onClick={setNextStep}>
+        <button
+          className="main_btn next_btn"
+          onClick={setNextStep}
+
+          type="submit"
+        >
           Next
         </button>
       </div>

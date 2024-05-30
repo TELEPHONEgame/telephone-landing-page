@@ -1,22 +1,23 @@
 import React, { useState } from "react";
-import StepOne from "../StepOne";
-import StepTwo from "../StepTwo";
-import StepThree from "../StepThree";
+import StepOne from "./StepOne"
+import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import FinalCard from "./FinalCard";
 
 const SignUpForm = ({ step, setStep }) => {
   const [inputFields, setInputFields] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    country: "",
-    city: "",
-    artForm: "",
+    email: null,
+    firstName: null,
+    lastName: null,
+    country: null,
+    city: null,
+    hometown: null,
+    artForm: null,
     abstract: 0,
-    sampleOne: "",
-    sampleTwo: "",
-    sampleThree: "",
+    sampleOne: null,
+    sampleTwo: null,
+    sampleThree: null,
   });
   console.log("SignupForm inputFields----", inputFields);
   // console.log("step----", step);

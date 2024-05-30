@@ -1,4 +1,4 @@
-import "../styles/stepThree.css";
+import "../../styles/stepThree.css";
 import React from "react";
 
 const StepThree = ({ setStep, inputFields, setInputFields }) => {

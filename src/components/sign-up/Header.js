@@ -11,7 +11,6 @@ const Header = () => {
       <div className="ham_menu">
         <IoMenu size={26} />
       </div>
-      
     </header>
   );
 };
