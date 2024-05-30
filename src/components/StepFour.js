@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
 const StepFour = ({ setStep, inputFields, setInputFields }) => {
+
   const submitForm = () => {
     console.log("Submit form");
+    // post req
     setStep(5);
   };
 

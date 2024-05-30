@@ -1,6 +1,7 @@
 import React from "react";
-import Papa from "papaparse";
-import Countries from "../files/Countries.csv";
+// import Papa from "papaparse";
+// import Countries from "../files/Countries.csv";
+import { list } from "../files/countries";
 
 const StepTwo = ({ setStep, inputFields, setInputFields }) => {
   // Papa.parse(file, config);
@@ -11,10 +12,27 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
   //     console.log("Finished:", results.data);
   //   },
   // });
-  // get headers  
-const headers = Countries[0].split(",");
-  let result = Papa.parse(Countries, { header: headers, dynamicTyping: true });
-  console.log("Result:", result);
+  // get headers
+  // const headers = Countries[0].split(",");
+  // let result = Papa.parse(Countries, {
+  //   delimiter: ",",
+  //   // header: headers,
+  //   // dynamicTyping: true,
+  //   header: true,
+  //   // complete: onFileParsed
+  // });
+  // console.log("Result:", result);
+
+  const parseCountryList = () => {
+    console.log("list-", list);
+    return list
+      .split("\n")
+      .map((elem) => elem.split(", "))
+      .map((elem) => elem.split(","));
+  };
+
+  const countryList = parseCountryList();
+  console.log("countryList---", countryList);
 
   return (
     <div className="fields_box">

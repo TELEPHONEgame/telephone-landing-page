@@ -3,6 +3,7 @@ import React from "react";
 const StepOne = ({ setStep, inputFields, setInputFields }) => {
 
   const setNextStep = () => {
+    // add validation
     setStep(2);
   };
 
@@ -61,7 +62,12 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
         />
       </div>
       <div className="next_btn_box">
-        <button className="main_btn next_btn" onClick={setNextStep}>
+        <button
+          className="main_btn next_btn"
+          onClick={setNextStep}
+
+          type="submit"
+        >
           Next
         </button>
       </div>
