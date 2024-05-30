@@ -1,7 +1,6 @@
 import React from "react";
 
 const StepOne = ({ setStep, inputFields, setInputFields }) => {
-
   const setNextStep = () => {
     setStep(2);
   };
@@ -19,7 +18,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           type="email"
           placeholder="Email"
           // value={searchTerm}
-          onChange={(e) => {
+          onChange={e => {
             console.log("email value--", e.target.value);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -36,7 +35,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           name="firstName"
           placeholder="First name"
           // value={searchTerm}
-          onChange={(e) => {
+          onChange={e => {
             // console.log("firstName value--", e.target.value);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -53,13 +52,14 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           name="lastName"
           placeholder="Last name"
           // value={searchTerm}
-          onChange={(e) => {
+          onChange={e => {
             // console.log("lastName value--", e.target.value);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
           required
         />
       </div>
+      {/* this outer box might not be needed */}
       <div className="next_btn_box">
         <button className="main_btn next_btn" onClick={setNextStep}>
           Next
