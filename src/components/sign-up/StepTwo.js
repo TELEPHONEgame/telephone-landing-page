@@ -1,4 +1,6 @@
 import React from "react";
+
+import ArtFormBtn from "./ArtFormBtn";
 import { list } from "../../files/countries";
 import "../../styles/stepTwo.css";
 
@@ -14,6 +16,14 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
   };
 
   const countryList = parseCountryList();
+  const artFormList = [
+    "Drawing",
+    "Film",
+    "Music",
+    "Literature",
+    "Painting",
+    "Dance",
+  ];
 
   return (
     <>
@@ -77,90 +87,13 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
           What form does your art take? What art form is closest to what you do?
         </label>
         <div className="art_form_box">
-          <button
-            className="art_form_btn"
-            name="Drawing"
-            onClick={(e) =>
-              setInputFields({
-                ...inputFields,
-                artForm: e.target.name,
-              })
-            }
-          >
-            Drawing
-          </button>
-          <button
-            className="art_form_btn"
-            name="Film"
-            onClick={(e) =>
-              setInputFields({
-                ...inputFields,
-                artForm: e.target.name,
-              })
-            }
-          >
-            Film
-          </button>
-          <button
-            className="art_form_btn"
-            name="Music"
-            onClick={(e) =>
-              setInputFields({
-                ...inputFields,
-                artForm: e.target.name,
-              })
-            }
-          >
-            Music
-          </button>
-          <button
-            className="art_form_btn"
-            name="Literature"
-            onClick={(e) =>
-              setInputFields({
-                ...inputFields,
-                artForm: e.target.name,
-              })
-            }
-          >
-            Literature
-          </button>
-          <button
-            className="art_form_btn"
-            name="Painting"
-            onClick={(e) =>
-              setInputFields({
-                ...inputFields,
-                artForm: e.target.name,
-              })
-            }
-          >
-            Painting
-          </button>
-          <button
-            className="art_form_btn"
-            name="Dance"
-            onClick={(e) =>
-              setInputFields({
-                ...inputFields,
-                artForm: e.target.name,
-              })
-            }
-          >
-            Dance
-          </button>
-          <button
-            className="art_form_btn"
-            name="Film"
-            onClick={(e) =>
-              setInputFields({
-                ...inputFields,
-                artForm: e.target.name,
-              })
-            }
-          >
-            Film
-          </button>
+          {artFormList.map((elem) => (
+            <ArtFormBtn
+              name={elem}
+              inputFields={inputFields}
+              setInputFields={setInputFields}
+            />
+          ))}
         </div>
       </div>
 
