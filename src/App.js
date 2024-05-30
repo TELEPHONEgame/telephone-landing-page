@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
-import Header from "./components/Header";
-import MainSection from "./components/MainSection";
+import Header from "./components/sign-up/Header";
+import MainSection from "./components/sign-up/MainSection";
 
 function App() {
   const [joined, setJoined] = useState(false);
