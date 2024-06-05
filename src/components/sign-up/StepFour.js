@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FileUploadInput } from "./FileUploadInput.tsx";
+import "../../styles/stepFour.css";
 
 const StepFour = ({ setStep, inputFields, setInputFields }) => {
   const submitForm = () => {
@@ -10,9 +12,13 @@ const StepFour = ({ setStep, inputFields, setInputFields }) => {
   return (
     <>
       <div className="fields_box">
-        <label htmlFor="abstract" className="input_label question_label">
+        <label htmlFor="" className="input_label question_label">
           Can we see?
         </label>
+        <section className="files_upload_group">
+          {/* inputs for files or  */}
+          <FileUploadInput />
+        </section>
       </div>
 
       <div className="next_btn_box">
