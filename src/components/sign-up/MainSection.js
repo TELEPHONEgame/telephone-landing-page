@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { TbWorld } from "react-icons/tb";
 import SignUpForm from "./SignUpForm";
+import ProgressBar from "./ProgressBar.tsx";
 
 // import { FaSquareFull } from "react-icons/fa";
 // import { FaRegSquareFull } from "react-icons/fa6";
-import { FaArrowLeft } from "react-icons/fa";
 
 const MainSection = ({ joined, setJoined }) => {
   const [step, setStep] = useState(1);
@@ -38,37 +38,13 @@ const MainSection = ({ joined, setJoined }) => {
   };
 
   // console.log("MainSection----");
-  let progress;
-
-  // useEffect(() => {
-  //   if (step === 1) {
-  //     progress = "1/4";
-  //   } else if (step === 2) {
-  //     progress = "2/4";
-  //   } else if (step === 3) {
-  //     progress = "3/4";
-  //   } else if (step === 4) {
-  //     progress = "4/4";
-  //   }
-  // }, [step]);
-  // console.log("Progressss---", progress)
-
   return (
     <section className="main_section">
       {joined === false ? (
         renderInitialScreen()
       ) : (
         <>
-          <div className="stepper">
-            <FaArrowLeft />
-            <div className="progress_bar_box">
-              <div
-                className="progress_bar"
-                style={{ height: "3px", width: "25%" }}
-              ></div>
-            </div>
-            <span className="span_progress">{`${"1"}/4`}</span>
-          </div>
+          <ProgressBar step={step} />
 
           <SignUpForm step={step} setStep={setStep} />
         </>
