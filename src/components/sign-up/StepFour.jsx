@@ -18,6 +18,7 @@ const StepFour = ({ setStep, inputFields, setInputFields }) => {
         <section className="files_upload_group">
           {/* inputs for files or  */}
           <FileUploadInput />
+          <FileUploadInput />
         </section>
       </div>
 
