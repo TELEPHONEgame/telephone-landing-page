@@ -39,7 +39,7 @@ jobs:
         personal_token: ${{ secrets.API_TOKEN_GITHUB }}
         src_path: django_bld/
         src_branch: main
-        dst_path: /django/static/telephone-landing-page/
+        dst_path: /django/
         dst_owner: bsarsgard
         dst_repo_name: telephone-2024
         dst_branch: main
