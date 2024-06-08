@@ -30,6 +30,8 @@ jobs:
     - run: npm run build --if-present
     - run: ls
     - uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        add-options: -A
     - name: Copy to another repo
       uses: andstor/copycat-action@v3
       with:
