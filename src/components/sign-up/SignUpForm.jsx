@@ -15,9 +15,7 @@ const SignUpForm = ({ step, setStep }) => {
     hometown: null,
     artForm: null,
     abstract: 0,
-    sampleOne: null,
-    sampleTwo: null,
-    sampleThree: null,
+    samples: [] 
   });
   console.log("SignupForm inputFields----", inputFields);
   // console.log("step----", step);
