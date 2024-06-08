@@ -1,7 +1,6 @@
 .files_upload_group {
    display: flex;
    flex-direction: column;
-   border: solid 2px red;
    justify-content: space-around;
    height: 50vh;
 }

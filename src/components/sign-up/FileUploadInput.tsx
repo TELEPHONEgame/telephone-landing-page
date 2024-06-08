@@ -7,7 +7,6 @@ type Props = {
   name: string;
   key: string;
   file: File | null;
-  mediaLinkInput: string;
   mediaLink: string;
 };
 
@@ -16,10 +15,8 @@ export const FileUploadInput = ({
   handleInputChange,
   name,
   file,
-  mediaLinkInput,
   mediaLink,
 }: Props) => {
-  console.log("ALL ARE ACCESSED?", name);
   return (
     <div className="media_upload">
       <div className="media_text_input">
@@ -32,8 +29,7 @@ export const FileUploadInput = ({
           id="link_text_input"
           name={name}
           placeholder="Share a link or upload a file"
-          // if there is a file i will use their name otherwise setup a link
-          defaultValue={file ? mediaLink : mediaLinkInput}
+          value={mediaLink}
           onChange={handleInputChange}
         />
       </div>
