@@ -19,7 +19,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           type="email"
           placeholder="Email"
           // value={inputFields.email}
-          onChange={e => {
+          onChange={(e) => {
             console.log("email value--", e.target.value);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -36,7 +36,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           name="firstName"
           placeholder="First name"
           // value={inputFields.firstName}
-          onChange={e => {
+          onChange={(e) => {
             // console.log("firstName value--", e.target.value);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -53,7 +53,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           name="lastName"
           placeholder="Last name"
           // value={inputFields.lastName}
-          onChange={e => {
+          onChange={(e) => {
             // console.log("lastName value--", e.target.value);
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -65,7 +65,6 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
         <button
           className="main_btn next_btn"
           onClick={setNextStep}
-
           type="submit"
         >
           Next
