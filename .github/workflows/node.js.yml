@@ -28,6 +28,7 @@ jobs:
         cache: 'npm'
     - run: npm i
     - run: npm run build --if-present
+    - run: rm -rf django_bld
     - run: cp -r build django_bld
     - run: find django_bld
     - uses: EndBug/add-and-commit@v9
