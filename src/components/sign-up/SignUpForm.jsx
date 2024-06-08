@@ -7,13 +7,13 @@ import FinalCard from "./FinalCard";
 
 const SignUpForm = ({ step, setStep }) => {
   const [inputFields, setInputFields] = useState({
-    email: null,
-    firstName: null,
-    lastName: null,
-    country: null,
-    city: null,
-    hometown: null,
-    artForm: null,
+    email: "",
+    firstName: "",
+    lastName: "",
+    country: "",
+    city: "",
+    hometown: "",
+    artForm: "",
     abstract: 0,
     sampleOne: null,
     sampleTwo: null,

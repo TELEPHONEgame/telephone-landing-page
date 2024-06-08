@@ -1,6 +1,7 @@
 import React from "react";
 
 const StepOne = ({ setStep, inputFields, setInputFields }) => {
+
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -8,6 +9,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
+
   const setNextStep = () => {
     // validation
     const isEmailValid = validateEmail(inputFields.email);
@@ -31,7 +33,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           name="email"
           type="email"
           placeholder="Email"
-          // value={inputFields.email}
+          value={inputFields.email}
           onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -47,7 +49,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           id="firstName"
           name="firstName"
           placeholder="First name"
-          // value={inputFields.firstName}
+          value={inputFields.firstName}
           onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -63,7 +65,7 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           id="lastName"
           name="lastName"
           placeholder="Last name"
-          // value={inputFields.lastName}
+          value={inputFields.lastName}
           onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
