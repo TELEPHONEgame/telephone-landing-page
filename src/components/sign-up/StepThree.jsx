@@ -34,7 +34,7 @@ const StepThree = ({ setStep, inputFields, setInputFields }) => {
                 inputFields.abstract * 10
               }%, #D9D9D9 ${inputFields.abstract * 10}%)`,
             }}
-            value={inputFields.abstract}
+            // value={inputFields.abstract}
             onInput={handleInputEvent}
           />
           <section className="abstract_level">
