@@ -1,7 +1,11 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 
-export const FileUploadInput = () => {
+type Props = {
+  handleChange: () => void;
+};
+
+export const FileUploadInput = ({ handleChange }) => {
   return (
     <div className="media_upload">
       <div className="media_text_input">
@@ -19,7 +23,12 @@ export const FileUploadInput = () => {
         <label htmlFor="upload_file" className="upload_button">
           <FaPlus />
         </label>
-        <input type="file" id="upload_file" style={{ display: "none" }} />
+        <input
+          type="file"
+          id="upload_file"
+          style={{ display: "none" }}
+          onChange={handleChange}
+        />
       </div>
     </div>
   );
