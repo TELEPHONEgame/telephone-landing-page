@@ -36,9 +36,10 @@ jobs:
       uses: andstor/copycat-action@v3
       with:
         personal_token: ${{ secrets.API_TOKEN_GITHUB }}
-        src_path: build/
+        src_path: build
         src_branch: main
         dst_path: /django/static/telephone-landing-page/
         dst_owner: bsarsgard
         dst_repo_name: telephone-2024
         dst_branch: main
+        clean: true
