@@ -100,34 +100,6 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
               setInputFields={setInputFields}
             />
           ))}
-          {/* <button
-            className="art_form_btn"
-            name={"drawing"}
-            onClick={(e) => {
-              console.log("artForm e---", e.target.name);
-              // e.stopPropagation();
-              setInputFields({
-                ...inputFields,
-                artForm: e.target.name,
-              });
-            }}
-          >
-            {"drawing"}
-          </button>
-          <button
-            className="art_form_btn"
-            name={"film"}
-            onClick={(e) => {
-              console.log("artForm e---", e.target.name);
-              // e.stopPropagation();
-              setInputFields({
-                ...inputFields,
-                artForm: e.target.name,
-              });
-            }}
-          >
-            {"film"}
-          </button> */}
         </div>
       </div>
 

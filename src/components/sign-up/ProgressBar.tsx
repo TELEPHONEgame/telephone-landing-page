@@ -7,7 +7,6 @@ type Props = {
 };
 
 const ProgressBar = ({ step, setStep, setJoined }: Props) => {
-  console.log("Step---", step);
   const handleStepBack = () => {
     if (step !== 1) {
       setStep(step - 1);

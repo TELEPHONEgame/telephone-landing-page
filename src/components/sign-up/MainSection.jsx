@@ -37,7 +37,6 @@ const MainSection = ({ joined, setJoined }) => {
     );
   };
 
-  // console.log("MainSection----");
   return (
     <section className="main_section">
       {joined === false ? (

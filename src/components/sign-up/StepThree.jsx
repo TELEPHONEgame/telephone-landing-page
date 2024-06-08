@@ -8,6 +8,7 @@ const StepThree = ({ setStep, inputFields, setInputFields }) => {
       abstract: e.target.value,
     }));
   };
+  
   return (
     <>
       <div className="fields_box">

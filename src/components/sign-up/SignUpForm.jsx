@@ -20,7 +20,6 @@ const SignUpForm = ({ step, setStep }) => {
     sampleThree: null,
   });
   console.log("SignupForm inputFields----", inputFields);
-  // console.log("step----", step);
 
   return (
     <form className="sign_up_form">
