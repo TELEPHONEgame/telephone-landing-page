@@ -31,7 +31,7 @@ jobs:
     - run: ls
     - uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        add-options: -A
+        add_options: -A
     - name: Copy to another repo
       uses: andstor/copycat-action@v3
       with:
