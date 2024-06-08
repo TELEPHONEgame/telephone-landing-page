@@ -5,7 +5,7 @@ import MainSection from "./components/sign-up/MainSection";
 
 function App() {
   const [joined, setJoined] = useState(false);
-  
+
   return (
     <div className="App">
       {joined === false ? <Header /> : null}

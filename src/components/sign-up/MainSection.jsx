@@ -44,7 +44,9 @@ const MainSection = ({ joined, setJoined }) => {
         renderInitialScreen()
       ) : (
         <>
-          {step === 5 ? null : <ProgressBar step={step} />}
+          {step === 5 ? null : (
+            <ProgressBar step={step} setStep={setStep} setJoined={setJoined} />
+          )}
 
           <SignUpForm step={step} setStep={setStep} />
         </>
