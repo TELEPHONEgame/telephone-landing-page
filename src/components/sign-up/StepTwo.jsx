@@ -36,7 +36,7 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
           name="country"
           id="country"
           placeholder="Country"
-          value={inputFields.country}
+          // value={inputFields.country}
           onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -61,7 +61,7 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
           id="city"
           name="city"
           placeholder="City"
-          value={inputFields.city}
+          // value={inputFields.city}
           onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -77,7 +77,7 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
           id="hometown"
           name="hometown"
           placeholder="Hometown (Optional)"
-          value={inputFields.hometown}
+          // value={inputFields.hometown}
           onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
@@ -89,6 +89,7 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
         <div className="art_form_box">
           {artFormList.map((elem) => (
             <ArtFormBtn
+              key={elem}
               name={elem}
               inputFields={inputFields}
               setInputFields={setInputFields}
