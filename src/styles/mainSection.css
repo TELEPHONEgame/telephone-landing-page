@@ -1,0 +1,24 @@
+  /* stepper  */
+  .stepper {
+    height: 24px;
+    padding: 15px 15px;
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-around;
+    align-items: center;
+  }
+  .progress_bar{
+    background-color: #0A0C0E;
+    height: 2vw;
+    border-radius: 25px;
+  }
+  .progress_bar_box{
+    background-color: #D9D9D9;
+    width: 80vw;
+    border-radius: 25px;
+    overflow: hidden;
+  }
+
+  .span_progress{
+    font-size: clamp(1rem , 1.5vw, 2rem);
+  }
