@@ -25,6 +25,11 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
     "Dance",
   ];
 
+  const setNextStep = () => {
+    // add validation
+    setStep(3);
+  };
+
   return (
     <>
       <div className="fields_box">
@@ -65,7 +70,7 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
           onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
-          required
+          // required
         ></input>
 
         <label htmlFor="hometown" className="input_label">
@@ -99,7 +104,7 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
       </div>
 
       <div className="next_btn_box">
-        <button className="main_btn next_btn" onClick={() => setStep(3)}>
+        <button className="main_btn next_btn" onClick={setNextStep}>
           Next
         </button>
       </div>

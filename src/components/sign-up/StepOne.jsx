@@ -1,9 +1,24 @@
 import React from "react";
 
 const StepOne = ({ setStep, inputFields, setInputFields }) => {
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const setNextStep = () => {
-    // add validation
-    setStep(2);
+    // validation
+    const isEmailValid = validateEmail(inputFields.email);
+    const isFirstNameValid = inputFields.firstName;
+    const isLastNameValid = inputFields.lastName;
+
+    if (isEmailValid && isFirstNameValid && isLastNameValid) {
+      setStep(2);
+    }
   };
 
   return (
@@ -18,9 +33,8 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           name="email"
           type="email"
           placeholder="Email"
-          // value={inputFields.email}
-          onChange={e => {
-            console.log("email value--", e.target.value);
+          value={inputFields.email}
+          onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
           required
@@ -35,9 +49,8 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           id="firstName"
           name="firstName"
           placeholder="First name"
-          // value={inputFields.firstName}
-          onChange={e => {
-            // console.log("firstName value--", e.target.value);
+          value={inputFields.firstName}
+          onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
           required
@@ -52,9 +65,8 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
           id="lastName"
           name="lastName"
           placeholder="Last name"
-          // value={inputFields.lastName}
-          onChange={e => {
-            // console.log("lastName value--", e.target.value);
+          value={inputFields.lastName}
+          onChange={(e) => {
             setInputFields({ ...inputFields, [e.target.name]: e.target.value });
           }}
           required
@@ -65,7 +77,6 @@ const StepOne = ({ setStep, inputFields, setInputFields }) => {
         <button
           className="main_btn next_btn"
           onClick={setNextStep}
-
           type="submit"
         >
           Next

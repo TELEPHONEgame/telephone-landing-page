@@ -37,14 +37,15 @@ const MainSection = ({ joined, setJoined }) => {
     );
   };
 
-  // console.log("MainSection----");
   return (
     <section className="main_section">
       {joined === false ? (
         renderInitialScreen()
       ) : (
         <>
-          {step === 5 ? null : <ProgressBar step={step} />}
+          {step === 5 ? null : (
+            <ProgressBar step={step} setStep={setStep} setJoined={setJoined} />
+          )}
 
           <SignUpForm step={step} setStep={setStep} />
         </>
