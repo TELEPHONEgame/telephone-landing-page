@@ -21,7 +21,7 @@ const MainSection = ({ joined, setJoined }) => {
         </div>
         <div className="landing_page_animation">
           <img
-            src="animHolder.png"
+            src="/static/animHolder.png"
             alt="telephone-animation"
             width="350"
             height="500"
