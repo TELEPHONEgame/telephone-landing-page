@@ -43,4 +43,4 @@ jobs:
         dst_owner: bsarsgard
         dst_repo_name: telephone-2024
         dst_branch: main
-        clean: true
+        clean: false
