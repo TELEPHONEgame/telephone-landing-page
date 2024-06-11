@@ -1,7 +1,7 @@
 import React from "react";
 import { FileUploadInput } from "./FileUploadInput.tsx";
 import "../../styles/stepFour.css";
-import { FormType } from "./stepFourTypes.ts";
+import { FormType } from "./types.ts";
 
 const mbConverter = 1_048_576;
 const MAX_BYTES = 20_000_000;

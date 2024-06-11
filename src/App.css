@@ -160,6 +160,10 @@ html * {
   }
 
 
+  .error_message {
+    color: red;
+  }
+
 /* } */
 
 /* iPads, Tablets */
