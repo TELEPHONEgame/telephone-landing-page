@@ -33,61 +33,63 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
   return (
     <>
       <div className="fields_box">
-        <label htmlFor="country" className="input_label first_label">
-          Country
-        </label>
-        <select
-          className="form_input"
-          name="country"
-          id="country"
-          placeholder="Country"
-          // value={inputFields.country}
-          onChange={(e) => {
-            setInputFields({ ...inputFields, [e.target.name]: e.target.value });
-          }}
-          required
-        >
-          <option value={null} disabled>
+        <section className="artist_location">
+          <label htmlFor="country" className="input_label first_label">
             Country
-          </option>
-          {countryList.map((elem) => (
-            <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
-              {elem[1]}
+          </label>
+          <select
+            className="form_input"
+            name="country"
+            id="country"
+            placeholder="Country"
+            // value={inputFields.country}
+            onChange={(e) => {
+              setInputFields({ ...inputFields, [e.target.name]: e.target.value });
+            }}
+            required
+          >
+            <option value={null} disabled>
+              Country
             </option>
-          ))}
-        </select>
+            {countryList.map((elem) => (
+              <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
+                {elem[1]}
+              </option>
+            ))}
+          </select>
 
-        <label htmlFor="city" className="input_label">
-          City
-        </label>
-        <input
-          className="form_input"
-          type="text"
-          id="city"
-          name="city"
-          placeholder="City"
-          // value={inputFields.city}
-          onChange={(e) => {
-            setInputFields({ ...inputFields, [e.target.name]: e.target.value });
-          }}
-          // required
-        ></input>
+          <label htmlFor="city" className="input_label">
+            City
+          </label>
+          <input
+            className="form_input"
+            type="text"
+            id="city"
+            name="city"
+            placeholder="City"
+            // value={inputFields.city}
+            onChange={(e) => {
+              setInputFields({ ...inputFields, [e.target.name]: e.target.value });
+            }}
+            // required
+          />
 
-        <label htmlFor="hometown" className="input_label">
-          Hometown
-        </label>
-        <input
-          className="form_input"
-          type="text"
-          id="hometown"
-          name="hometown"
-          placeholder="Hometown (Optional)"
-          // value={inputFields.hometown}
-          onChange={(e) => {
-            setInputFields({ ...inputFields, [e.target.name]: e.target.value });
-          }}
-        ></input>
-
+          <label htmlFor="hometown" className="input_label">
+            Hometown
+          </label>
+          <input
+            className="form_input"
+            type="text"
+            id="hometown"
+            name="hometown"
+            placeholder="Hometown (Optional)"
+            // value={inputFields.hometown}
+            onChange={(e) => {
+              setInputFields({ ...inputFields, [e.target.name]: e.target.value });
+            }}
+          />
+        </section>
+        <div className="art_mediums">
         <label htmlFor="art form" className="input_label">
           What form does your art take? What art form is closest to what you do?
         </label>
@@ -100,6 +102,8 @@ const StepTwo = ({ setStep, inputFields, setInputFields }) => {
               setInputFields={setInputFields}
             />
           ))}
+        </div>
+
         </div>
       </div>
 

@@ -6,7 +6,6 @@ type Props = {
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   key: string;
-  file: File | null;
   mediaLink: string;
 };
 

@@ -5,6 +5,11 @@
   height: 190px;
   padding: 10px;
 }
+
+.art_form_box:inavlid {
+  border: 2px dashed red;
+}
+
 .art_form_btn{
   border-radius: 10px;
   width: 88px;
@@ -15,4 +20,12 @@
   margin-right: 10px;
   margin-bottom: 10px;
   font-weight: 300;
+}
+
+.art_form_btn:hover{
+  border: 1.5px solid #F0148B;
+}
+
+.art_form_btn:focus{
+  border: 1.5px solid #F0148B;
 }

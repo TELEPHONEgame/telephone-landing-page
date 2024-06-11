@@ -6,7 +6,7 @@ export type FormType = {
   city: string;
   hometown: string;
   artForm: string;
-  abstract: number;
+  abstract: string;
   samples: Samples;
 };
 
@@ -14,6 +14,7 @@ type Samples = Sample[];
 
 type Sample = {
   name: string;
-  file: File | null;
+  file: File | Blob | string;
   mediaLink: string;
+  error: string;
 };
