@@ -133,10 +133,7 @@ html * {
 
   /* main section  */
 
-  .main_section_box {
-    padding: 10px 15px;
-    margin-top: 10px;
-  }
+ 
   .message {
     /* width: 50%; */
     font-size: 12px;

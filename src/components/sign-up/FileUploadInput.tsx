@@ -13,9 +13,10 @@ export const FileUploadInput = ({
   handleUploadChange,
   handleInputChange,
   name,
-  file,
   mediaLink,
 }: Props) => {
+  const [inputError, setInputError] = useState(false);
+
   return (
     <div className="media_upload">
       <div className="media_text_input">
@@ -42,6 +43,7 @@ export const FileUploadInput = ({
           name={name}
           style={{ display: "none" }}
           onChange={handleUploadChange}
+          accept=".jpg, .jpeg, .png"
         />
       </div>
     </div>
