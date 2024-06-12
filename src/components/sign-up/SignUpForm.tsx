@@ -4,7 +4,6 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import FinalCard from "./FinalCard";
-import { FormType } from "./types";
 import { FormProvider, useForm } from "react-hook-form";
 
 const SignUpForm = ({ step, setStep }) => {
@@ -17,7 +16,7 @@ const SignUpForm = ({ step, setStep }) => {
       city: "",
       hometown: "",
       artForm: "",
-      abstract: "",
+      abstract: "0",
       samples: [
         { name: "Sample 1", file: "", mediaLink: "", error: "" },
         { name: "Sample 2", file: "", mediaLink: "", error: "" },
@@ -26,22 +25,21 @@ const SignUpForm = ({ step, setStep }) => {
     },
     mode: "onTouched",
   });
-  const [inputFields, setInputFields] = useState<FormType>({
-    email: "",
-    firstName: "",
-    lastName: "",
-    country: "",
-    city: "",
-    hometown: "",
-    artForm: "",
-    abstract: "",
-    samples: [
-      { name: "Sample 1", file: "", mediaLink: "", error: "" },
-      { name: "Sample 2", file: "", mediaLink: "", error: "" },
-      { name: "Sample 3", file: "", mediaLink: "", error: "" },
-    ],
-  });
-  console.log("SignupForm inputFields----", inputFields);
+  // const [inputFields, setInputFields] = useState<SignUpFormType>({
+  // email: "",
+  //   firstName: "",
+  //   lastName: "",
+  //   country: "",
+  //   city: "",
+  //   hometown: "",
+  //   artForm: "",
+  //   abstract: "",
+  //   samples: [
+  //     { name: "Sample 1", file: "", mediaLink: "", error: "" },
+  //     { name: "Sample 2", file: "", mediaLink: "", error: "" },
+  //     { name: "Sample 3", file: "", mediaLink: "", error: "" },
+  //   ],
+  // });
 
   return (
     <FormProvider {...formMethods}>
@@ -49,23 +47,11 @@ const SignUpForm = ({ step, setStep }) => {
         {step === 1 ? (
           <StepOne setStep={setStep} />
         ) : step === 2 ? (
-          <StepTwo
-            setStep={setStep}
-            inputFields={inputFields}
-            setInputFields={setInputFields}
-          />
+          <StepTwo setStep={setStep} />
         ) : step === 3 ? (
-          <StepThree
-            setStep={setStep}
-            inputFields={inputFields}
-            setInputFields={setInputFields}
-          />
+          <StepThree setStep={setStep} />
         ) : step === 4 ? (
-          <StepFour
-            setStep={setStep}
-            inputFields={inputFields}
-            setInputFields={setInputFields}
-          />
+          <StepFour setStep={setStep} />
         ) : step === 5 ? (
           <FinalCard />
         ) : null}
