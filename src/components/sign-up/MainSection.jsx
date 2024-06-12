@@ -5,7 +5,7 @@ import { InitialScreen } from "./InitialScreen.tsx";
 
 
 const MainSection = ({ joined, setJoined }) => {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(1);
   return (
     <section className="main_section">
       {joined === false ? (
