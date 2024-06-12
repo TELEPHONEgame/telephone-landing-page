@@ -15,10 +15,8 @@ const FinalCard = () => {
       </div>
       <div className="landing_page_animation">
         <img
-          src="/static/animHolder.png"
+          src="/assets/optimized-tele.gif"
           alt="telephone-animation"
-          width="350"
-          height="500"
         />
       </div>
       <div>

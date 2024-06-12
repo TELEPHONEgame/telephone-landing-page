@@ -4,6 +4,8 @@ import "../../styles/mainSection.css";
 
 type Props = {
   step: number;
+  setStep: (currentStep: number) => void;
+  setJoined: (joined: boolean) => void;
 };
 
 const ProgressBar = ({ step, setStep, setJoined }: Props) => {

@@ -23,6 +23,8 @@ html * {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: 1vh;
 }
 
 .fields_box {
@@ -38,7 +40,7 @@ html * {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  padding: 16px;
+  /* padding: 16px; */
 }
 
 .main_btn {
@@ -56,11 +58,36 @@ html * {
   font-size: 32px;
 }
 
+.main_section_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 10px 15px;
+  margin-top: 10px;
+}
 
+.form_input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  /* font-size: 14px; */
+  font-size: clamp(1rem, 2.5vw, 2rem); 
+  font-weight: 200;
+}
+
+.input_label {
+  display: block;
+  /* padding: 10px; */
+  font-size: clamp(1rem, 2.5vw, 2rem); 
+}
 
 
 /* mobile devices  */
-@media (max-width: 480px) {
+/* @media (max-width: 480px) { */
   .header {
     font-size: 22px;
     padding: 15px 15px 0px;
@@ -106,10 +133,7 @@ html * {
 
   /* main section  */
 
-  .main_section_box {
-    padding: 10px 15px;
-    margin-top: 10px;
-  }
+ 
   .message {
     /* width: 50%; */
     font-size: 12px;
@@ -129,28 +153,18 @@ html * {
 
   /* sign up form  */
 
-  .input_label {
-    display: block;
-    /* padding: 10px; */
-    font-size: 16px;
-  }
-  .form_input {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    margin-bottom: 10px;
-    border-bottom: 1px solid rgb(0, 0, 0);
-    font-size: 14px;
-    font-weight: 200;
-  }
+
  
   .first_label {
     padding-top: 100px;
   }
 
 
-}
+  .error_message {
+    color: red;
+  }
+
+/* } */
 
 /* iPads, Tablets */
 @media screen and (max-width: 768px) {

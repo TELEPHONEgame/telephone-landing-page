@@ -1,14 +1,15 @@
+import { useFormContext } from "react-hook-form";
 import "../../styles/stepThree.css";
 import React from "react";
+import { SignUpFormType } from "./types";
+type Props = {
+  setStep: (step: number) => void;
+};
 
-const StepThree = ({ setStep, inputFields, setInputFields }) => {
-  const handleInputEvent = e => {
-    setInputFields(prev => ({
-      ...prev,
-      abstract: e.target.value,
-    }));
-  };
-  
+const StepThree = ({ setStep }: Props) => {
+  const { register, watch } = useFormContext<SignUpFormType>();
+
+  const abstractVal = parseInt(watch("abstract"));
   return (
     <>
       <div className="fields_box">
@@ -20,23 +21,25 @@ const StepThree = ({ setStep, inputFields, setInputFields }) => {
         </section>
 
         <article>
-          <span className="abstract_amount">{inputFields.abstract}</span>
+          <span className="abstract_amount">{abstractVal}</span>
 
           <input
             type="range"
             id="abstract"
-            name="abstract"
             className="abstract_meter"
             min="0"
             max="10"
             // necessary inorder to style the track based on the amount
             style={{
               background: `linear-gradient(to right, #0A0C0E ${
-                inputFields.abstract * 10
-              }%, #D9D9D9 ${inputFields.abstract * 10}%)`,
+                abstractVal * 10
+              }%, #D9D9D9 ${abstractVal * 10}%)`,
             }}
-            value={inputFields.abstract}
-            onInput={handleInputEvent}
+            {...register("abstract", {
+              required: "Abstract level is required",
+              min: 0,
+              max: 10,
+            })}
           />
           <section className="abstract_level">
             <p>Not at all</p>
