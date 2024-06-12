@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
@@ -45,8 +45,6 @@ const SignUpForm = ({ step, setStep }) => {
   };
 
   const submitForm: SubmitHandler<SignUpFormType> = values => {
-    console.log("values--", values)
-    // post req
     let csrf_token = csrfcookie();
     // console.log("token: " + csrf_token);
 
