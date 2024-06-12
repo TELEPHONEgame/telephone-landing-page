@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import ArtFormBtn from "./ArtFormBtn";
 import { list } from "../../files/countries";
@@ -12,7 +12,10 @@ type Props = {
 };
 
 const StepTwo = ({ setStep }: Props) => {
-  const { register, formState, trigger } = useFormContext<SignUpFormType>();
+  const mapRef = useRef<HTMLDivElement>(null);
+  const addressResponseRef = useRef<HTMLDivElement>(null);
+  const { register, formState, trigger, getValues, setValue } =
+    useFormContext<SignUpFormType>();
   const { errors } = formState;
 
   const parseCountryList = () => {
@@ -25,8 +28,80 @@ const StepTwo = ({ setStep }: Props) => {
     return newArrList;
   };
 
+  let map: google.maps.Map;
+  let geocoder: google.maps.Geocoder;
+  let marker: google.maps.Marker;
+  let responseDiv;
+  let response;
+
   const countryList = parseCountryList();
   const artFormList = Object.values(ArtForm);
+
+  useEffect(() => {
+    if (mapRef.current) {
+      map = new google.maps.Map(mapRef.current, {
+        //document.getElementById("map"), {
+        zoom: 8,
+        //center: { lat: -34.397, lng: 150.644 },
+        mapTypeControl: false,
+      });
+      geocoder = new google.maps.Geocoder();
+      responseDiv = addressResponseRef.current;
+    }
+  }, [mapRef]);
+
+  function clear() {
+    //marker.setMap(null);
+    //responseDiv.style.display = "none";
+  }
+
+  function geocode(request) {
+    clear();
+    if (!map && mapRef.current) {
+      map = new google.maps.Map(mapRef.current, {
+        //document.getElementById("map"), {
+        zoom: 8,
+        mapTypeControl: false,
+      });
+    }
+    if (!geocoder) {
+      geocoder = new google.maps.Geocoder();
+    }
+    if (!marker) {
+      marker = new google.maps.Marker({ map });
+    }
+    geocoder
+      .geocode(request)
+      .then(result => {
+        const { results } = result;
+
+        if (map) map.setCenter(results[0].geometry.location);
+        marker.setPosition(results[0].geometry.location);
+        marker.setMap(map);
+        if (addressResponseRef.current) {
+          addressResponseRef.current.style.display = "block";
+          addressResponseRef.current.innerText = results[0].formatted_address;
+        }
+
+        if (results[0].formatted_address != request.address) {
+          if (confirm("Is this correct? " + results[0].formatted_address)) {
+            setValue("city", results[0].formatted_address);
+          }
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  function lookupCity(city) {
+    if (city) {
+      const country = getValues("country");
+      let address = city + ", " + country;
+      let results = geocode({ address: address });
+    }
+  }
+
   const handleNextStep = async e => {
     const hasValidInputs = await trigger(["country", "city", "artForm"]);
     if (hasValidInputs) setStep(3);
@@ -66,8 +141,14 @@ const StepTwo = ({ setStep }: Props) => {
             {...register("city", {
               required: "City is required",
             })}
+            onBlur={e => {
+              lookupCity(e.target.value);
+            }}
           />
           {errors.city && <ErrorMessage message={errors.city.message} />}
+
+          <div id="addressResponse" ref={addressResponseRef} />
+          <div id="map" ref={mapRef} style={{ height: "200px" }} />
 
           <label htmlFor="hometown" className="input_label">
             Hometown

@@ -1,7 +1,7 @@
 import React from "react";
-import { FileUploadInput } from "./FileUploadInput.tsx";
+import { FileUploadInput } from "./FileUploadInput";
 import "../../styles/stepFour.css";
-import { SignUpFormType } from "./types.ts";
+import { SignUpFormType } from "./types";
 import { useFormContext } from "react-hook-form";
 
 type Props = {
