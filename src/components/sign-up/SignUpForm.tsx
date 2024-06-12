@@ -4,10 +4,11 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import FinalCard from "./FinalCard";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { SignUpFormType } from "./types";
 
 const SignUpForm = ({ step, setStep }) => {
-  const formMethods = useForm({
+  const formMethods = useForm<SignUpFormType>({
     defaultValues: {
       email: "",
       firstName: "",
@@ -25,6 +26,70 @@ const SignUpForm = ({ step, setStep }) => {
     },
     mode: "onTouched",
   });
+
+  const csrfcookie = function () {
+    // for django csrf protection
+    let cookieValue = "",
+      name = "csrftoken";
+    if (document.cookie && document.cookie !== "") {
+      let cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) == name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  };
+
+  const submitForm: SubmitHandler<SignUpFormType> = values => {
+    // post req
+    let csrf_token = csrfcookie();
+    // console.log("token: " + csrf_token);
+
+    // this needs to updated with the new form
+    const formData = new FormData();
+    formData.append("email", values.email);
+    formData.append("first_name", values.firstName);
+    formData.append("last_name", values.lastName);
+    formData.append("country", values.country);
+    formData.append("city", values.city);
+    formData.append("art_form", values.artForm.substring(0, 2).toUpperCase());
+    formData.append("abstractness", values.abstract);
+    formData.append("link_1", values.samples[0].mediaLink);
+
+    formData.append("file_1", values.samples[0].file);
+    formData.append("link_2", values.samples[1].mediaLink);
+    formData.append("file_2", values.samples[1].file);
+    formData.append("link_3", values.samples[2].mediaLink);
+    formData.append("file_3", values.samples[2].file);
+
+    fetch("/", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrf_token,
+      },
+      body: formData,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("success... data--", data);
+      })
+      .catch(error => {
+        console.log(error);
+        var alert_text = "Failed. Contact an administrator.";
+        alert(alert_text);
+      });
+
+    setStep(5);
+  };
   // const [inputFields, setInputFields] = useState<SignUpFormType>({
   // email: "",
   //   firstName: "",
@@ -43,7 +108,10 @@ const SignUpForm = ({ step, setStep }) => {
 
   return (
     <FormProvider {...formMethods}>
-      <form className="sign_up_form">
+      <form
+        className="sign_up_form"
+        onSubmit={formMethods.handleSubmit(submitForm)}
+      >
         {step === 1 ? (
           <StepOne setStep={setStep} />
         ) : step === 2 ? (
