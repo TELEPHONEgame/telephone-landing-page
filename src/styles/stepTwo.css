@@ -1,10 +1,4 @@
 
-
-.art_form_box{
-  width: 350px;
-  height: 190px;
-  padding: 10px;
-}
 .art_form_btn{
   border-radius: 10px;
   width: 88px;
@@ -15,4 +9,13 @@
   margin-right: 10px;
   margin-bottom: 10px;
   font-weight: 300;
+}
+
+.art_form_btn:hover{
+  border: 1.5px solid #F0148B;
+}
+
+
+.art_form_btn_selected {
+  border: 1.5px solid blue;
 }
