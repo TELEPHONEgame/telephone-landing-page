@@ -58,10 +58,15 @@ const StepTwo = ({ setStep }: Props) => {
 
   const [api, contextHolder] = notification.useNotification();
   const setCityValue = () => {
-    setValue("city", citySelection);
+    var city = addressResponseRef.current!.innerText
+    setValue("city", city);
+    const cityInput = document.getElementById("city") as HTMLInputElement;
+    if (cityInput) {
+      cityInput.value = city;
+    }
   };
 
-  const openNotification = (type) => {
+  const openNotification = () => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
@@ -82,7 +87,7 @@ const StepTwo = ({ setStep }: Props) => {
     );
     api.open({
       message: "Please confirm",
-      description: "Is the selected city correct?",
+      description: "Is this city correct? " + addressResponseRef.current!.innerText,
       btn,
       key,
       // onClose: close,
@@ -94,6 +99,7 @@ const StepTwo = ({ setStep }: Props) => {
   function clear() {
     //marker.setMap(null);
     //responseDiv.style.display = "none";
+    addressResponseRef.current!.innerText = "";
   }
 
   function geocode(request) {
