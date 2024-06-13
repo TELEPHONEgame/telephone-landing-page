@@ -32,6 +32,7 @@ export const FileUploadInput = ({ sampleId }: Props) => {
     console.log("e.target--", e.target.value);
     const isUrlCorrect = isUrlValid(e.target.value);
     console.log("isUrlCorrect--", isUrlCorrect);
+    
     // access the sample at its media link updates it
     setValue(`samples.${sampleId}.mediaLink`, e.target.value);
     // resets the sample at file and sets it to empty

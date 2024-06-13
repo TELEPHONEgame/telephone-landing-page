@@ -16,6 +16,7 @@ type Props = {
 const StepTwo = ({ setStep }: Props) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const addressResponseRef = useRef<HTMLDivElement>(null);
+  // const cityRef = useRef<HTMLInputElement>(null);
   const { register, formState, trigger, getValues, setValue } =
     useFormContext<SignUpFormType>();
   const { errors } = formState;
@@ -57,25 +58,25 @@ const StepTwo = ({ setStep }: Props) => {
   }, [mapRef]);
 
   const [api, contextHolder] = notification.useNotification();
-  const setCityValue = () => {
-    setValue("city", citySelection);
+  const removeCityValue = () => {
+    setValue("city", "");
   };
 
   const openNotification = (msg) => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
-        <Button type="primary" size="small" onClick={() => api.destroy()}>
-          Not correct
-        </Button>
         <Button
           type="primary"
           size="small"
           onClick={() => {
-            setCityValue();
-            api.destroy(key);
+            removeCityValue();
+            api.destroy();
           }}
         >
+          Not correct
+        </Button>
+        <Button type="primary" size="small" onClick={() => api.destroy(key)}>
           Confirm
         </Button>
       </Space>
