@@ -20,7 +20,7 @@ const StepTwo = ({ setStep }: Props) => {
     useFormContext<SignUpFormType>();
   const { errors } = formState;
   const [citySelection, setCitySelection] = useState("");
-  const [isCityCorrect, setIsCityCorrect] = useState(false);
+  console.log("citySelection--", citySelection);
 
   const parseCountryList = () => {
     const arrList = list.split("\n").map((elem) => elem.split(", "));
@@ -47,7 +47,6 @@ const StepTwo = ({ setStep }: Props) => {
   useEffect(() => {
     if (mapRef.current) {
       map = new google.maps.Map(mapRef.current, {
-        //document.getElementById("map"), {
         zoom: 8,
         //center: { lat: -34.397, lng: 150.644 },
         mapTypeControl: false,
@@ -57,32 +56,23 @@ const StepTwo = ({ setStep }: Props) => {
     }
   }, [mapRef]);
 
-  useEffect(() => {
-    if (isCityCorrect) {
-      setValue("city", citySelection);
-    }
-  }, [isCityCorrect]);
-
   const [api, contextHolder] = notification.useNotification();
-  const openNotification = (msg) => {
+  const setCityValue = () => {
+    setValue("city", citySelection);
+  };
+
+  const openNotification = (type) => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
-        <Button
-          type="primary"
-          size="small"
-          onClick={() => {
-            setIsCityCorrect(false);
-            api.destroy();
-          }}
-        >
+        <Button type="primary" size="small" onClick={() => api.destroy()}>
           Not correct
         </Button>
         <Button
           type="primary"
           size="small"
           onClick={() => {
-            setIsCityCorrect(true);
+            setCityValue();
             api.destroy(key);
           }}
         >
@@ -92,10 +82,12 @@ const StepTwo = ({ setStep }: Props) => {
     );
     api.open({
       message: "Please confirm",
-      description: "Is this correct?",
+      description: "Is the selected city correct?",
       btn,
       key,
-      onClose: close,
+      // onClose: close,
+      placement: "top",
+      // type: 'info',
     });
   };
 
@@ -108,7 +100,6 @@ const StepTwo = ({ setStep }: Props) => {
     clear();
     if (!map && mapRef.current) {
       map = new google.maps.Map(mapRef.current, {
-        //document.getElementById("map"), {
         zoom: 8,
         mapTypeControl: false,
       });
@@ -135,8 +126,7 @@ const StepTwo = ({ setStep }: Props) => {
         if (results[0].formatted_address != request.address) {
           const msg = results[0].formatted_address;
           setCitySelection(msg);
-          openNotification(msg);
-          // setDisplayCityMsg({ display: true, message: msg });
+          openNotification();
           // if (confirm("Is this correct? " + results[0].formatted_address)) {
           //   setValue("city", results[0].formatted_address);
           // }
