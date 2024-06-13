@@ -83,7 +83,7 @@ const StepTwo = ({ setStep }: Props) => {
     );
     api.open({
       message: "Please confirm",
-      description: `Is this correct? ${msg}`,
+      description: "Is this city correct? " + addressResponseRef.current!.innerText,
       btn,
       key,
       duration: null,
@@ -96,6 +96,7 @@ const StepTwo = ({ setStep }: Props) => {
   function clear() {
     //marker.setMap(null);
     //responseDiv.style.display = "none";
+    addressResponseRef.current!.innerText = "";
   }
 
   function geocode(request) {
