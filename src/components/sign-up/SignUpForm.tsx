@@ -26,7 +26,6 @@ const SignUpForm = ({ step, setStep }) => {
     },
     mode: "onTouched",
   });
-
   const csrfcookie = function () {
     // for django csrf protection
     let cookieValue = "",
