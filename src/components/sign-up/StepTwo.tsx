@@ -66,7 +66,7 @@ const StepTwo = ({ setStep }: Props) => {
     }
   };
 
-  const openNotification = () => {
+  const openNotification = (msg) => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
@@ -90,6 +90,7 @@ const StepTwo = ({ setStep }: Props) => {
       description: "Is this city correct? " + addressResponseRef.current!.innerText,
       btn,
       key,
+      duration: null,
       // onClose: close,
       placement: "top",
       // type: 'info',
@@ -132,7 +133,7 @@ const StepTwo = ({ setStep }: Props) => {
         if (results[0].formatted_address != request.address) {
           const msg = results[0].formatted_address;
           setCitySelection(msg);
-          openNotification();
+          openNotification(msg);
           // if (confirm("Is this correct? " + results[0].formatted_address)) {
           //   setValue("city", results[0].formatted_address);
           // }
