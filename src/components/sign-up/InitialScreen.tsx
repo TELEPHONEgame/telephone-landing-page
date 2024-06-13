@@ -15,12 +15,20 @@ export const InitialScreen = ({ setJoined }: Props) => {
         </span>
         from artist → artist.
       </div>
-      <div className="landing_page_animation">
+      {/* <div className="landing_page_animation">
         <img
           src="/static/animHolder.png"
           alt="telephone-animation"
           width="350"
           height="500"
+        />
+      </div> */}
+      <div className="landing_page_animation">
+        <img
+          src="/assets/optimized-tele.gif"
+          alt="telephone-animation"
+          width="300"
+          height="450"
         />
       </div>
       <div>

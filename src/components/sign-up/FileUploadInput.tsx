@@ -11,7 +11,7 @@ type Props = {
 };
 
 const MAX_BYTES = 20_000_000;
-const validateSize = file => {
+const validateSize = (file) => {
   console.log("VALIDATE SIZE", { file });
   return true;
 };
@@ -19,7 +19,19 @@ export const FileUploadInput = ({ sampleId }: Props) => {
   const { register, watch, setValue, getValues } =
     useFormContext<SignUpFormType>();
 
+  const isUrlValid = (string) => {
+    try {
+      new URL(string);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("e.target--", e.target.value);
+    const isUrlCorrect = isUrlValid(e.target.value);
+    console.log("isUrlCorrect--", isUrlCorrect);
     // access the sample at its media link updates it
     setValue(`samples.${sampleId}.mediaLink`, e.target.value);
     // resets the sample at file and sets it to empty
@@ -65,10 +77,10 @@ export const FileUploadInput = ({ sampleId }: Props) => {
           accept=".jpg, .jpeg, .png"
           {...register(`samples.${sampleId}.file`, {
             validate: {
-              validateSize: val => validateSize(val),
+              validateSize: (val) => validateSize(val),
             },
           })}
-          onChange={e => handleUploadChange(sampleId, e)}
+          onChange={(e) => handleUploadChange(sampleId, e)}
         />
       </div>
     </div>

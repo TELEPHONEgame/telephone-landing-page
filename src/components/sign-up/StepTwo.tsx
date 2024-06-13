@@ -107,6 +107,7 @@ const StepTwo = ({ setStep }: Props) => {
     const hasValidInputs = await trigger(["country", "city", "artForm"]);
     if (hasValidInputs) setStep(3);
   };
+  
   return (
     <>
       <div className="fields_box">
