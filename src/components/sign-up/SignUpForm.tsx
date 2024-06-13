@@ -45,6 +45,7 @@ const SignUpForm = ({ step, setStep }) => {
   };
 
   const submitForm: SubmitHandler<SignUpFormType> = values => {
+    console.log("values--", values)
     // post req
     let csrf_token = csrfcookie();
     // console.log("token: " + csrf_token);
@@ -90,21 +91,6 @@ const SignUpForm = ({ step, setStep }) => {
 
     setStep(5);
   };
-  // const [inputFields, setInputFields] = useState<SignUpFormType>({
-  // email: "",
-  //   firstName: "",
-  //   lastName: "",
-  //   country: "",
-  //   city: "",
-  //   hometown: "",
-  //   artForm: "",
-  //   abstract: "",
-  //   samples: [
-  //     { name: "Sample 1", file: "", mediaLink: "", error: "" },
-  //     { name: "Sample 2", file: "", mediaLink: "", error: "" },
-  //     { name: "Sample 3", file: "", mediaLink: "", error: "" },
-  //   ],
-  // });
 
   return (
     <FormProvider {...formMethods}>
