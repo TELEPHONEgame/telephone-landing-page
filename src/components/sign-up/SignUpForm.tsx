@@ -8,7 +8,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { SignUpFormType } from "./types";
 
 const SignUpForm = ({ step, setStep }) => {
-  const { formMethods, getValues } = useForm<SignUpFormType>({
+  const formMethods = useForm<SignUpFormType>({
     defaultValues: {
       email: "",
       firstName: "",
