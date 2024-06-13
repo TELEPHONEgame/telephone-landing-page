@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import ArtFormBtn from "./ArtFormBtn";
 import { list } from "../../files/countries";
@@ -6,6 +6,8 @@ import "../../styles/stepTwo.css";
 import { useFormContext } from "react-hook-form";
 import { ArtForm, SignUpFormType } from "./types";
 import { ErrorMessage } from "../ErrorMessage";
+
+import { notification, Button, Space } from "antd";
 
 type Props = {
   setStep: (step: number) => void;
@@ -17,15 +19,19 @@ const StepTwo = ({ setStep }: Props) => {
   const { register, formState, trigger, getValues, setValue } =
     useFormContext<SignUpFormType>();
   const { errors } = formState;
+  const [citySelection, setCitySelection] = useState("");
+  const [isCityCorrect, setIsCityCorrect] = useState(false);
 
   const parseCountryList = () => {
-    const arrList = list.split("\n").map(elem => elem.split(", "));
-    const newArrList = arrList.map(elem => {
+    const arrList = list.split("\n").map((elem) => elem.split(", "));
+    const newArrList = arrList.map((elem) => {
       const newElem = elem[0].split(",");
       newElem.pop();
       return newElem;
     });
-    newArrList.sort((a,b) => a[1].toUpperCase().localeCompare(b[1].toUpperCase()));
+    newArrList.sort((a, b) =>
+      a[1].toUpperCase().localeCompare(b[1].toUpperCase())
+    );
     return newArrList;
   };
 
@@ -51,6 +57,48 @@ const StepTwo = ({ setStep }: Props) => {
     }
   }, [mapRef]);
 
+  useEffect(() => {
+    if (isCityCorrect) {
+      setValue("city", citySelection);
+    }
+  }, [isCityCorrect]);
+
+  const [api, contextHolder] = notification.useNotification();
+  const openNotification = (msg) => {
+    const key = `open${Date.now()}`;
+    const btn = (
+      <Space>
+        <Button
+          type="primary"
+          size="small"
+          onClick={() => {
+            setIsCityCorrect(false);
+            api.destroy();
+          }}
+        >
+          Not correct
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={() => {
+            setIsCityCorrect(true);
+            api.destroy(key);
+          }}
+        >
+          Confirm
+        </Button>
+      </Space>
+    );
+    api.open({
+      message: "Please confirm",
+      description: "Is this correct?",
+      btn,
+      key,
+      onClose: close,
+    });
+  };
+
   function clear() {
     //marker.setMap(null);
     //responseDiv.style.display = "none";
@@ -73,7 +121,7 @@ const StepTwo = ({ setStep }: Props) => {
     }
     geocoder
       .geocode(request)
-      .then(result => {
+      .then((result) => {
         const { results } = result;
 
         if (map) map.setCenter(results[0].geometry.location);
@@ -85,12 +133,16 @@ const StepTwo = ({ setStep }: Props) => {
         }
 
         if (results[0].formatted_address != request.address) {
-          if (confirm("Is this correct? " + results[0].formatted_address)) {
-            setValue("city", results[0].formatted_address);
-          }
+          const msg = results[0].formatted_address;
+          setCitySelection(msg);
+          openNotification(msg);
+          // setDisplayCityMsg({ display: true, message: msg });
+          // if (confirm("Is this correct? " + results[0].formatted_address)) {
+          //   setValue("city", results[0].formatted_address);
+          // }
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
@@ -103,11 +155,11 @@ const StepTwo = ({ setStep }: Props) => {
     }
   }
 
-  const handleNextStep = async e => {
+  const handleNextStep = async (e) => {
     const hasValidInputs = await trigger(["country", "city", "artForm"]);
     if (hasValidInputs) setStep(3);
   };
-  
+
   return (
     <>
       <div className="fields_box">
@@ -125,7 +177,7 @@ const StepTwo = ({ setStep }: Props) => {
             <option value={""} disabled>
               Country
             </option>
-            {countryList.map(elem => (
+            {countryList.map((elem) => (
               <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
                 {elem[1]}
               </option>
@@ -143,7 +195,7 @@ const StepTwo = ({ setStep }: Props) => {
             {...register("city", {
               required: "City is required",
             })}
-            onBlur={e => {
+            onBlur={(e) => {
               lookupCity(e.target.value);
             }}
           />
@@ -151,6 +203,7 @@ const StepTwo = ({ setStep }: Props) => {
 
           <div id="addressResponse" ref={addressResponseRef} />
           <div id="map" ref={mapRef} style={{ height: "200px" }} />
+          {contextHolder}
 
           <label htmlFor="hometown" className="input_label">
             Hometown
@@ -176,7 +229,7 @@ const StepTwo = ({ setStep }: Props) => {
           />
 
           <div className="art_form_box">
-            {artFormList.map(artForm => (
+            {artFormList.map((artForm) => (
               <ArtFormBtn key={artForm} name={artForm} />
             ))}
           </div>
