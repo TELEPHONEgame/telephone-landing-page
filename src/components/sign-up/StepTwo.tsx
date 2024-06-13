@@ -25,6 +25,7 @@ const StepTwo = ({ setStep }: Props) => {
       newElem.pop();
       return newElem;
     });
+    newArrList.sort((a,b) => a[1].toUpperCase().localeCompare(b[1].toUpperCase()));
     return newArrList;
   };
 
