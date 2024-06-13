@@ -8,7 +8,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { SignUpFormType } from "./types";
 
 const SignUpForm = ({ step, setStep }) => {
-  const formMethods = useForm<SignUpFormType>({
+  const { formMethods, getValues } = useForm<SignUpFormType>({
     defaultValues: {
       email: "",
       firstName: "",
@@ -49,6 +49,7 @@ const SignUpForm = ({ step, setStep }) => {
     // console.log("token: " + csrf_token);
 
     // this needs to updated with the new form
+
     const formData = new FormData();
     formData.append("email", values.email);
     formData.append("first_name", values.firstName);
