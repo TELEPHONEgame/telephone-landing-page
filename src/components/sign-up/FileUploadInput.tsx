@@ -47,7 +47,6 @@ export const FileUploadInput = ({ sampleId }: Props) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const files = (e.target as HTMLInputElement).files;
-    console.log("uploading to sample", sampleId);
     if (files?.length) {
       const file = files[0];
       setValue(`samples.${sampleId}.file`, file.name);
@@ -71,9 +70,9 @@ export const FileUploadInput = ({ sampleId }: Props) => {
           })}
           onChange={handleInputChange}
         />
-        {/* {errors?.samples[sampleId] && (
+        {errors.samples?.[sampleId] && (
           <ErrorMessage message={errors?.samples[sampleId].message} />
-        )} */}
+        )}
       </div>
       <div className="media_upload_input">
         <label htmlFor={`upload_file_${sampleId}`} className="upload_button">
