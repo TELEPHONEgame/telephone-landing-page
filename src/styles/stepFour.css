@@ -28,3 +28,11 @@
     display: flex;
     align-items: center;
 }
+
+.upload_button:hover {
+    border: 1.5px solid #F0148B;
+}
+
+.selected_upload_button {
+    border: 1.5px solid #F0148B;
+}

@@ -21,8 +21,8 @@ const StepFour = ({ setStep }: Props) => {
           Can we see?
         </label>
         <section className="files_upload_group">
-          {[0, 1, 2].map((sample, i) => (
-            <FileUploadInput key={`sample_${sample}${i}`} sampleId={sample} />
+          {[0, 1, 2].map(sample => (
+            <FileUploadInput key={`sample_${sample}`} sampleId={sample} />
           ))}
         </section>
       </div>

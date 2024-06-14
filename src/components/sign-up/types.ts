@@ -14,10 +14,9 @@ type Samples = Sample[];
 
 type Sample = {
   name: string;
-  // file: File | Blob | string;
-  file: any;
+  file: File | null;
+  // file: any;
   mediaLink: string;
-  error: string;
 };
 
 export enum ArtForm {

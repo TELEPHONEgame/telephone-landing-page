@@ -1,55 +1,53 @@
-import React, { useCallback, useState } from "react";
-import { FieldPath, useFormContext } from "react-hook-form";
+import React from "react";
+import { useFormContext } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
 import { SignUpFormType } from "./types";
 import { ErrorMessage } from "../ErrorMessage";
 
 type Props = {
-  // handleUploadChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   sampleId: number;
   key: string;
 };
 
 const MAX_BYTES = 20_000_000;
-const validateSize = (file: File) => {
-  console.log("VALIDATE SIZE", { file });
-  return true;
-};
+
 export const FileUploadInput = ({ sampleId }: Props) => {
   const {
     register,
     formState: { errors },
     setValue,
-    // getValues,
+    trigger,
+    watch,
   } = useFormContext<SignUpFormType>();
+  const currentMedia = watch(`samples.${sampleId}`);
 
   const isUrlValid = (input: string) => {
+    if (currentMedia.file) return true;
     try {
       new URL(input);
       return true;
     } catch (err) {
-      return err;
+      return "Please provide a valid url";
     }
+  };
+  const validateSize = () => {
+    if (!currentMedia.file) return true;
+
+    if (currentMedia.file.size <= MAX_BYTES) return true;
+    return "Please provide a file smaller than 20MB";
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isUrlCorrect = isUrlValid(e.target.value);
-    if (isUrlCorrect) {
-      setValue(`samples.${sampleId}.mediaLink`, e.target.value);
-      setValue(`samples.${sampleId}.file`, "");
-    }
-    // otherwise send and error
+    setValue(`samples.${sampleId}.mediaLink`, e.target.value);
+    setValue(`samples.${sampleId}.file`, null);
+    trigger(`samples.${sampleId}`);
   };
 
-  const handleUploadChange = (
-    sampleId: number,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleUploadChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = (e.target as HTMLInputElement).files;
     if (files?.length) {
       const file = files[0];
-      setValue(`samples.${sampleId}.file`, file.name);
+      setValue(`samples.${sampleId}.file`, file);
       setValue(`samples.${sampleId}.mediaLink`, file.name);
     }
   };
@@ -66,12 +64,19 @@ export const FileUploadInput = ({ sampleId }: Props) => {
           id="link_text_input"
           placeholder="Share a link or upload a file"
           {...register(`samples.${sampleId}.mediaLink`, {
-            validate: value => isUrlValid(value),
+            validate: {
+              validUrl: isUrlValid,
+            },
           })}
           onChange={handleInputChange}
         />
         {errors.samples?.[sampleId] && (
-          <ErrorMessage message={errors?.samples[sampleId].message} />
+          <ErrorMessage
+            message={
+              errors?.samples[sampleId].mediaLink?.message ||
+              errors?.samples[sampleId].file?.message
+            }
+          />
         )}
       </div>
       <div className="media_upload_input">
@@ -84,11 +89,11 @@ export const FileUploadInput = ({ sampleId }: Props) => {
           accept=".jpg, .jpeg, .png"
           {...register(`samples.${sampleId}.file`, {
             validate: {
-              validateSize: val => validateSize(val),
+              validateSize,
             },
           })}
-          onChange={e => handleUploadChange(sampleId, e)}
-          style={{ display: "none" }}
+          onChange={handleUploadChange}
+          hidden
         />
       </div>
     </div>
