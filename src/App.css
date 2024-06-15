@@ -169,7 +169,7 @@ html * {
 
 /* sign up form  */
 .first_label {
-  padding-top: 100px;
+  /* padding-top: 100px; */
 }
 
 .error_message {
