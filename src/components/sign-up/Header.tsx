@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import { DownOutlined } from "@ant-design/icons";
+import Faq from "./Faq"
 import type { MenuProps } from "antd";
-import { Dropdown, Space } from "antd";
+import { Dropdown } from "antd";
 
 import { IoMenu } from "react-icons/io5";
 
@@ -23,9 +23,7 @@ const Header = () => {
     },
     {
       label: (
-        <a href="https://phonebook.gallery/" target="_blank">
-          FAQ
-        </a>
+        <Faq />
       ),
       key: "1",
     },
@@ -38,7 +36,7 @@ const Header = () => {
           Introduction and Theory Group
         </a>
       ),
-      key: "3",
+      key: "2",
     },
   ];
 
