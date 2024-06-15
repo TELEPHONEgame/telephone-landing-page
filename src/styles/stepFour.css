@@ -44,7 +44,6 @@
     height: 5vh;
     display: flex;
     align-items: center;
-<<<<<<< HEAD
 }
 
 .upload_button:hover {
@@ -54,6 +53,3 @@
 .selected_upload_button {
     border: 1.5px solid #F0148B;
 }
-=======
-}
->>>>>>> 0f6b84f (updates styling to be more like the figma)
