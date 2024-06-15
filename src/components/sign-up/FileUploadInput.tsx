@@ -60,6 +60,7 @@ export const FileUploadInput = ({ sampleId }: Props) => {
         </label>
         <input
           className="form_input"
+          style={{ marginBottom: "0" }}
           type="text"
           id="link_text_input"
           placeholder="Share a link or upload a file"

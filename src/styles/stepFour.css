@@ -1,18 +1,35 @@
 .files_upload_group {
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   height: 50vh;
-   width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50vh;
+    width: 100%;
 }
-.media_upload {
+
+.files_notice {
+    border: solid 1px black;
+    border-radius: 6px;
+    min-height: 49px;
+    min-width: 350px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 1vh 0;
+}
+
+.media_upload {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: 100%;
+    /* justify-content: space-around; */
+
 }
 .media_text_input {
- display: flex;
- flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    padding-right: 1rem;
 }
 
 .media_upload_input {
@@ -27,6 +44,7 @@
     height: 5vh;
     display: flex;
     align-items: center;
+<<<<<<< HEAD
 }
 
 .upload_button:hover {
@@ -36,3 +54,6 @@
 .selected_upload_button {
     border: 1.5px solid #F0148B;
 }
+=======
+}
+>>>>>>> 0f6b84f (updates styling to be more like the figma)

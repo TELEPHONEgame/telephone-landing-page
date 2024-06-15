@@ -47,7 +47,7 @@ html * {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* height: 40%; */
+  height: 60vh;
   padding: 1rem 0;
 
   overflow-y: auto;
@@ -168,9 +168,16 @@ html * {
 }
 
 /* sign up form  */
+<<<<<<< HEAD
 .first_label {
   /* padding-top: 100px; */
 }
+=======
+
+/* .first_label {
+  padding-top: 100px;
+} */
+>>>>>>> 0f6b84f (updates styling to be more like the figma)
 
 .error_message {
   color: red;

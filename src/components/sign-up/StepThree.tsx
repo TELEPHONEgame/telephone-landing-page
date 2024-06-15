@@ -12,7 +12,7 @@ const StepThree = ({ setStep }: Props) => {
   const abstractVal = parseInt(watch("abstract"));
   return (
     <>
-      <div className="fields_box">
+      <div className="fields_box" style={{ justifyContent: "flex-start" }}>
         <section className="field_header">
           <label htmlFor="abstract" className="input_label question_label">
             <h1>How abstract is your art?</h1>
