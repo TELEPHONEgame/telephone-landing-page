@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import Header from "./components/sign-up/Header";
+// import Header from "./components/sign-up/Header";
 import MainSection from "./components/sign-up/MainSection";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div className="App">
-      {joined === false ? <Header /> : null}
+      {/* {joined === false ? <Header /> : null} */}
       <MainSection joined={joined} setJoined={setJoined} />
     </div>
   );
