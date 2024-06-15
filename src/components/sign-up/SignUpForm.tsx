@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
@@ -19,14 +19,13 @@ const SignUpForm = ({ step, setStep }) => {
       artForm: "",
       abstract: "0",
       samples: [
-        { name: "Sample 1", file: "", mediaLink: "", error: "" },
-        { name: "Sample 2", file: "", mediaLink: "", error: "" },
-        { name: "Sample 3", file: "", mediaLink: "", error: "" },
+        { name: "Sample 1", file: null, mediaLink: "" },
+        { name: "Sample 2", file: null, mediaLink: "" },
+        { name: "Sample 3", file: null, mediaLink: "" },
       ],
     },
     mode: "onTouched",
   });
-
   const csrfcookie = function () {
     // for django csrf protection
     let cookieValue = "",
@@ -45,12 +44,11 @@ const SignUpForm = ({ step, setStep }) => {
   };
 
   const submitForm: SubmitHandler<SignUpFormType> = values => {
-    console.log("values--", values)
-    // post req
     let csrf_token = csrfcookie();
     // console.log("token: " + csrf_token);
 
     // this needs to updated with the new form
+
     const formData = new FormData();
     formData.append("email", values.email);
     formData.append("first_name", values.firstName);
@@ -59,14 +57,23 @@ const SignUpForm = ({ step, setStep }) => {
     formData.append("city", values.city);
     formData.append("art_form", values.artForm.substring(0, 2).toUpperCase());
     formData.append("abstractness", values.abstract);
-    formData.append("link_1", values.samples[0].mediaLink);
+    // i want to check if we have a file then we append the
+    const validatedSamples = values.samples.forEach((sample, i) => {
+      sample.file
+        ? formData.append(`file_${i + 1}`, sample.file)
+        : formData.append(`link_${i + 1}`, sample.mediaLink);
+    });
 
-    formData.append("file_1", values.samples[0].file);
-    formData.append("link_2", values.samples[1].mediaLink);
-    formData.append("file_2", values.samples[1].file);
-    formData.append("link_3", values.samples[2].mediaLink);
-    formData.append("file_3", values.samples[2].file);
+    console.log("SAMPLES VALIDATED", validatedSamples);
+    // formData.append("link_1", values.samples[0].mediaLink);
 
+    // formData.append("file_1", values.samples[0].file);
+    // formData.append("link_2", values.samples[1].mediaLink);
+    // formData.append("file_2", values.samples[1].file);
+    // formData.append("link_3", values.samples[2].mediaLink);
+    // formData.append("file_3", values.samples[2].file);
+
+    console.log("FROM SUBMIT", { formData, validatedSamples });
     fetch("/", {
       method: "POST",
       headers: {

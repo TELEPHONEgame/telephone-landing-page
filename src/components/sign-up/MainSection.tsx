@@ -4,7 +4,7 @@ import ProgressBar from "./ProgressBar";
 import { InitialScreen } from "./InitialScreen";
 
 const MainSection = ({ joined, setJoined }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<number>(1);
   return (
     <section className="main_section">
       {joined === false ? (

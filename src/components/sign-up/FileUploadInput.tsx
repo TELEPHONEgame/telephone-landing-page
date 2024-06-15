@@ -1,53 +1,53 @@
-import React, { useCallback, useState } from "react";
-import { FieldPath, useFormContext } from "react-hook-form";
+import React from "react";
+import { useFormContext } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
 import { SignUpFormType } from "./types";
+import { ErrorMessage } from "../ErrorMessage";
 
 type Props = {
-  // handleUploadChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   sampleId: number;
   key: string;
 };
 
 const MAX_BYTES = 20_000_000;
-const validateSize = (file) => {
-  console.log("VALIDATE SIZE", { file });
-  return true;
-};
-export const FileUploadInput = ({ sampleId }: Props) => {
-  const { register, watch, setValue, getValues } =
-    useFormContext<SignUpFormType>();
 
-  const isUrlValid = (string) => {
+export const FileUploadInput = ({ sampleId }: Props) => {
+  const {
+    register,
+    formState: { errors },
+    setValue,
+    trigger,
+    watch,
+  } = useFormContext<SignUpFormType>();
+  const currentMedia = watch(`samples.${sampleId}`);
+
+  const isUrlValid = (input: string) => {
+    if (currentMedia.file) return true;
     try {
-      new URL(string);
+      new URL(input);
       return true;
     } catch (err) {
-      return false;
+      return "Please provide a valid url";
     }
-  }
+  };
+  const validateSize = () => {
+    if (!currentMedia.file) return true;
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("e.target--", e.target.value);
-    const isUrlCorrect = isUrlValid(e.target.value);
-    console.log("isUrlCorrect--", isUrlCorrect);
-    
-    // access the sample at its media link updates it
-    setValue(`samples.${sampleId}.mediaLink`, e.target.value);
-    // resets the sample at file and sets it to empty
-    setValue(`samples.${sampleId}.file`, "");
+    if (currentMedia.file.size <= MAX_BYTES) return true;
+    return "Please provide a file smaller than 20MB";
   };
 
-  const handleUploadChange = (
-    sampleId: number,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(`samples.${sampleId}.mediaLink`, e.target.value);
+    setValue(`samples.${sampleId}.file`, null);
+    trigger(`samples.${sampleId}`);
+  };
+
+  const handleUploadChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = (e.target as HTMLInputElement).files;
-    console.log("uploading to sample", sampleId);
     if (files?.length) {
       const file = files[0];
-      setValue(`samples.${sampleId}.file`, file.name);
+      setValue(`samples.${sampleId}.file`, file);
       setValue(`samples.${sampleId}.mediaLink`, file.name);
     }
   };
@@ -63,25 +63,37 @@ export const FileUploadInput = ({ sampleId }: Props) => {
           type="text"
           id="link_text_input"
           placeholder="Share a link or upload a file"
-          {...register(`samples.${sampleId}.mediaLink`)}
+          {...register(`samples.${sampleId}.mediaLink`, {
+            validate: {
+              validUrl: isUrlValid,
+            },
+          })}
           onChange={handleInputChange}
         />
+        {errors.samples?.[sampleId] && (
+          <ErrorMessage
+            message={
+              errors?.samples[sampleId].mediaLink?.message ||
+              errors?.samples[sampleId].file?.message
+            }
+          />
+        )}
       </div>
       <div className="media_upload_input">
-        <label htmlFor="upload_file" className="upload_button">
+        <label htmlFor={`upload_file_${sampleId}`} className="upload_button">
           <FaPlus />
         </label>
         <input
           type="file"
-          id="upload_file"
-          className="upload_button"
+          id={`upload_file_${sampleId}`}
           accept=".jpg, .jpeg, .png"
           {...register(`samples.${sampleId}.file`, {
             validate: {
-              validateSize: (val) => validateSize(val),
+              validateSize,
             },
           })}
-          onChange={(e) => handleUploadChange(sampleId, e)}
+          onChange={handleUploadChange}
+          hidden
         />
       </div>
     </div>

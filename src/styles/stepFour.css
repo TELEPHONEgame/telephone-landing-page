@@ -27,7 +27,12 @@
     height: 5vh;
     display: flex;
     align-items: center;
-    &::-webkit-file-upload-button {
-        display: none;
-     }
+}
+
+.upload_button:hover {
+    border: 1.5px solid #F0148B;
+}
+
+.selected_upload_button {
+    border: 1.5px solid #F0148B;
 }
