@@ -5,11 +5,14 @@ import SignUpForm from "./SignUpForm";
 import ProgressBar from "./ProgressBar";
 import { InitialScreen } from "./InitialScreen";
 
-const MainSection = ({ joined, setJoined }) => {
+const MainSection = ({ joined, setJoined, displayFaq, setDisplayFaq }) => {
   const [step, setStep] = useState<number>(1);
+
   return (
     <div className="main_section">
-      {joined === false ? <Header /> : null}
+      {joined === false ? (
+        <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
+      ) : null}
       {joined === false ? (
         <InitialScreen setJoined={setJoined} />
       ) : (

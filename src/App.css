@@ -162,7 +162,30 @@ html * {
   color: red;
 }
 
-
+/* FAQ  */
+.faq_item{
+  padding-bottom: 2%;
+}
+.faq_question {
+  font-size: 1.2vw;
+  text-decoration: underline;
+}
+.faq_info {
+  font-size: 1vw;
+}
+.bold {
+  font-weight: bold;
+}
+.close_icon {
+display: flex;
+/* text-align: right; */
+font-size: 1.5vw;
+justify-content: flex-end;
+padding-top: 15px;
+}
+.faq_email{
+  color: blue;
+}
 
 /* mobile devices  */
 @media (max-width: 480px) {
