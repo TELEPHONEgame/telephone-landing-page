@@ -112,7 +112,7 @@ const Faq = ({ setDisplayFaq }) => {
         <span
           className="faq_email"
           onClick={() =>
-            (window.location = "mailto:telephone.outreach@gmail.com")
+            (window.location.href = "mailto:telephone.outreach@gmail.com")
           }
         >
           {" "}
