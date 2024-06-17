@@ -80,8 +80,8 @@ export const FileUploadInput = ({ sampleId }: Props) => {
           />
         )}
       </div>
-      <div className="media_upload_input">
-        <label htmlFor={`upload_file_${sampleId}`} className="upload_button">
+      <div className="media_upload_input upload_button">
+        <label htmlFor={`upload_file_${sampleId}`}>
           <FaPlus />
         </label>
         <input
