@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
+
+import Header from "./Header";
 import SignUpForm from "./SignUpForm";
 import ProgressBar from "./ProgressBar";
 import { InitialScreen } from "./InitialScreen";
 
-const MainSection = ({ joined, setJoined }) => {
+const MainSection = ({ joined, setJoined, displayFaq, setDisplayFaq }) => {
   const [step, setStep] = useState<number>(1);
+
   return (
-    <section className="main_section">
+    <div className="main_section">
+      {joined === false ? (
+        <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
+      ) : null}
       {joined === false ? (
         <InitialScreen setJoined={setJoined} />
       ) : (
@@ -18,7 +24,7 @@ const MainSection = ({ joined, setJoined }) => {
           <SignUpForm step={step} setStep={setStep} />
         </>
       )}
-    </section>
+    </div>
   );
 };
 
