@@ -53,50 +53,53 @@ export const FileUploadInput = ({ sampleId }: Props) => {
   };
 
   return (
-    <div className="media_upload">
-      <div className="media_text_input">
-        <label htmlFor="link_text_input" className="input_label">
-          Sample {sampleId + 1}
-        </label>
-        <input
-          className="form_input"
-          style={{ marginBottom: "0" }}
-          type="text"
-          id="link_text_input"
-          placeholder="Share a link or upload a file"
-          {...register(`samples.${sampleId}.mediaLink`, {
-            validate: {
-              validUrl: isUrlValid,
-            },
-          })}
-          onChange={handleInputChange}
-        />
-        {errors.samples?.[sampleId] && (
-          <ErrorMessage
-            message={
-              errors?.samples[sampleId].mediaLink?.message ||
-              errors?.samples[sampleId].file?.message
-            }
+    <>
+      <section className="media_upload">
+        <div className="media_text_input">
+          <label htmlFor="link_text_input" className="input_label">
+            Sample {sampleId + 1}
+          </label>
+          <input
+            className="form_input"
+            style={{ marginBottom: "0" }}
+            type="text"
+            id="link_text_input"
+            placeholder="Share a link or upload a file"
+            {...register(`samples.${sampleId}.mediaLink`, {
+              validate: {
+                validUrl: isUrlValid,
+              },
+            })}
+            onChange={handleInputChange}
           />
-        )}
-      </div>
-      <div className="media_upload_input">
-        <label htmlFor={`upload_file_${sampleId}`}>
-          <FaPlus />
-        </label>
-        <input
-          type="file"
-          id={`upload_file_${sampleId}`}
-          accept=".jpg, .jpeg, .png"
-          {...register(`samples.${sampleId}.file`, {
-            validate: {
-              validateSize,
-            },
-          })}
-          onChange={handleUploadChange}
-          hidden
+        </div>
+
+        <div className="media_upload_input">
+          <label htmlFor={`upload_file_${sampleId}`}>
+            <FaPlus />
+          </label>
+          <input
+            type="file"
+            id={`upload_file_${sampleId}`}
+            accept=".jpg, .jpeg, .png"
+            {...register(`samples.${sampleId}.file`, {
+              validate: {
+                validateSize,
+              },
+            })}
+            onChange={handleUploadChange}
+            hidden
+          />
+        </div>
+      </section>
+      {errors.samples?.[sampleId] && (
+        <ErrorMessage
+          message={
+            errors?.samples[sampleId].mediaLink?.message ||
+            errors?.samples[sampleId].file?.message
+          }
         />
-      </div>
-    </div>
+      )}
+    </>
   );
 };
