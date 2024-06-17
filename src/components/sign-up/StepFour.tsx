@@ -37,7 +37,9 @@ const StepFour = ({ setStep }: Props) => {
             <span style={{ padding: "0 12px " }}>
               <FaInfoCircle style={{ height: "4vw", width: "4vw" }} />
             </span>
-            <p>Each file has a 20mb limit</p>
+            <p style={{ fontSize: "clamp(13px, 2vw, 1.5rem)" }}>
+              Each file has a 20mb limit
+            </p>
           </section>
         </section>
       </div>

@@ -20,7 +20,7 @@ const StepThree = ({ setStep }: Props) => {
           <p>Take your best guess, no need to stress it.</p>
         </section>
 
-        <article>
+        <article style={{ paddingTop: "3rem" }}>
           <span className="abstract_amount">{abstractVal}</span>
 
           <input
