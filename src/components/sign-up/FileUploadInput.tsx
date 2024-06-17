@@ -80,11 +80,7 @@ export const FileUploadInput = ({ sampleId }: Props) => {
           />
         )}
       </div>
-<<<<<<< Updated upstream
-      <div className="media_upload_input upload_button">
-=======
       <div className="media_upload_input">
->>>>>>> Stashed changes
         <label htmlFor={`upload_file_${sampleId}`}>
           <FaPlus />
         </label>
