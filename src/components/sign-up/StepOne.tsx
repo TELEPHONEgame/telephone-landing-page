@@ -32,7 +32,7 @@ const StepOne = ({ setStep }: Props) => {
 
   return (
     <>
-      <div className="fields_box">
+      <div className="fields_box overflow_hidden">
         <label htmlFor="email" className="input_label first_label">
           Email
         </label>

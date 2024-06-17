@@ -21,7 +21,6 @@ const StepTwo = ({ setStep }: Props) => {
     useFormContext<SignUpFormType>();
   const { errors } = formState;
   const [citySelection, setCitySelection] = useState("");
-  console.log("citySelection--", citySelection);
 
   const parseCountryList = () => {
     const arrList = list.split("\n").map((elem) => elem.split(", "));
@@ -58,11 +57,20 @@ const StepTwo = ({ setStep }: Props) => {
   }, [mapRef]);
 
   const [api, contextHolder] = notification.useNotification();
-  const removeCityValue = () => {
-    setValue("city", "");
+  const setCityValue = (city = null) => {
+    // console.log("setCityValue city--", city);
+    // 
+    if (!city) {
+      setValue("city", "");
+    } else {
+      setValue("city", city);
+    }
   };
+  const cityValue = getValues("city");
+  console.log("city value--", cityValue);
+  console.log("citySelection--", citySelection);
 
-  const openNotification = (msg) => {
+  const openNotification = (city) => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
@@ -70,20 +78,28 @@ const StepTwo = ({ setStep }: Props) => {
           type="primary"
           size="small"
           onClick={() => {
-            removeCityValue();
+            setCityValue();
             api.destroy();
           }}
         >
           Not correct
         </Button>
-        <Button type="primary" size="small" onClick={() => api.destroy(key)}>
+        <Button
+          type="primary"
+          size="small"
+          onClick={() => {
+            api.destroy(key);
+            setCityValue(city);
+          }}
+        >
           Confirm
         </Button>
       </Space>
     );
     api.open({
       message: "Please confirm",
-      description: "Is this city correct? " + addressResponseRef.current!.innerText,
+      description:
+        "Is this city correct? " + addressResponseRef.current!.innerText,
       btn,
       key,
       duration: null,
@@ -127,9 +143,9 @@ const StepTwo = ({ setStep }: Props) => {
         }
 
         if (results[0].formatted_address != request.address) {
-          const msg = results[0].formatted_address;
-          setCitySelection(msg);
-          openNotification(msg);
+          const city = results[0].formatted_address;
+          setCitySelection(city);
+          openNotification(city);
           // if (confirm("Is this correct? " + results[0].formatted_address)) {
           //   setValue("city", results[0].formatted_address);
           // }

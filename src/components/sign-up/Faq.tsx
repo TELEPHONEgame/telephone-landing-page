@@ -109,10 +109,6 @@ const Faq = ({ setDisplayFaq }) => {
       <p className="faq_item faq_info bold">TELEPHONE</p>
       <p className="faq_item faq_info bold">
         (PS. Please email us at
-        {/* <ButtonMailto
-          label="telephone.outreach@gmail.com"
-          mailto="mailto:telephone.outreach@gmail.com"
-        /> */}
         <span
           className="faq_email"
           onClick={() =>

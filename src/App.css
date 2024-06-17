@@ -23,6 +23,11 @@ html * {
   padding-right: 20%;
 }
 
+.App {
+  --desktop-font-size: clamp(0.5rem, 2vw, 1.5rem);
+  --mobile-font-size: clamp(1rem, 2.5vw, 2rem); 
+}
+
 .ham_menu {
   right: 25% !important;
 }
@@ -34,7 +39,7 @@ html * {
   justify-content: space-between;
   /* padding: 1vh; */
   padding: 2vh;
-  border: 0.5px solid black;
+  /* border: 0.5px solid black; */
   border-radius: 10px;
 }
 
@@ -42,8 +47,15 @@ html * {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 40%;
+  /* height: 40%; */
   padding: 1rem 0;
+
+  overflow-y: auto;
+  height: 100%;
+}
+.overflow_hidden{
+  overflow: hidden;
+  justify-content: normal;
 }
 
 .sign_up_form {
@@ -95,13 +107,15 @@ html * {
   margin-bottom: 10px;
   border-bottom: 1px solid rgb(0, 0, 0);
   /* font-size: 14px; */
-  font-size: clamp(1rem, 2.5vw, 2rem);
+  /* font-size: clamp(1rem, 2.5vw, 2rem); */
+  font-size: var(--desktop-font-size);
   font-weight: 200;
 }
 
 .input_label {
   display: block;
-  font-size: clamp(1rem, 2.5vw, 2rem);
+  /* font-size: clamp(1rem, 2.5vw, 2rem); */
+  font-size: var(--desktop-font-size);
 }
 
 .main_text {
@@ -200,15 +214,28 @@ padding-top: 15px;
   .message {
     padding-right: 35%;
   }
-  .main_section {
+  /* .main_section {
     border: 0px !important;
-  }
+  } */
   .landing_page_animation {
     height: 399px;
     width: 290px;
   }
   .landing_page_animation > img {
     height: 400px;
+  }
+  .input_label {
+    font-size: var(--mobile-font-size);
+  }
+  .form_input {
+    font-size: var(--mobile-font-size);
+  }
+  .art_form_box {
+    padding-top: 10px;
+  }
+  .art_form_btn {
+    width: 78px !important;
+    height: 45px !important;
   }
 }
 
@@ -224,9 +251,9 @@ padding-top: 15px;
   .landing_page_animation > img {
     height: 400px;
   } */
-  .main_section {
+  /* .main_section {
     border: 0px !important;
-  }
+  } */
   /* .App {
   } */
 }
@@ -234,13 +261,11 @@ padding-top: 15px;
 /* small screens, laptops*/
 @media screen and (max-width: 1024px) {
   .main_section {
-    border: 0px !important;
+    /* border: 0px !important; */
+    overflow: hidden;
   }
   .message {
     /* border: 1px solid blue; */
-  }
-  .main_section {
-    border: 0px !important;
   }
 }
 
