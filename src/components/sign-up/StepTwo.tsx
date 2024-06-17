@@ -211,7 +211,11 @@ const StepTwo = ({ setStep }: Props) => {
           {errors.city && <ErrorMessage message={errors.city.message} />}
 
           <div id="addressResponse" ref={addressResponseRef} />
-          <div id="map" ref={mapRef} style={{ height: "200px" }} />
+          <div
+            id="map"
+            ref={mapRef}
+            style={{ height: "clamp(50px, 12vh, 250px)" }}
+          />
           {contextHolder}
 
           <label htmlFor="hometown" className="input_label">

@@ -37,7 +37,7 @@ const StepOne = ({ setStep }: Props) => {
           <label
             htmlFor="email"
             className="input_label"
-            style={{ paddingTop: "8rem" }}
+            style={{ paddingTop: "14vh" }}
           >
             Email
           </label>
