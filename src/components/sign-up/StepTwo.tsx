@@ -58,8 +58,7 @@ const StepTwo = ({ setStep }: Props) => {
 
   const [api, contextHolder] = notification.useNotification();
   const setCityValue = (city = null) => {
-    // console.log("setCityValue city--", city);
-    //
+
     if (!city) {
       setValue("city", "");
     } else {
@@ -67,8 +66,8 @@ const StepTwo = ({ setStep }: Props) => {
     }
   };
   const cityValue = getValues("city");
-  console.log("city value--", cityValue);
-  console.log("citySelection--", citySelection);
+  // console.log("city value--", cityValue);
+  // console.log("citySelection--", citySelection);
 
   const openNotification = city => {
     const key = `open${Date.now()}`;

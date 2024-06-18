@@ -22,3 +22,13 @@
   .span_progress{
     font-size: clamp(1rem , 1.5vw, 2rem);
   }
+
+  .final_card {
+    padding: 0px 10%;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .final_card {
+      padding: 0px;
+    }
+  }

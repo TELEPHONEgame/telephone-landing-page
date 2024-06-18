@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import Faq from "./Faq";
 import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 
@@ -25,7 +24,12 @@ const Header = ({ displayFaq, setDisplayFaq }) => {
     {
       label: (
         // <Faq />
-        <span onClick={() => setDisplayFaq(!displayFaq)}>FAQ</span>
+        <span
+          // style={{ width: "100%" }}
+          onClick={() => setDisplayFaq(!displayFaq)}
+        >
+          FAQ
+        </span>
       ),
       key: "1",
     },
