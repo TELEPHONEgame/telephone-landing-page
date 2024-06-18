@@ -14,7 +14,6 @@ select {
 }
 
 html * {
-  /* font-family: "Crimson Pro"; */
   font-family: "Inter";
 }
 
@@ -25,9 +24,18 @@ html * {
 
 .App {
   --desktop-font-size: clamp(0.5rem, 2vw, 1.5rem);
-  --mobile-font-size: clamp(1rem, 2.5vw, 2rem); 
+  --mobile-font-size: clamp(1rem, 2.5vw, 2rem);
 }
-
+.final_card:before {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  content: "";
+  background-color: rgb(0, 0, 0);
+}
 .ham_menu {
   right: 25% !important;
 }
@@ -37,9 +45,7 @@ html * {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* padding: 1vh; */
   padding: 2vh;
-  /* border: 0.5px solid black; */
   border-radius: 10px;
 }
 
@@ -49,11 +55,8 @@ html * {
   justify-content: space-between;
   height: 60vh;
   padding: 1rem 0;
-
-  /* overflow-y: auto;
-  height: 100%; */
 }
-.overflow_hidden{
+.overflow_hidden {
   overflow: hidden;
   justify-content: normal;
 }
@@ -70,7 +73,6 @@ html * {
   background-color: black;
   display: block;
   width: 100%;
-  /* margin-bottom: 10px; */
   padding: 10px 0px;
   border-radius: 10px;
   font-family: "JetBrains mono";
@@ -178,7 +180,7 @@ html * {
 }
 
 /* FAQ  */
-.faq_item{
+.faq_item {
   padding-bottom: 2%;
 }
 .faq_question {
@@ -192,13 +194,12 @@ html * {
   font-weight: bold;
 }
 .close_icon {
-display: flex;
-/* text-align: right; */
-font-size: 1.5vw;
-justify-content: flex-end;
-padding-top: 15px;
+  display: flex;
+  font-size: 1.5vw;
+  justify-content: flex-end;
+  padding-top: 15px;
 }
-.faq_email{
+.faq_email {
   color: blue;
 }
 
@@ -207,7 +208,6 @@ padding-top: 15px;
   .App {
     padding-left: 0px;
     padding-right: 0px;
-    /* justify-content: space-between; */
   }
   .ham_menu {
     right: 15px !important;
@@ -215,9 +215,6 @@ padding-top: 15px;
   .message {
     padding-right: 35%;
   }
-  /* .main_section {
-    border: 0px !important;
-  } */
   .landing_page_animation {
     height: 399px;
     width: 290px;
@@ -230,9 +227,6 @@ padding-top: 15px;
   }
   .form_input {
     font-size: var(--mobile-font-size);
-  }
-  .art_form_box {
-    padding-top: 10px;
   }
   .art_form_btn {
     width: 78px !important;
@@ -258,15 +252,20 @@ padding-top: 15px;
   /* .App {
   } */
 }
+@media screen and (max-height: 680px) {
+  .landing_page_animation {
+    height: 359px;
+    width: 250px;
+  }
+  .landing_page_animation > img {
+    height: 360px;
+  }
+}
 
 /* small screens, laptops*/
 @media screen and (max-width: 1024px) {
   .main_section {
-    /* border: 0px !important; */
     overflow: hidden;
-  }
-  .message {
-    /* border: 1px solid blue; */
   }
 }
 
@@ -278,8 +277,4 @@ padding-top: 15px;
 }
 
 @media screen and (max-height: 879px) {
-  /* .message {
-    border: 1px solid blue;
-  }
-   */
 }

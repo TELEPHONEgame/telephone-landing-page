@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import Header from "./Header";
 import SignUpForm from "./SignUpForm";
 import ProgressBar from "./ProgressBar";
+import FinalCard from "./FinalCard";
 import { InitialScreen } from "./InitialScreen";
 
-const MainSection = ({ joined, setJoined, displayFaq, setDisplayFaq }) => {
-  const [step, setStep] = useState<number>(1);
-
+const MainSection = ({
+  step,
+  setStep,
+  joined,
+  setJoined,
+  displayFaq,
+  setDisplayFaq,
+}) => {
+  
   return (
-    <div className="main_section">
+    <div className={`main_section ${step === 5 ? "final_card" : ""}`}>
       {joined === false ? (
         <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
       ) : null}
@@ -21,7 +28,11 @@ const MainSection = ({ joined, setJoined, displayFaq, setDisplayFaq }) => {
             <ProgressBar step={step} setStep={setStep} setJoined={setJoined} />
           )}
 
-          <SignUpForm step={step} setStep={setStep} />
+          {step === 5 ? (
+            <FinalCard displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
+          ) : (
+            <SignUpForm step={step} setStep={setStep} />
+          )}
         </>
       )}
     </div>

@@ -3,7 +3,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
-import FinalCard from "./FinalCard";
+// import FinalCard from "./FinalCard";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { SignUpFormType } from "./types";
 
@@ -43,7 +43,7 @@ const SignUpForm = ({ step, setStep }) => {
     return cookieValue;
   };
 
-  const submitForm: SubmitHandler<SignUpFormType> = values => {
+  const submitForm: SubmitHandler<SignUpFormType> = (values) => {
     let csrf_token = csrfcookie();
     // console.log("token: " + csrf_token);
 
@@ -81,16 +81,16 @@ const SignUpForm = ({ step, setStep }) => {
       },
       body: formData,
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         console.log("success... data--", data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         var alert_text = "Failed. Contact an administrator.";
         alert(alert_text);
@@ -113,9 +113,11 @@ const SignUpForm = ({ step, setStep }) => {
           <StepThree setStep={setStep} />
         ) : step === 4 ? (
           <StepFour setStep={setStep} />
-        ) : step === 5 ? (
-          <FinalCard />
-        ) : null}
+        ) 
+        // : step === 5 ? (
+        //   <FinalCard displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
+        // ) 
+        : null}
       </form>
     </FormProvider>
   );
