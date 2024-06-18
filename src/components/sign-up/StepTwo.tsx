@@ -16,9 +16,8 @@ type Props = {
 const StepTwo = ({ setStep }: Props) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const addressResponseRef = useRef<HTMLDivElement>(null);
-  // const cityRef = useRef<HTMLInputElement>(null);
   const { register, formState, trigger, getValues, setValue } =
-    useFormContext<SignUpFormType>();
+    useFormContext<SignUpFormType>()
   const { errors } = formState;
   const [citySelection, setCitySelection] = useState("");
 
@@ -77,8 +76,9 @@ const StepTwo = ({ setStep }: Props) => {
           type="primary"
           size="small"
           onClick={() => {
-            setCityValue();
+            //setCityValue();
             api.destroy();
+            clear();
           }}
         >
           Not correct
@@ -98,7 +98,7 @@ const StepTwo = ({ setStep }: Props) => {
     api.open({
       message: "Please confirm",
       description:
-        "Is this city correct? " + addressResponseRef.current!.innerText,
+        "Is this city correct? " + city,
       btn,
       key,
       duration: null,
@@ -144,7 +144,7 @@ const StepTwo = ({ setStep }: Props) => {
         if (results[0].formatted_address != request.address) {
           const city = results[0].formatted_address;
           setCitySelection(city);
-          openNotification(city);
+          //openNotification(city);
           // if (confirm("Is this correct? " + results[0].formatted_address)) {
           //   setValue("city", results[0].formatted_address);
           // }
@@ -203,8 +203,13 @@ const StepTwo = ({ setStep }: Props) => {
             {...register("city", {
               required: "City is required",
             })}
-            onBlur={e => {
-              lookupCity(e.target.value);
+            onKeyUp={(e) => {
+              lookupCity((e.target as HTMLInputElement).value);
+            }}
+            onBlur={(e) => {
+              if (addressResponseRef.current!.innerText != e.target.value) {
+                openNotification(addressResponseRef.current!.innerText);
+              }
             }}
           />
           {errors.city && <ErrorMessage message={errors.city.message} />}
