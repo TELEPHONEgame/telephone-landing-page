@@ -230,9 +230,6 @@ padding-top: 15px;
   .form_input {
     font-size: var(--mobile-font-size);
   }
-  .art_form_box {
-    padding-top: 10px;
-  }
   .art_form_btn {
     width: 78px !important;
     height: 45px !important;
