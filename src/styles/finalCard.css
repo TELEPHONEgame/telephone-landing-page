@@ -1,0 +1,13 @@
+.final_card_header {
+  background-color: black;
+  color: white;
+}
+.final_card_alert {
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .final_card_alert {
+    width: 60%;
+  }
+}

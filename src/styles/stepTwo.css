@@ -19,3 +19,7 @@
 .art_form_btn_selected {
   border: 1.5px solid blue;
 }
+
+.art_form_box {
+  padding-top: 10px;
+}
