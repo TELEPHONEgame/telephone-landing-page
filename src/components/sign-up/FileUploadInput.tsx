@@ -23,7 +23,6 @@ export const FileUploadInput = ({ sampleId }: Props) => {
   const currentMedia = watch(`samples.${sampleId}`);
 
   const isUrlValid = (input: string) => {
-    console.log("currentmedia url", currentMedia);
     if (currentMedia.file || currentMedia.name === OPTIONAL_INPUT) return true;
     try {
       new URL(input);
@@ -33,7 +32,6 @@ export const FileUploadInput = ({ sampleId }: Props) => {
     }
   };
   const validateSize = () => {
-    console.log("currentmedia size", currentMedia);
     if (!currentMedia.file || currentMedia.name === OPTIONAL_INPUT) return true;
 
     if (currentMedia.file.size <= MAX_BYTES) return true;
