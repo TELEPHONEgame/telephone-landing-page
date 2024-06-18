@@ -50,7 +50,7 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
 
       <div className="landing_page_animation">
         <img
-          src="/assets/optimized-tele.gif"
+          src="/static/optimized-tele.gif"
           alt="telephone-animation"
           width="300"
           height="450"
