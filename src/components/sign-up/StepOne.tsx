@@ -32,56 +32,64 @@ const StepOne = ({ setStep }: Props) => {
 
   return (
     <>
-      <div className="fields_box overflow_hidden">
-        <label htmlFor="email" className="input_label first_label">
-          Email
-        </label>
-        <input
-          className="form_input"
-          id="email"
-          placeholder="Email"
-          {...register("email", {
-            required: "Email is required",
-            validate: value => validateEmail(value),
-          })}
-        />
-        {errors.email && <ErrorMessage message={errors.email.message} />}
-        <label htmlFor="firstName" className="input_label">
-          First name
-        </label>
-        <input
-          className="form_input"
-          type="text"
-          id="firstName"
-          placeholder="First name"
-          {...register("firstName", {
-            required: "First name is required",
-            minLength: 2,
-          })}
-        />
-        {errors.firstName && (
-          <ErrorMessage message={errors.firstName.message} />
-        )}
-        <label htmlFor="lastName" className="input_label">
-          Last name
-        </label>
-        <input
-          className="form_input"
-          type="text"
-          id="lastName"
-          placeholder="Last name"
-          {...register("lastName", {
-            required: "Last name is required",
-            minLength: 2,
-          })}
-        />
-        {errors.lastName && <ErrorMessage message={errors.lastName.message} />}
+      <div className="fields_box">
+        <section>
+          <label
+            htmlFor="email"
+            className="input_label"
+            style={{ paddingTop: "14vh" }}
+          >
+            Email
+          </label>
+          <input
+            className="form_input"
+            id="email"
+            placeholder="Email"
+            {...register("email", {
+              required: "Email is required",
+              validate: value => validateEmail(value),
+            })}
+          />
+          {errors.email && <ErrorMessage message={errors.email.message} />}
+          <label htmlFor="firstName" className="input_label">
+            First name
+          </label>
+          <input
+            className="form_input"
+            type="text"
+            id="firstName"
+            placeholder="First name"
+            {...register("firstName", {
+              required: "First name is required",
+              minLength: 2,
+            })}
+          />
+          {errors.firstName && (
+            <ErrorMessage message={errors.firstName.message} />
+          )}
+          <label htmlFor="lastName" className="input_label">
+            Last name
+          </label>
+          <input
+            className="form_input"
+            type="text"
+            id="lastName"
+            placeholder="Last name"
+            {...register("lastName", {
+              required: "Last name is required",
+              minLength: 2,
+            })}
+          />
+          {errors.lastName && (
+            <ErrorMessage message={errors.lastName.message} />
+          )}
+        </section>
       </div>
       <div className="next_btn_box">
         <button
           type="button"
           // className={`main_btn next_btn ${disableNextBtn ? 'btn_disabled' : ''}`}
-          className= "main_btn next_btn"
+          className="main_btn next_btn"
           onClick={handleNext}
         >
           Next

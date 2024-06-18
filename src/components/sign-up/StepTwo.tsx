@@ -23,8 +23,8 @@ const StepTwo = ({ setStep }: Props) => {
   const [citySelection, setCitySelection] = useState("");
 
   const parseCountryList = () => {
-    const arrList = list.split("\n").map((elem) => elem.split(", "));
-    const newArrList = arrList.map((elem) => {
+    const arrList = list.split("\n").map(elem => elem.split(", "));
+    const newArrList = arrList.map(elem => {
       const newElem = elem[0].split(",");
       newElem.pop();
       return newElem;
@@ -59,7 +59,7 @@ const StepTwo = ({ setStep }: Props) => {
   const [api, contextHolder] = notification.useNotification();
   const setCityValue = (city = null) => {
     // console.log("setCityValue city--", city);
-    // 
+    //
     if (!city) {
       setValue("city", "");
     } else {
@@ -70,7 +70,7 @@ const StepTwo = ({ setStep }: Props) => {
   console.log("city value--", cityValue);
   console.log("citySelection--", citySelection);
 
-  const openNotification = (city) => {
+  const openNotification = city => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
@@ -131,7 +131,7 @@ const StepTwo = ({ setStep }: Props) => {
     }
     geocoder
       .geocode(request)
-      .then((result) => {
+      .then(result => {
         const { results } = result;
 
         if (map) map.setCenter(results[0].geometry.location);
@@ -151,7 +151,7 @@ const StepTwo = ({ setStep }: Props) => {
           // }
         }
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
       });
   }
@@ -164,7 +164,7 @@ const StepTwo = ({ setStep }: Props) => {
     }
   }
 
-  const handleNextStep = async (e) => {
+  const handleNextStep = async e => {
     const hasValidInputs = await trigger(["country", "city", "artForm"]);
     if (hasValidInputs) setStep(3);
   };
@@ -186,7 +186,7 @@ const StepTwo = ({ setStep }: Props) => {
             <option value={""} disabled>
               Country
             </option>
-            {countryList.map((elem) => (
+            {countryList.map(elem => (
               <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
                 {elem[1]}
               </option>
@@ -204,14 +204,18 @@ const StepTwo = ({ setStep }: Props) => {
             {...register("city", {
               required: "City is required",
             })}
-            onBlur={(e) => {
+            onBlur={e => {
               lookupCity(e.target.value);
             }}
           />
           {errors.city && <ErrorMessage message={errors.city.message} />}
 
           <div id="addressResponse" ref={addressResponseRef} />
-          <div id="map" ref={mapRef} style={{ height: "200px" }} />
+          <div
+            id="map"
+            ref={mapRef}
+            style={{ height: "clamp(50px, 12vh, 250px)" }}
+          />
           {contextHolder}
 
           <label htmlFor="hometown" className="input_label">
@@ -238,7 +242,7 @@ const StepTwo = ({ setStep }: Props) => {
           />
 
           <div className="art_form_box">
-            {artFormList.map((artForm) => (
+            {artFormList.map(artForm => (
               <ArtFormBtn key={artForm} name={artForm} />
             ))}
           </div>
