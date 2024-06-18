@@ -10,6 +10,7 @@
 .files_notice {
     border: solid 1px black;
     border-radius: 6px;
+    margin-top: 1rem;
     min-height: 49px;
     min-width: 350px;
     display: flex;
@@ -26,6 +27,7 @@
     /* justify-content: space-around; */
 
 }
+
 .media_text_input {
     display: flex;
     flex-direction: column;
