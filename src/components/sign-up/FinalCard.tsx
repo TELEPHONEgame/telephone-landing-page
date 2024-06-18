@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 
 import { Alert } from "antd";
@@ -6,6 +6,18 @@ import "../../styles/finalCard.css";
 
 const FinalCard = ({ displayFaq, setDisplayFaq }) => {
   const [copySuccess, setCopySuccess] = useState(false);
+
+  useEffect(() => {
+    if (copySuccess) {
+      let timer = setTimeout(() => {
+        setCopySuccess(false);
+      }, 2000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [copySuccess]);
 
   async function copyToClip() {
     const url = location.href;
@@ -15,7 +27,7 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
 
   return (
     <div className="main_section_box">
-      <div className="message final_screen_header">
+      <div className="message final_card_header">
         <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
         <div>IMG/ICON</div>
         <div>
@@ -30,8 +42,9 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
           // type="success"
           type="info"
           showIcon
-          closable={true}
-          onClose={() => setCopySuccess(false)}
+          // closable={true}
+          // onClose={() => setCopySuccess(false)}
+          className="final_card_alert"
         />
       ) : null}
 
