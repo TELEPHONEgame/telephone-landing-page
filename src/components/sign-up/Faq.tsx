@@ -109,15 +109,14 @@ const Faq = ({ setDisplayFaq }) => {
       <p className="faq_item faq_info bold">TELEPHONE</p>
       <p className="faq_item faq_info bold">
         (PS. Please email us at
-        <span
+        <a
           className="faq_email"
-          onClick={() =>
-            (window.location.href = "mailto:telephone.outreach@gmail.com")
-          }
+          href="mailto:telephone.outreach@gmail.com?subject=I%20have%20questions"
+          target="_blank"
         >
           {" "}
-          telephone.outreach@gmail.com{" "}
-        </span>
+          <span>telephone.outreach@gmail.com</span>{" "}
+        </a>
         with any further questions, concerns, things you’d like to share, etc)
       </p>
     </div>
