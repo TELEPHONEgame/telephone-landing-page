@@ -111,7 +111,7 @@ const Faq = ({ setDisplayFaq }) => {
         (PS. Please email us at
         <a
           className="faq_email"
-          href="mailto:telephone.outreach@gmail.com?subject=I%20have%20questions"
+          href="mailto:telephone.outreach@gmail.com?"
           target="_blank"
         >
           {" "}
