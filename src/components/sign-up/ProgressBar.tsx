@@ -20,7 +20,7 @@ const ProgressBar = ({ step, setStep, setJoined }: Props) => {
   return (
     <div className="stepper">
       <FaArrowLeft
-        style={{ height: "4vw", width: "4vw" }}
+        style={{ height: "3vh", width: "3vw", marginRight: ".5rem" }}
         onClick={() => handleStepBack()}
       />
       <div className="progress_bar_box">
