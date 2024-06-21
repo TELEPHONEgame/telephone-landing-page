@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { IoMdClose } from "react-icons/io";
 import { EmailAnchor } from "../EmailAnchor";
+import { ScrollButton } from "../ScrollButton";
 
 const Faq = ({ setDisplayFaq }) => {
   return (
@@ -112,6 +113,7 @@ const Faq = ({ setDisplayFaq }) => {
         (PS. Please email us at <EmailAnchor /> with any further questions,
         concerns, things you’d like to share, etc)
       </p>
+      <ScrollButton />
     </div>
   );
 };
