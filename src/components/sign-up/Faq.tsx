@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import { EmailAnchor } from "../EmailAnchor";
 
 const Faq = ({ setDisplayFaq }) => {
   return (
@@ -28,7 +29,7 @@ const Faq = ({ setDisplayFaq }) => {
         seeing and passing your art along. We kindly ask that you try to realize
         your vision within the given timeframe. Think of it as a challenge! If
         your art form takes more time, we understand and can work with that.
-        Just give us a holler at telephone.outreach@gmail.com.
+        Just give us a holler at <EmailAnchor />.
       </p>
 
       <p className="faq_item faq_question">How does this game work?</p>
@@ -57,9 +58,9 @@ const Faq = ({ setDisplayFaq }) => {
         sticking with your initial choice if possible. Part of the game’s magic
         is in never sending, for example, a painting to a painter. Many of our
         artists are multi-talented, and we celebrate that. If you need to change
-        your medium, please reach out at telephone.outreach@gmail.com so we can
-        make sure your work isn’t accidentally sent to an artist working in your
-        new chosen medium.
+        your medium, please reach out at <EmailAnchor /> so we can make sure
+        your work isn’t accidentally sent to an artist working in your new
+        chosen medium.
       </p>
 
       <p className="faq_item faq_question">
@@ -108,16 +109,8 @@ const Faq = ({ setDisplayFaq }) => {
       <p className="faq_info bold">Love, gratitude, illumination,</p>
       <p className="faq_item faq_info bold">TELEPHONE</p>
       <p className="faq_item faq_info bold">
-        (PS. Please email us at
-        <a
-          className="faq_email"
-          href="mailto:telephone.outreach@gmail.com?"
-          target="_blank"
-        >
-          {" "}
-          <span>telephone.outreach@gmail.com</span>{" "}
-        </a>
-        with any further questions, concerns, things you’d like to share, etc)
+        (PS. Please email us at <EmailAnchor /> with any further questions,
+        concerns, things you’d like to share, etc)
       </p>
     </div>
   );
