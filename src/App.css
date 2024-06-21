@@ -180,15 +180,23 @@ html * {
 }
 
 /* FAQ  */
+.faq {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  justify-content: space-between;
+}
+
 .faq_item {
   padding-bottom: 2%;
 }
 .faq_question {
-  font-size: 1.2vw;
+  font-size: 2vh;
+  font-weight: 500;
   text-decoration: underline;
 }
 .faq_info {
-  font-size: 1vw;
+  font-size: 1.5vh;
 }
 .bold {
   font-weight: bold;
@@ -197,7 +205,7 @@ html * {
   display: flex;
   font-size: 1.5vw;
   justify-content: flex-end;
-  padding-top: 15px;
+  /* padding-top: 15px; */
 }
 .faq_email {
   color: blue;
