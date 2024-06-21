@@ -1,9 +1,17 @@
 .final_card_header {
   background-color: black;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 16%;
 }
 .final_card_alert {
   margin: 0 auto;
+}
+.final_card_info {
+  display: flex;
+  flex-direction: row;
 }
 
 @media screen and (max-width: 768px) {

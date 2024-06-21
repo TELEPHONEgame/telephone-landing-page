@@ -27,14 +27,23 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
 
   return (
     <div className="main_section_box">
-      <div className="message final_card_header">
+      {/* message  */}
+      <div className="final_card_header">
         <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
-        <div>IMG/ICON</div>
-        <div>
-          {" "}
-          Stay by the phone, we’re just a whisper away ❉ We’ll let you know when
-          it’s your turn to play!
-        </div>
+        <section className="final_card_info">
+          <img
+            src="public/static/teleIcon.png"
+            style={{
+              paddingRight: "1rem",
+              height: "clamp(3.5rem, 7vh, 80px)",
+            }}
+          />
+          <p style={{ width: "60%", fontSize: "clamp(12px, 2vw, 34px" }}>
+            {" "}
+            Stay by the phone, we’re just a whisper away ❉ We’ll let you know
+            when it’s your turn to play!
+          </p>
+        </section>
       </div>
       {copySuccess ? (
         <Alert
@@ -56,11 +65,9 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
           height="450"
         />
       </div>
-      <div>
-        <button className="main_btn btn_white" onClick={copyToClip}>
-          Refer a friend
-        </button>
-      </div>
+      <button className="main_btn btn_white" onClick={copyToClip}>
+        Refer a friend
+      </button>
     </div>
   );
 };
