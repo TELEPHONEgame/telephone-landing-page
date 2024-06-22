@@ -180,15 +180,23 @@ html * {
 }
 
 /* FAQ  */
+.faq {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  justify-content: space-between;
+}
+
 .faq_item {
   padding-bottom: 2%;
 }
 .faq_question {
-  font-size: 1.2vw;
+  font-size: 2vh;
+  font-weight: 500;
   text-decoration: underline;
 }
 .faq_info {
-  font-size: 1vw;
+  font-size: 1.5vh;
 }
 .bold {
   font-weight: bold;
@@ -197,10 +205,29 @@ html * {
   display: flex;
   font-size: 1.5vw;
   justify-content: flex-end;
-  padding-top: 15px;
+  /* padding-top: 15px; */
 }
 .faq_email {
   color: blue;
+}
+
+.scroll_button {
+  display: block;
+  position: fixed;
+  background: rgba(249, 248, 249, 0.5);
+  box-shadow: 2px 2px 2px #a9a9a9;
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  bottom: 3%;
+  left: 90%;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+
+  &:hover{
+    transform: scale(1.1);
+  }
 }
 
 /* mobile devices  */

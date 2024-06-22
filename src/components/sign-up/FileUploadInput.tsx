@@ -77,7 +77,6 @@ export const FileUploadInput = ({ sampleId }: Props) => {
             onChange={handleInputChange}
           />
         </div>
-
         <div className="media_upload_input">
           <label htmlFor={`upload_file_${sampleId}`}>
             <FaPlus />

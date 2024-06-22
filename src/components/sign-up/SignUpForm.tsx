@@ -64,7 +64,6 @@ const SignUpForm = ({ step, setStep }) => {
         : formData.append(`link_${i + 1}`, sample.mediaLink);
     });
 
-    console.log("SAMPLES VALIDATED", validatedSamples);
     // formData.append("link_1", values.samples[0].mediaLink);
 
     // formData.append("file_1", values.samples[0].file);
