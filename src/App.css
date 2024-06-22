@@ -230,6 +230,11 @@ html * {
   }
 }
 
+.world_icon {
+  display: inline-flex;
+  width: 15px;
+}
+
 /* mobile devices  */
 @media (max-width: 480px) {
   .App {
@@ -240,7 +245,7 @@ html * {
     right: 15px !important;
   }
   .message {
-    padding-right: 35%;
+    /* padding-right: 35%; */
   }
   .landing_page_animation {
     height: 399px;

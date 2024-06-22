@@ -10,7 +10,7 @@ export const InitialScreen = ({ setJoined }: Props) => {
     <>
       <div className="message">
         A message changing forms as it travels across the world{" "}
-        <span>
+        <span className="world_icon">
           <TbWorld />
         </span>
         from artist → artist.
