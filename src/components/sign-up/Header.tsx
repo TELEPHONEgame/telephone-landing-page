@@ -23,13 +23,12 @@ const Header = ({ displayFaq, setDisplayFaq }) => {
     },
     {
       label: (
-        // <Faq />
-        <span
-          // style={{ width: "100%" }}
+        <div
+          style={{ width: "100%" }}
           onClick={() => setDisplayFaq(!displayFaq)}
         >
           FAQ
-        </span>
+        </div>
       ),
       key: "1",
     },
