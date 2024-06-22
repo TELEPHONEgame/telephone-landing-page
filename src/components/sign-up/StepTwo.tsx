@@ -16,7 +16,7 @@ type Props = {
 const StepTwo = ({ setStep }: Props) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const addressResponseRef = useRef<HTMLDivElement>(null);
-  const { register, formState, trigger, getValues, setValue } =
+  const { register, formState, trigger, getValues, setValue, setFocus } =
     useFormContext<SignUpFormType>()
   const { errors } = formState;
   const [citySelection, setCitySelection] = useState("");
@@ -47,7 +47,6 @@ const StepTwo = ({ setStep }: Props) => {
     if (mapRef.current) {
       map = new google.maps.Map(mapRef.current, {
         zoom: 8,
-        //center: { lat: -34.397, lng: 150.644 },
         mapTypeControl: false,
       });
       geocoder = new google.maps.Geocoder();
@@ -65,8 +64,6 @@ const StepTwo = ({ setStep }: Props) => {
     }
   };
   const cityValue = getValues("city");
-  // console.log("city value--", cityValue);
-  // console.log("citySelection--", citySelection);
 
   const openNotification = city => {
     const key = `open${Date.now()}`;
@@ -76,12 +73,24 @@ const StepTwo = ({ setStep }: Props) => {
           type="primary"
           size="small"
           onClick={() => {
+            api.destroy();
+            clear();
+            setFocus("city");
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={() => {
             //setCityValue();
             api.destroy();
             clear();
+            handleNextStep();
           }}
         >
-          Not correct
+          Keep as Entered
         </Button>
         <Button
           type="primary"
@@ -89,9 +98,10 @@ const StepTwo = ({ setStep }: Props) => {
           onClick={() => {
             api.destroy(key);
             setCityValue(city);
+            handleNextStep();
           }}
         >
-          Confirm
+          Accept Correction
         </Button>
       </Space>
     );
@@ -102,15 +112,11 @@ const StepTwo = ({ setStep }: Props) => {
       btn,
       key,
       duration: null,
-      // onClose: close,
       placement: "top",
-      // type: 'info',
     });
   };
 
   function clear() {
-    //marker.setMap(null);
-    //responseDiv.style.display = "none";
     addressResponseRef.current!.innerText = "";
   }
 
@@ -144,10 +150,6 @@ const StepTwo = ({ setStep }: Props) => {
         if (results[0].formatted_address != request.address) {
           const city = results[0].formatted_address;
           setCitySelection(city);
-          //openNotification(city);
-          // if (confirm("Is this correct? " + results[0].formatted_address)) {
-          //   setValue("city", results[0].formatted_address);
-          // }
         }
       })
       .catch(e => {
@@ -163,10 +165,19 @@ const StepTwo = ({ setStep }: Props) => {
     }
   }
 
-  const handleNextStep = async e => {
+  const handleSubmit = async e => {
+    if (addressResponseRef.current!.innerText != getValues("city") && addressResponseRef.current!.innerText != "") {
+      openNotification(addressResponseRef.current!.innerText);
+    } else {
+      handleNextStep();
+    }
+  };
+
+  const handleNextStep = async () => {
     const hasValidInputs = await trigger(["country", "city", "artForm"]);
     if (hasValidInputs) setStep(3);
-  };
+  }
+
 
   return (
     <>
@@ -207,9 +218,7 @@ const StepTwo = ({ setStep }: Props) => {
               lookupCity((e.target as HTMLInputElement).value);
             }}
             onBlur={(e) => {
-              if (addressResponseRef.current!.innerText != e.target.value) {
-                openNotification(addressResponseRef.current!.innerText);
-              }
+              lookupCity((e.target as HTMLInputElement).value);
             }}
           />
           {errors.city && <ErrorMessage message={errors.city.message} />}
@@ -258,7 +267,7 @@ const StepTwo = ({ setStep }: Props) => {
         <button
           className="main_btn next_btn"
           type="button"
-          onClick={handleNextStep}
+          onClick={handleSubmit}
         >
           Next
         </button>
