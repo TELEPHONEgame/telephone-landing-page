@@ -27,4 +27,7 @@
     padding-right: 30% !important;
     margin-top: 0.5rem!important;
   }
+  .initial_screen {
+    margin-top: -25px !important;
+  }
 }

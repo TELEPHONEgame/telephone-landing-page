@@ -27,7 +27,6 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
 
   return (
     <div className="main_section_box">
-      {/* message  */}
       <div className="final_card_header">
         <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
         <section className="final_card_info">
@@ -37,10 +36,9 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
               paddingRight: "1rem",
               marginTop: "0.5rem",
               height: "clamp(3.5rem, 7vh, 80px)",
-              // height: "clamp(3rem, 6vh, 70px)",
             }}
           />
-          <p style={{ paddingRight: "50%" }} className="message" >
+          <p style={{ paddingRight: "50%" }} className="message">
             {" "}
             Stay by the phone, we’re just a whisper away ❉ We’ll let you know
             when it’s your turn to play!

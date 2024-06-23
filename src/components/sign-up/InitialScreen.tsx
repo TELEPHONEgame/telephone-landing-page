@@ -12,8 +12,8 @@ export const InitialScreen = ({ setJoined }: Props) => {
         A message changing forms as it travels across the world{" "}
         <span className="world_icon">
           <TbWorld />
-        </span>
-        {" "}from artist → artist.
+        </span>{" "}
+        from artist → artist.
       </div>
       <div className="landing_page_animation">
         <img

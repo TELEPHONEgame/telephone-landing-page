@@ -17,13 +17,13 @@ const StepTwo = ({ setStep }: Props) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const addressResponseRef = useRef<HTMLDivElement>(null);
   const { register, formState, trigger, getValues, setValue, setFocus } =
-    useFormContext<SignUpFormType>()
+    useFormContext<SignUpFormType>();
   const { errors } = formState;
   const [citySelection, setCitySelection] = useState("");
 
   const parseCountryList = () => {
-    const arrList = list.split("\n").map(elem => elem.split(", "));
-    const newArrList = arrList.map(elem => {
+    const arrList = list.split("\n").map((elem) => elem.split(", "));
+    const newArrList = arrList.map((elem) => {
       const newElem = elem[0].split(",");
       newElem.pop();
       return newElem;
@@ -56,7 +56,6 @@ const StepTwo = ({ setStep }: Props) => {
 
   const [api, contextHolder] = notification.useNotification();
   const setCityValue = (city = null) => {
-
     if (!city) {
       setValue("city", "");
     } else {
@@ -65,7 +64,7 @@ const StepTwo = ({ setStep }: Props) => {
   };
   const cityValue = getValues("city");
 
-  const openNotification = city => {
+  const openNotification = (city) => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
@@ -107,8 +106,7 @@ const StepTwo = ({ setStep }: Props) => {
     );
     api.open({
       message: "Please confirm",
-      description:
-        "Is this city correct? " + city,
+      description: "Is this city correct? " + city,
       btn,
       key,
       duration: null,
@@ -136,7 +134,7 @@ const StepTwo = ({ setStep }: Props) => {
     }
     geocoder
       .geocode(request)
-      .then(result => {
+      .then((result) => {
         const { results } = result;
 
         if (map) map.setCenter(results[0].geometry.location);
@@ -152,7 +150,7 @@ const StepTwo = ({ setStep }: Props) => {
           setCitySelection(city);
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
@@ -165,8 +163,11 @@ const StepTwo = ({ setStep }: Props) => {
     }
   }
 
-  const handleSubmit = async e => {
-    if (addressResponseRef.current!.innerText != getValues("city") && addressResponseRef.current!.innerText != "") {
+  const handleSubmit = async (e) => {
+    if (
+      addressResponseRef.current!.innerText != getValues("city") &&
+      addressResponseRef.current!.innerText != ""
+    ) {
       openNotification(addressResponseRef.current!.innerText);
     } else {
       handleNextStep();
@@ -176,8 +177,7 @@ const StepTwo = ({ setStep }: Props) => {
   const handleNextStep = async () => {
     const hasValidInputs = await trigger(["country", "city", "artForm"]);
     if (hasValidInputs) setStep(3);
-  }
-
+  };
 
   return (
     <>
@@ -196,7 +196,7 @@ const StepTwo = ({ setStep }: Props) => {
             <option value={""} disabled>
               Country
             </option>
-            {countryList.map(elem => (
+            {countryList.map((elem) => (
               <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
                 {elem[1]}
               </option>
@@ -255,7 +255,7 @@ const StepTwo = ({ setStep }: Props) => {
           />
 
           <div className="art_form_box">
-            {artFormList.map(artForm => (
+            {artFormList.map((artForm) => (
               <ArtFormBtn key={artForm} name={artForm} />
             ))}
           </div>

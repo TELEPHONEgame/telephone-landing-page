@@ -7,7 +7,6 @@ import { IoMenu } from "react-icons/io5";
 
 const Header = ({ displayFaq, setDisplayFaq }) => {
   const [displayDropdown, setDisplayDropdown] = useState(false);
-  // console.log("displayFaq--", displayFaq);
 
   const items: MenuProps["items"] = [
     {

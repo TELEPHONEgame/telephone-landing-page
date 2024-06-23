@@ -82,10 +82,6 @@ html * {
 .main_btn:hover {
   cursor: pointer;
 }
-
-.btn_disabled {
-  /* background-color: rgb(49, 49, 49); */
-}
 .btn_disabled:hover {
   cursor: not-allowed;
 }
@@ -209,7 +205,6 @@ html * {
   display: flex;
   font-size: 1.5vw;
   justify-content: flex-end;
-  /* padding-top: 15px; */
 }
 .faq_email {
   color: blue;
@@ -265,9 +260,6 @@ html * {
     width: 78px !important;
     height: 45px !important;
   }
-  .initial_screen {
-    margin-top: -25px !important;
-  }
 }
 
 /* iPads, Tablets */
@@ -275,18 +267,6 @@ html * {
   .message {
     /* border: 2px solid pink; */
   }
-  /* .landing_page_animation {
-    height: 399px;
-    width: 290px;
-  }
-  .landing_page_animation > img {
-    height: 400px;
-  } */
-  /* .main_section {
-    border: 0px !important;
-  } */
-  /* .App {
-  } */
 }
 @media screen and (max-height: 680px) {
   .landing_page_animation {
