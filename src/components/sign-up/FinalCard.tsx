@@ -35,10 +35,12 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
             src="public/static/teleIcon.png"
             style={{
               paddingRight: "1rem",
+              marginTop: "0.5rem",
               height: "clamp(3.5rem, 7vh, 80px)",
+              // height: "clamp(3rem, 6vh, 70px)",
             }}
           />
-          <p style={{ width: "60%", fontSize: "clamp(12px, 2vw, 34px" }}>
+          <p style={{ paddingRight: "50%" }} className="message" >
             {" "}
             Stay by the phone, we’re just a whisper away ❉ We’ll let you know
             when it’s your turn to play!

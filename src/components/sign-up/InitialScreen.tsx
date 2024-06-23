@@ -8,12 +8,12 @@ type Props = {
 export const InitialScreen = ({ setJoined }: Props) => {
   return (
     <>
-      <div className="message">
+      <div className="message initial_screen">
         A message changing forms as it travels across the world{" "}
         <span className="world_icon">
           <TbWorld />
         </span>
-        from artist → artist.
+        {" "}from artist → artist.
       </div>
       <div className="landing_page_animation">
         <img

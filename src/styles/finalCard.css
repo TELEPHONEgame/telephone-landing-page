@@ -12,10 +12,19 @@
 .final_card_info {
   display: flex;
   flex-direction: row;
+  padding-top: 3%;
 }
 
 @media screen and (max-width: 768px) {
   .final_card_alert {
     width: 60%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .message {
+    font-size: 12px;
+    padding-right: 30% !important;
+    margin-top: 0.5rem!important;
   }
 }
