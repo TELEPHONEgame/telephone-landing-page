@@ -84,7 +84,6 @@ export const FileUploadInput = ({ sampleId }: Props) => {
           <input
             type="file"
             id={`upload_file_${sampleId}`}
-            accept=".jpg, .jpeg, .png"
             {...register(`samples.${sampleId}.file`, {
               validate: {
                 validateSize,
