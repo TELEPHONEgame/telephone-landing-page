@@ -39,7 +39,9 @@ html * {
 .ham_menu {
   right: 25% !important;
 }
-
+.ham_menu:hover {
+  cursor: pointer;
+}
 .main_section {
   height: 100vh;
   display: flex;
