@@ -15,7 +15,12 @@ const SignUpForm = ({ step, setStep }) => {
       lastName: "",
       country: "",
       city: "",
-      hometown: "",
+      city_lat: 0,
+      city_long: 0,
+      home_country: "",
+      home_city: "",
+      home_city_lat: 0,
+      home_city_long: 0,
       artForm: "",
       abstract: "0",
       samples: [
@@ -55,6 +60,20 @@ const SignUpForm = ({ step, setStep }) => {
     formData.append("last_name", values.lastName);
     formData.append("country", values.country);
     formData.append("city", values.city);
+    formData.append("city_lat", values.city_long.toString());
+    formData.append("city_long", values.city_long.toString());
+    if (values.home_country) {
+      formData.append("home_country", values.home_country);
+    }
+    if (values.home_city) {
+      formData.append("home_city", values.home_city);
+    }
+    if (values.home_city_lat) {
+      formData.append("home_city", values.home_city_lat.toString());
+    }
+    if (values.home_city_long) {
+      formData.append("home_city", values.home_city_long.toString());
+    }
     formData.append("art_form", values.artForm.substring(0, 2).toUpperCase());
     formData.append("abstractness", values.abstract);
     // i want to check if we have a file then we append the

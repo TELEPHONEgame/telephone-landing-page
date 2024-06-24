@@ -4,7 +4,12 @@ export type SignUpFormType = {
   lastName: string;
   country: string;
   city: string;
-  hometown: string;
+  city_lat: number;
+  city_long: number;
+  home_country: string | null;
+  home_city: string | null;
+  home_city_lat: number | null;
+  home_city_long: number | null;
   artForm: string;
   abstract: string;
   samples: Samples;
