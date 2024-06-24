@@ -9,15 +9,18 @@
   margin-right: 10px;
   margin-bottom: 10px;
   font-weight: 300;
+  overflow: hidden;
 }
 
 .art_form_btn:hover{
-  border: 1.5px solid #F0148B;
+  color: white;
+  background-color: black;
 }
 
 
 .art_form_btn_selected {
-  border: 1.5px solid blue;
+  color: white;
+  background-color: black;
 }
 
 .art_form_box {
