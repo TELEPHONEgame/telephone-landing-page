@@ -16,10 +16,17 @@ type Props = {
 const StepTwo = ({ setStep }: Props) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const addressResponseRef = useRef<HTMLDivElement>(null);
+  const rawCityRef = useRef<HTMLInputElement>(null);
+  const latRef = useRef<HTMLInputElement>(null);
+  const longRef = useRef<HTMLInputElement>(null);
+  const homeMapRef = useRef<HTMLDivElement>(null);
+  const homeAddressResponseRef = useRef<HTMLDivElement>(null);
+  const rawHomeCityRef = useRef<HTMLInputElement>(null);
+  const homeLatRef = useRef<HTMLInputElement>(null);
+  const homeLongRef = useRef<HTMLInputElement>(null);
   const { register, formState, trigger, getValues, setValue, setFocus } =
     useFormContext<SignUpFormType>();
   const { errors } = formState;
-  const [citySelection, setCitySelection] = useState("");
 
   const parseCountryList = () => {
     const arrList = list.split("\n").map((elem) => elem.split(", "));
@@ -35,93 +42,28 @@ const StepTwo = ({ setStep }: Props) => {
   };
 
   let map: google.maps.Map;
+  let homeMap: google.maps.Map;
   let geocoder: google.maps.Geocoder;
   let marker: google.maps.Marker;
-  let responseDiv;
-  let response;
+  let homeMarker: google.maps.Marker;
 
   const countryList = parseCountryList();
   const artFormList = Object.values(ArtForm);
+  const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {
-    if (mapRef.current) {
+    initMaps();
+  }, [mapRef, homeMapRef]);
+
+  function initMaps() {
+    if (!map && mapRef.current) {
       map = new google.maps.Map(mapRef.current, {
         zoom: 8,
         mapTypeControl: false,
       });
-      geocoder = new google.maps.Geocoder();
-      responseDiv = addressResponseRef.current;
     }
-  }, [mapRef]);
-
-  const [api, contextHolder] = notification.useNotification();
-  const setCityValue = (city = null) => {
-    if (!city) {
-      setValue("city", "");
-    } else {
-      setValue("city", city);
-    }
-  };
-  const cityValue = getValues("city");
-
-  const openNotification = (city) => {
-    const key = `open${Date.now()}`;
-    const btn = (
-      <Space>
-        <Button
-          type="primary"
-          size="small"
-          onClick={() => {
-            api.destroy();
-            clear();
-            setFocus("city");
-          }}
-        >
-          Cancel
-        </Button>
-        <Button
-          type="primary"
-          size="small"
-          onClick={() => {
-            //setCityValue();
-            api.destroy();
-            clear();
-            handleNextStep();
-          }}
-        >
-          Keep as Entered
-        </Button>
-        <Button
-          type="primary"
-          size="small"
-          onClick={() => {
-            api.destroy(key);
-            setCityValue(city);
-            handleNextStep();
-          }}
-        >
-          Accept Correction
-        </Button>
-      </Space>
-    );
-    api.open({
-      message: "Please confirm",
-      description: "Is this city correct? " + city,
-      btn,
-      key,
-      duration: null,
-      placement: "top",
-    });
-  };
-
-  function clear() {
-    addressResponseRef.current!.innerText = "";
-  }
-
-  function geocode(request) {
-    clear();
-    if (!map && mapRef.current) {
-      map = new google.maps.Map(mapRef.current, {
+    if (!homeMap && homeMapRef.current) {
+      homeMap = new google.maps.Map(homeMapRef.current, {
         zoom: 8,
         mapTypeControl: false,
       });
@@ -130,24 +72,68 @@ const StepTwo = ({ setStep }: Props) => {
       geocoder = new google.maps.Geocoder();
     }
     if (!marker) {
-      marker = new google.maps.Marker({ map });
+      marker = new google.maps.Marker({ map: map });
     }
+    if (!homeMarker) {
+      homeMarker = new google.maps.Marker({ map: homeMap });
+    }
+  }
+
+  function openNotification(city, field, fieldRef, label) {
+    const key = `open${field}${Date.now()}`;
+    const cityValue = fieldRef.current?.value;
+    const btn = (
+      <Space>
+        <Button
+          type="primary"
+          size="small"
+          onClick={() => {
+            api.destroy(key);
+            setValue(field, city);
+            fieldRef.current!.value = city;
+            handleSubmit();
+          }}
+        >
+          Yes, Accept Correction
+        </Button>
+        <Button
+          type="primary"
+          size="small"
+          onClick={() => {
+            api.destroy();
+            setFocus(field);
+          }}
+        >
+          No, Re-Enter
+        </Button>
+      </Space>
+    );
+    api.open({
+      message: "Confirm " + label,
+      description: "You have entered: \"" + cityValue + "\". We have found it as \"" + city + "\". Is this correct?",
+      btn,
+      key,
+      duration: null,
+      placement: "top",
+    });
+  };
+
+  function geocode(request, thisMap: google.maps.Map, thisMarker, responseRef, latField, longField) {
+    initMaps();
+    responseRef.current!.innerText = "";
     geocoder
       .geocode(request)
       .then((result) => {
         const { results } = result;
 
-        if (map) map.setCenter(results[0].geometry.location);
-        marker.setPosition(results[0].geometry.location);
-        marker.setMap(map);
+        if (thisMap) thisMap.setCenter(results[0].geometry.location);
+        thisMarker.setPosition(results[0].geometry.location);
+        thisMarker.setMap(thisMap);
         if (addressResponseRef.current) {
-          addressResponseRef.current.style.display = "block";
-          addressResponseRef.current.innerText = results[0].formatted_address;
-        }
-
-        if (results[0].formatted_address != request.address) {
-          const city = results[0].formatted_address;
-          setCitySelection(city);
+          responseRef.current.style.display = "block";
+          responseRef.current.innerText = results[0].formatted_address;
+          latField.current!.value = results[0].geometry.location.lat().toString();
+          longField.current!.value = results[0].geometry.location.lng().toString();
         }
       })
       .catch((e) => {
@@ -155,26 +141,40 @@ const StepTwo = ({ setStep }: Props) => {
       });
   }
 
-  function lookupCity(city) {
+  function lookupCity(city, countryField, thisMap, thisMarker, responseRef, latField, longField) {
     if (city) {
-      const country = getValues("country");
+      const country = getValues(countryField);
       let address = city + ", " + country;
-      let results = geocode({ address: address });
+      geocode({ address: address }, thisMap, thisMarker, responseRef, latField, longField);
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     if (
-      addressResponseRef.current!.innerText != getValues("city") &&
+      addressResponseRef.current!.innerText != rawCityRef.current?.value &&
       addressResponseRef.current!.innerText != ""
     ) {
-      openNotification(addressResponseRef.current!.innerText);
-    } else {
-      handleNextStep();
+      openNotification(addressResponseRef.current!.innerText, "city", rawCityRef, "City");
+      return;
     }
+    if (
+      homeAddressResponseRef.current!.innerText != rawHomeCityRef.current?.value &&
+      homeAddressResponseRef.current!.innerText != ""
+    ) {
+      openNotification(homeAddressResponseRef.current!.innerText, "home_city", rawHomeCityRef, "Home City");
+      return;
+    }
+    handleNextStep();
   };
 
   const handleNextStep = async () => {
+    setValue("city", rawCityRef.current!.value);
+    setValue("city_lat", Number(latRef.current!.value));
+    setValue("city_long", Number(longRef.current!.value));
+    setValue("home_city", rawHomeCityRef.current!.value);
+    setValue("home_city_lat", Number(homeLatRef.current!.value));
+    setValue("home_city_long", Number(homeLongRef.current!.value));
+    console.log(getValues());
     const hasValidInputs = await trigger(["country", "city", "artForm"]);
     if (hasValidInputs) setStep(3);
   };
@@ -192,6 +192,11 @@ const StepTwo = ({ setStep }: Props) => {
             {...register("country", {
               required: "Country is required",
             })}
+            onChange={(e) => {
+              if (rawCityRef.current?.value) {
+                lookupCity(rawCityRef.current?.value, "country", map, marker, addressResponseRef, latRef, longRef);
+              }
+            }}
           >
             <option value={""} disabled>
               Country
@@ -215,32 +220,82 @@ const StepTwo = ({ setStep }: Props) => {
               required: "City is required",
             })}
             onKeyUp={(e) => {
-              lookupCity((e.target as HTMLInputElement).value);
+              lookupCity((e.target as HTMLInputElement).value, "country", map, marker, addressResponseRef, latRef, longRef);
             }}
-            onBlur={(e) => {
-              lookupCity((e.target as HTMLInputElement).value);
+            onChange={(e) => {
+              setValue("city", (e.target as HTMLInputElement).value)
+              rawCityRef.current!.value = (e.target as HTMLInputElement).value;
+              lookupCity((e.target as HTMLInputElement).value, "country", map, marker, addressResponseRef, latRef, longRef);
             }}
           />
           {errors.city && <ErrorMessage message={errors.city.message} />}
 
-          <div id="addressResponse" ref={addressResponseRef} />
+          <div id="addressResponse" ref={addressResponseRef} style={{ height: "50px" }}/>
           <div
             id="map"
             ref={mapRef}
             style={{ height: "clamp(50px, 12vh, 250px)" }}
           />
           {contextHolder}
-
-          <label htmlFor="hometown" className="input_label">
-            Hometown
+          <input type="hidden" ref={rawCityRef} />
+          <input type="hidden" ref={latRef} />
+          <input type="hidden" ref={longRef} />
+        </section>
+        <section className="artist_home">
+          <label htmlFor="home_country" className="input_label first_label">
+            Home Country
+          </label>
+          <select
+            className="form_input"
+            id="home_country"
+            {...register("home_country", {
+            })}
+            onChange={(e) => {
+              if (rawHomeCityRef.current?.value) {
+                lookupCity(rawHomeCityRef.current?.value, "home_country", homeMap, homeMarker, homeAddressResponseRef, homeLatRef, homeLongRef);
+              }
+            }}
+          >
+            <option value={""}>
+              Country
+            </option>
+            {countryList.map((elem) => (
+              <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
+                {elem[1]}
+              </option>
+            ))}
+          </select>
+          {errors.country && <ErrorMessage message={errors.country.message} />}
+          <label htmlFor="home_city" className="input_label">
+            City
           </label>
           <input
             className="form_input"
             type="text"
-            id="hometown"
-            placeholder="Hometown (Optional)"
-            {...register("hometown")}
+            id="home_city"
+            placeholder="City"
+            {...register("home_city", {
+            })}
+            onKeyUp={(e) => {
+              lookupCity((e.target as HTMLInputElement).value, "home_country", homeMap, homeMarker, homeAddressResponseRef, homeLatRef, homeLongRef);
+            }}
+            onChange={(e) => {
+              setValue("home_city", (e.target as HTMLInputElement).value)
+              rawHomeCityRef.current!.value = (e.target as HTMLInputElement).value;
+              lookupCity((e.target as HTMLInputElement).value, "home_country", homeMap, homeMarker, homeAddressResponseRef, homeLatRef, homeLongRef);
+            }}
           />
+          {errors.city && <ErrorMessage message={errors.city.message} />}
+
+          <div id="homeAddressResponse" ref={homeAddressResponseRef} style={{ height: "50px" }}/>
+          <div
+            id="home_map"
+            ref={homeMapRef}
+            style={{ height: "clamp(50px, 12vh, 250px)" }}
+          />
+          <input type="hidden" ref={rawHomeCityRef} />
+          <input type="hidden" ref={homeLatRef} />
+          <input type="hidden" ref={homeLongRef} />
         </section>
         <div className="art_mediums">
           <label htmlFor="art form" className="input_label">
