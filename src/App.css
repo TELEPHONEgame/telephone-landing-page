@@ -107,9 +107,9 @@ html * {
   margin-bottom: 10px;
   border-bottom: 1px solid rgb(0, 0, 0);
   /* font-size: 14px; */
-  /* font-size: clamp(1rem, 2.5vw, 2rem); */
   font-size: var(--desktop-font-size);
   font-weight: 200;
+  padding-left: 0px;
 }
 
 .input_label {
@@ -224,7 +224,7 @@ html * {
   text-align: center;
   line-height: 30px;
 
-  &:hover{
+  &:hover {
     transform: scale(1.1);
   }
 }
@@ -232,6 +232,16 @@ html * {
 .world_icon {
   display: inline-flex;
   width: 15px;
+}
+
+/* progress bar  */
+.stepper_back_button {
+  height: 3vh;
+  width: 3vw;
+  margin-right: 0.5rem;
+}
+.stepper_back_button:hover {
+  cursor: pointer;
 }
 
 /* mobile devices  */
@@ -261,7 +271,6 @@ html * {
     height: 45px !important;
   }
 }
-
 /* iPads, Tablets */
 @media screen and (max-width: 768px) {
   .message {

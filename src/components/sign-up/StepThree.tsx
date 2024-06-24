@@ -17,7 +17,7 @@ const StepThree = ({ setStep }: Props) => {
           <label htmlFor="abstract" className="input_label question_label">
             <h1>How abstract is your art?</h1>
           </label>
-          <p>Take your best guess, no need to stress it.</p>
+          <p>Take your best guess.</p>
         </section>
 
         <article style={{ paddingTop: "3rem" }}>

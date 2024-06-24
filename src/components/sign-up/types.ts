@@ -26,4 +26,6 @@ export enum ArtForm {
   Literature = "Literature",
   Painting = "Painting",
   Dance = "Dance",
+  Photography = "Photography",
+  Sculpture = "Sculpture",
 }

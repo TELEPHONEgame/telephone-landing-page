@@ -23,7 +23,7 @@ const StepFour = ({ setStep }: Props) => {
             className="input_label question_label"
             style={{ padding: "0" }}
           >
-            <h1>Can we see?</h1>
+            <h1>Work samples</h1>
           </label>
           <p>Upload or share a link for 2-3 samples of your artwork.</p>
         </section>
