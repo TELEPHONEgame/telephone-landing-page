@@ -4,16 +4,18 @@ import "../../styles/stepFour.css";
 import { SignUpFormType } from "./types";
 import { useFormContext } from "react-hook-form";
 import { FaInfoCircle } from "react-icons/fa";
+import { Spin } from "antd";
 
 type Props = {
   setStep: (step: number) => void;
+  loading: boolean;
+  error?: Error;
 };
 
-const StepFour = ({ setStep }: Props) => {
+const StepFour = ({ setStep, loading, error }: Props) => {
   const {
     formState: { errors },
   } = useFormContext<SignUpFormType>();
-
   return (
     <>
       <div className="fields_box">
@@ -43,6 +45,7 @@ const StepFour = ({ setStep }: Props) => {
           </section>
         </section>
       </div>
+      {loading ? <Spin tip="Loading......" fullscreen /> : null}
 
       <div className="next_btn_box">
         <button className="main_btn" type="submit">
