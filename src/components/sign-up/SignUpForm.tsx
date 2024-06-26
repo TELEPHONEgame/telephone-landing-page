@@ -6,6 +6,10 @@ import StepFour from "./StepFour";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { SignUpFormType } from "./types";
 import { CONTACT_EMAIL } from "../EmailAnchor";
+import Modal from "antd/es/modal/Modal";
+import { Button } from "antd";
+
+const ALERT_TEXT = `Something went wrong. If you continue to see this message please contact ${CONTACT_EMAIL} for help`;
 
 const SignUpForm = ({ step, setStep }) => {
   const formMethods = useForm<SignUpFormType>({
@@ -34,6 +38,7 @@ const SignUpForm = ({ step, setStep }) => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const csrfcookie = function () {
     // for django csrf protection
@@ -104,15 +109,27 @@ const SignUpForm = ({ step, setStep }) => {
       })
       .catch(error => {
         setError(error);
-        const ALERT_TEXT = `Something went wrong. If you continue to see this message please contact ${CONTACT_EMAIL} for help`;
+
         // RENDER A MODAL INSTEAD SET ERRO IN STATE
-        alert(ALERT_TEXT);
+        setIsModalOpen(true);
+        // alert(ALERT_TEXT);
       })
       .finally(() => setLoading(false));
   };
 
   return (
     <FormProvider {...formMethods}>
+      <Modal
+        title="Oops! Looks like Something went wrong."
+        open={isModalOpen}
+        onOk={() => setIsModalOpen(false)}
+        onCancel={() => setIsModalOpen(false)}
+        closable={false}
+        centered
+        // okButtonProps={style}
+      >
+        <p>{ALERT_TEXT}</p>
+      </Modal>
       <form
         className="sign_up_form"
         onSubmit={formMethods.handleSubmit(submitForm)}
