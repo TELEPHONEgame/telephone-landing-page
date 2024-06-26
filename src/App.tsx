@@ -16,7 +16,6 @@ function App() {
           token: {
             // Seed Token
             colorPrimary: "black",
-            // borderRadius: 2,
           },
           components: {
             Button: {
