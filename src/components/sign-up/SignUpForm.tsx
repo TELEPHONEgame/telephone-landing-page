@@ -7,9 +7,9 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { SignUpFormType } from "./types";
 import { CONTACT_EMAIL } from "../EmailAnchor";
 import Modal from "antd/es/modal/Modal";
-import { Button } from "antd";
+import { PrimaryButton } from "../PrimaryButton";
 
-const ALERT_TEXT = `Something went wrong. If you continue to see this message please contact ${CONTACT_EMAIL} for help`;
+const ALERT_TEXT = `If you continue to see this message please contact ${CONTACT_EMAIL} for help.`;
 
 const SignUpForm = ({ step, setStep }) => {
   const formMethods = useForm<SignUpFormType>({
@@ -99,20 +99,20 @@ const SignUpForm = ({ step, setStep }) => {
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error("Network response was not ok --- FROM THE FETCH");
+          throw new Error(
+            `Network response was not ok, status: ${response.status}`
+          );
         }
-
         return response.json();
       })
       .then(data => {
         console.log("success... data--", data);
+        setStep(5);
       })
       .catch(error => {
+        // what do we want to do with the error?
         setError(error);
-
-        // RENDER A MODAL INSTEAD SET ERRO IN STATE
         setIsModalOpen(true);
-        // alert(ALERT_TEXT);
       })
       .finally(() => setLoading(false));
   };
@@ -120,15 +120,20 @@ const SignUpForm = ({ step, setStep }) => {
   return (
     <FormProvider {...formMethods}>
       <Modal
-        title="Oops! Looks like Something went wrong."
+        title="Oops! Looks like something went wrong."
         open={isModalOpen}
-        onOk={() => setIsModalOpen(false)}
-        onCancel={() => setIsModalOpen(false)}
         closable={false}
         centered
-        // okButtonProps={style}
+        footer={
+          <PrimaryButton
+            onClick={() => {
+              setIsModalOpen(false);
+            }}
+            text={"OK"}
+          />
+        }
       >
-        <p>{ALERT_TEXT}</p>
+        {ALERT_TEXT}
       </Modal>
       <form
         className="sign_up_form"
