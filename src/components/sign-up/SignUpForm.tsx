@@ -106,8 +106,13 @@ const SignUpForm = ({ step, setStep }) => {
         return response.json();
       })
       .then(data => {
-        console.log("success... data--", data);
-        setStep(5);
+        if (JSON.stringify(data) === "{}") {
+          console.log("success... data--", JSON.stringify(data));
+          setStep(5);
+        } else {
+          setError(data);
+          setIsModalOpen(true);
+        }
       })
       .catch(error => {
         // what do we want to do with the error?
@@ -120,7 +125,7 @@ const SignUpForm = ({ step, setStep }) => {
   return (
     <FormProvider {...formMethods}>
       <Modal
-        title="Oops! Looks like something went wrong."
+        title={"Oops! Looks like something went wrong. (" + error + ")"}
         open={isModalOpen}
         closable={false}
         centered
