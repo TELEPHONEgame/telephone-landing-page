@@ -9,7 +9,7 @@ type Props = {
   key: string;
 };
 
-const MAX_BYTES = 20_000_000;
+const MAX_BYTES = 20000000;
 const OPTIONAL_INPUT = "Sample 3";
 
 export const FileUploadInput = ({ sampleId }: Props) => {
