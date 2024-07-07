@@ -7,7 +7,7 @@ import { ConfigProvider } from "antd";
 function App() {
   const [joined, setJoined] = useState(false);
   const [displayFaq, setDisplayFaq] = useState(false);
-  const [step, setStep] = useState<number>(4);
+  const [step, setStep] = useState<number>(1);
 
   return (
     <div className={`App ${step === 5 && !displayFaq ? "final_card" : ""}`}>
