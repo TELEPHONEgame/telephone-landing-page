@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import ArtFormBtn from "./ArtFormBtn";
 import { list } from "../../files/countries";
-import "../../styles/stepTwo.css";
 import { useFormContext } from "react-hook-form";
-import { ArtForm, SignUpFormType } from "./types";
+import { SignUpFormType } from "./types";
 import { ErrorMessage } from "../ErrorMessage";
-
-import { notification, Button, Space } from "antd";
+import "../../styles/stepTwo.css";
+import { notification, Button, Space, Switch } from "antd";
 
 type Props = {
   setStep: (step: number) => void;
@@ -48,8 +46,8 @@ const StepTwo = ({ setStep }: Props) => {
   let homeMarker: google.maps.Marker;
 
   const countryList = parseCountryList();
-  const artFormList = Object.values(ArtForm);
   const [api, contextHolder] = notification.useNotification();
+  const [additionalLocation, setAdditionalLocation] = useState(false);
 
   useEffect(() => {
     initMaps();
@@ -79,7 +77,12 @@ const StepTwo = ({ setStep }: Props) => {
     }
   }
 
-  function openNotification(city, field, fieldRef, label) {
+  function openNotification(
+    city: string,
+    field,
+    fieldRef: React.RefObject<HTMLInputElement>,
+    label: string
+  ) {
     const key = `open${field}${Date.now()}`;
     const cityValue = fieldRef.current?.value;
     const btn = (
@@ -154,28 +157,44 @@ const StepTwo = ({ setStep }: Props) => {
       addressResponseRef.current!.innerText != rawCityRef.current?.value &&
       addressResponseRef.current!.innerText != ""
     ) {
-      openNotification(addressResponseRef.current!.innerText, "city", rawCityRef, "City");
+      openNotification(
+        addressResponseRef.current!.innerText,
+        "city",
+        rawCityRef,
+        "City"
+      );
       return;
     }
     if (
-      homeAddressResponseRef.current!.innerText != rawHomeCityRef.current?.value &&
-      homeAddressResponseRef.current!.innerText != ""
+      homeAddressResponseRef.current?.innerText != rawHomeCityRef.current?.value
+      // homeAddressResponseRef.current!.innerText != ""
     ) {
-      openNotification(homeAddressResponseRef.current!.innerText, "home_city", rawHomeCityRef, "Home City");
+      openNotification(
+        homeAddressResponseRef.current!.innerText,
+        "home_city",
+        rawHomeCityRef,
+        "Home City"
+      );
       return;
     }
     handleNextStep();
   };
+  const optionalFields =
+    rawHomeCityRef.current && homeLatRef.current && homeLongRef.current;
 
   const handleNextStep = async () => {
     setValue("city", rawCityRef.current!.value);
     setValue("city_lat", Number(latRef.current!.value));
     setValue("city_long", Number(longRef.current!.value));
-    setValue("home_city", rawHomeCityRef.current!.value);
-    setValue("home_city_lat", Number(homeLatRef.current!.value));
-    setValue("home_city_long", Number(homeLongRef.current!.value));
-    console.log(getValues());
-    const hasValidInputs = await trigger(["country", "city", "artForm"]);
+
+    if (optionalFields) {
+      setValue("home_city", rawHomeCityRef.current.value);
+      setValue("home_city_lat", Number(homeLatRef.current.value));
+      setValue("home_city_long", Number(homeLongRef.current.value));
+    }
+
+    console.log("GETTING VALUES FROM SUB", getValues());
+    const hasValidInputs = await trigger(["country", "city"]);
     if (hasValidInputs) setStep(3);
   };
 
@@ -219,103 +238,156 @@ const StepTwo = ({ setStep }: Props) => {
             {...register("city", {
               required: "City is required",
             })}
-            onKeyUp={(e) => {
-              lookupCity((e.target as HTMLInputElement).value, "country", map, marker, addressResponseRef, latRef, longRef);
+            onKeyUp={e => {
+              lookupCity(
+                (e.target as HTMLInputElement).value,
+                "country",
+                map,
+                marker,
+                addressResponseRef,
+                latRef,
+                longRef
+              );
             }}
-            onChange={(e) => {
-              setValue("city", (e.target as HTMLInputElement).value)
+            onChange={e => {
+              setValue("city", (e.target as HTMLInputElement).value);
               rawCityRef.current!.value = (e.target as HTMLInputElement).value;
-              lookupCity((e.target as HTMLInputElement).value, "country", map, marker, addressResponseRef, latRef, longRef);
+              lookupCity(
+                (e.target as HTMLInputElement).value,
+                "country",
+                map,
+                marker,
+                addressResponseRef,
+                latRef,
+                longRef
+              );
             }}
           />
           {errors.city && <ErrorMessage message={errors.city.message} />}
 
-          <div id="addressResponse" ref={addressResponseRef} style={{ height: "50px" }}/>
+          <div
+            id="addressResponse"
+            ref={addressResponseRef}
+            style={{ height: "20px" }}
+          />
           <div
             id="map"
             ref={mapRef}
-            style={{ height: "clamp(50px, 12vh, 250px)" }}
+            style={{
+              height: "clamp(50px, 12vh, 250px)",
+              marginBottom: "1rem",
+            }}
           />
           {contextHolder}
           <input type="hidden" ref={rawCityRef} />
           <input type="hidden" ref={latRef} />
           <input type="hidden" ref={longRef} />
-        </section>
-        <section className="artist_home">
-          <label htmlFor="home_country" className="input_label first_label">
-            Home Country
-          </label>
-          <select
-            className="form_input"
-            id="home_country"
-            {...register("home_country", {
-            })}
-            onChange={(e) => {
-              if (rawHomeCityRef.current?.value) {
-                lookupCity(rawHomeCityRef.current?.value, "home_country", homeMap, homeMarker, homeAddressResponseRef, homeLatRef, homeLongRef);
-              }
-            }}
+          <Button
+            size="middle"
+            onClick={() => setAdditionalLocation(!additionalLocation)}
           >
-            <option value={""}>
-              Country
-            </option>
-            {countryList.map((elem) => (
-              <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
-                {elem[1]}
-              </option>
-            ))}
-          </select>
-          {errors.country && <ErrorMessage message={errors.country.message} />}
-          <label htmlFor="home_city" className="input_label">
-            City
-          </label>
-          <input
-            className="form_input"
-            type="text"
-            id="home_city"
-            placeholder="City"
-            {...register("home_city", {
-            })}
-            onKeyUp={(e) => {
-              lookupCity((e.target as HTMLInputElement).value, "home_country", homeMap, homeMarker, homeAddressResponseRef, homeLatRef, homeLongRef);
-            }}
-            onChange={(e) => {
-              setValue("home_city", (e.target as HTMLInputElement).value)
-              rawHomeCityRef.current!.value = (e.target as HTMLInputElement).value;
-              lookupCity((e.target as HTMLInputElement).value, "home_country", homeMap, homeMarker, homeAddressResponseRef, homeLatRef, homeLongRef);
-            }}
-          />
-          {errors.city && <ErrorMessage message={errors.city.message} />}
+            {additionalLocation ? "Cancel" : "Add a home country and home city"}
+          </Button>
 
-          <div id="homeAddressResponse" ref={homeAddressResponseRef} style={{ height: "50px" }}/>
-          <div
-            id="home_map"
-            ref={homeMapRef}
-            style={{ height: "clamp(50px, 12vh, 250px)" }}
-          />
-          <input type="hidden" ref={rawHomeCityRef} />
-          <input type="hidden" ref={homeLatRef} />
-          <input type="hidden" ref={homeLongRef} />
+          {additionalLocation && (
+            <>
+              <section className="artist_home">
+                <label
+                  htmlFor="home_country"
+                  className="input_label first_label"
+                >
+                  Home Country
+                </label>
+                <select
+                  className="form_input"
+                  id="home_country"
+                  {...register("home_country", { required: false })}
+                  onChange={e => {
+                    if (rawHomeCityRef.current?.value) {
+                      lookupCity(
+                        rawHomeCityRef.current?.value,
+                        "home_country",
+                        homeMap,
+                        homeMarker,
+                        homeAddressResponseRef,
+                        homeLatRef,
+                        homeLongRef
+                      );
+                    }
+                  }}
+                >
+                  <option value={""}>Country</option>
+                  {countryList.map(elem => (
+                    <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
+                      {elem[1]}
+                    </option>
+                  ))}
+                </select>
+
+                {errors.home_country && (
+                  <ErrorMessage message={errors.home_country.message} />
+                )}
+
+                <label htmlFor="home_city" className="input_label">
+                  City
+                </label>
+
+                <input
+                  className="form_input"
+                  type="text"
+                  id="home_city"
+                  placeholder="City"
+                  {...register("home_city", { required: false })}
+                  onKeyUp={e => {
+                    lookupCity(
+                      (e.target as HTMLInputElement).value,
+                      "home_country",
+                      homeMap,
+                      homeMarker,
+                      homeAddressResponseRef,
+                      homeLatRef,
+                      homeLongRef
+                    );
+                  }}
+                  onChange={e => {
+                    setValue("home_city", (e.target as HTMLInputElement).value);
+                    rawHomeCityRef.current!.value = (
+                      e.target as HTMLInputElement
+                    ).value;
+                    lookupCity(
+                      (e.target as HTMLInputElement).value,
+                      "home_country",
+                      homeMap,
+                      homeMarker,
+                      homeAddressResponseRef,
+                      homeLatRef,
+                      homeLongRef
+                    );
+                  }}
+                />
+
+                {errors.home_city && (
+                  <ErrorMessage message={errors.home_city.message} />
+                )}
+
+                <div
+                  id="homeAddressResponse"
+                  ref={homeAddressResponseRef}
+                  style={{ height: "50px" }}
+                />
+                <div
+                  id="home_map"
+                  ref={homeMapRef}
+                  style={{ height: "clamp(50px, 12vh, 250px)" }}
+                  hidden
+                />
+                <input type="hidden" ref={rawHomeCityRef} />
+                <input type="hidden" ref={homeLatRef} />
+                <input type="hidden" ref={homeLongRef} />
+              </section>
+            </>
+          )}
         </section>
-        <div className="art_mediums">
-          <label htmlFor="art form" className="input_label">
-            What form does your art take? What art form is closest to what you
-            do?
-          </label>
-          <input
-            {...register("artForm", {
-              required: "An art form is required",
-            })}
-            hidden
-          />
-
-          <div className="art_form_box">
-            {artFormList.map((artForm) => (
-              <ArtFormBtn key={artForm} name={artForm} />
-            ))}
-          </div>
-          {errors.artForm && <ErrorMessage message={errors.artForm.message} />}
-        </div>
       </div>
 
       <div className="next_btn_box">
