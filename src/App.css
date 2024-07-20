@@ -268,8 +268,10 @@ html * {
     font-size: var(--mobile-font-size);
   }
   .art_form_btn {
-    width: 78px !important;
-    height: 45px !important;
+    display: flex;
+    /* flex-grow: 2; */
+    /* width: 78px !important;
+    height: 45px !important; */
   }
 }
 /* iPads, Tablets */
