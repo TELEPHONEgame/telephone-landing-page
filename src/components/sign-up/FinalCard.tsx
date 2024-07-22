@@ -31,7 +31,7 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
         <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
         <section className="final_card_info">
           <img
-            src="public/static/teleIcon.png"
+            src="/static/teleIcon.png"
             style={{
               paddingRight: "1rem",
               marginTop: "0.5rem",
