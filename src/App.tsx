@@ -1,16 +1,24 @@
 import "./App.css";
 import React, { useState } from "react";
 import MainSection from "./components/sign-up/MainSection";
+import HowToPlay from "./components/HowToPlay";
 import Faq from "./components/sign-up/Faq";
 import { ConfigProvider } from "antd";
 
 function App() {
   const [joined, setJoined] = useState(false);
-  const [displayFaq, setDisplayFaq] = useState(false);
+  const [page, setPage] = useState<"main" | "faq" | "how-to-play">("main");
   const [step, setStep] = useState<number>(1);
 
+  const setDisplayFaq = (display: boolean) => {
+    display ? setPage("faq") : setPage("main");
+  };
+  const setDisplayHowToPlay = (display: boolean) => {
+    display ? setPage("how-to-play") : setPage("main");
+  };
+
   return (
-    <div className={`App ${step === 5 && !displayFaq ? "final_card" : ""}`}>
+    <div className={`App ${step === 5 && page !== "faq" ? "final_card" : ""}`}>
       <ConfigProvider
         theme={{
           token: {
@@ -25,16 +33,19 @@ function App() {
           },
         }}
       >
-        {displayFaq ? (
+        {page === "faq" ? (
           <Faq setDisplayFaq={setDisplayFaq} />
+        ) : page === "how-to-play" ? (
+          <HowToPlay setDisplayHowToPlay={setDisplayHowToPlay} />
         ) : (
           <MainSection
             step={step}
             setStep={setStep}
             joined={joined}
             setJoined={setJoined}
-            displayFaq={displayFaq}
+            displayFaq={false}
             setDisplayFaq={setDisplayFaq}
+            setDisplayHowToPlay={setDisplayHowToPlay}
           />
         )}
       </ConfigProvider>

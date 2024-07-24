@@ -13,6 +13,7 @@ const MainSection = ({
   setJoined,
   displayFaq,
   setDisplayFaq,
+  setDisplayHowToPlay,
 }) => {
   
   return (
@@ -21,7 +22,7 @@ const MainSection = ({
         <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
       ) : null}
       {joined === false ? (
-        <InitialScreen setJoined={setJoined} />
+        <InitialScreen setJoined={setJoined} setDisplayHowToPlay={setDisplayHowToPlay} />
       ) : (
         <>
           {step === 5 ? null : (

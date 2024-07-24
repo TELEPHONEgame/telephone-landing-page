@@ -6,9 +6,9 @@ import { ScrollButton } from "../ScrollButton";
 const Faq = ({ setDisplayFaq }) => {
   return (
     <div className="faq">
-      <div className="close_icon" onClick={() => setDisplayFaq(false)}>
+      <button className="btn_reset close_icon" onClick={() => setDisplayFaq(false)}>
         <IoMdClose size={25} />
-      </div>
+      </button>
       <h3 className="faq_item">TELEPHONE FAQ</h3>
 
       <p className="faq_item faq_question">Where is my assignment?</p>
