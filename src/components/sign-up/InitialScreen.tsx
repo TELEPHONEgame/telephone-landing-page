@@ -2,10 +2,11 @@ import React from "react";
 import { TbWorld } from "react-icons/tb";
 
 type Props = {
+  setDisplayHowToPlay: (show: boolean) => void;
   setJoined: (joined: boolean) => void;
 };
 
-export const InitialScreen = ({ setJoined }: Props) => {
+export const InitialScreen = ({ setDisplayHowToPlay, setJoined }: Props) => {
   return (
     <>
       <div className="message initial_screen">
@@ -24,7 +25,7 @@ export const InitialScreen = ({ setJoined }: Props) => {
         />
       </div>
       <div>
-        <button className="main_btn btn_white" style={{display: 'none'}}>How do I play?</button>
+        <button className="main_btn btn_white" onClick={() => setDisplayHowToPlay(true)}>How do I play?</button>
         <button className="main_btn" onClick={() => setJoined(true)}>
           Join
         </button>
