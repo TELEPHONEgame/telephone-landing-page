@@ -88,8 +88,7 @@ const StepOne = ({ setStep }: Props) => {
       <div className="next_btn_box">
         <button
           type="button"
-          // className={`main_btn next_btn ${disableNextBtn ? 'btn_disabled' : ''}`}
-          className="main_btn next_btn"
+          className="main_btn"
           onClick={handleNext}
         >
           Next

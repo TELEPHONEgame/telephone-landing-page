@@ -392,7 +392,7 @@ const StepTwo = ({ setStep }: Props) => {
 
       <div className="next_btn_box">
         <button
-          className="main_btn next_btn"
+          className="main_btn"
           type="button"
           onClick={handleSubmit}
         >
