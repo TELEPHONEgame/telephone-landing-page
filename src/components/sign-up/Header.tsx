@@ -5,7 +5,7 @@ import { Dropdown } from "antd";
 
 import { IoMenu } from "react-icons/io5";
 
-const Header = ({ displayFaq, setDisplayFaq }) => {
+const Header = ({ displayFaq, setDisplayFaq, step }) => {
   const [displayDropdown, setDisplayDropdown] = useState(false);
 
   const items: MenuProps["items"] = [
@@ -43,9 +43,9 @@ const Header = ({ displayFaq, setDisplayFaq }) => {
       key: "2",
     },
   ];
-
+  console.log("FINAL sssss--", step);
   return (
-    <header className="header">
+    <header className={`header ${step === 5 ? "final_card_header" : ""}`}>
       <span className="main_text">TELEPHONE</span>
       <div
         className="ham_menu"

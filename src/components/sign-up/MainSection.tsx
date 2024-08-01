@@ -18,7 +18,11 @@ const MainSection = ({
   return (
     <div className={`main_section ${step === 5 ? "final_card" : ""}`}>
       {joined === false ? (
-        <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
+        <Header
+          displayFaq={displayFaq}
+          setDisplayFaq={setDisplayFaq}
+          step={step}
+        />
       ) : null}
       {joined === false ? (
         <InitialScreen
@@ -32,7 +36,11 @@ const MainSection = ({
           )}
 
           {step === 5 ? (
-            <FinalCard displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
+            <FinalCard
+              displayFaq={displayFaq}
+              setDisplayFaq={setDisplayFaq}
+              step={step}
+            />
           ) : (
             <SignUpForm step={step} setStep={setStep} />
           )}

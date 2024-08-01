@@ -8,7 +8,7 @@ import { ConfigProvider } from "antd";
 function App() {
   const [joined, setJoined] = useState(false);
   const [page, setPage] = useState<"main" | "faq" | "how-to-play">("main");
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(5);
 
   const setDisplayFaq = (display: boolean) => {
     display ? setPage("faq") : setPage("main");

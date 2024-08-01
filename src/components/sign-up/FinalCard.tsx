@@ -4,7 +4,7 @@ import Header from "./Header";
 import { Alert } from "antd";
 import "../../styles/finalCard.css";
 
-const FinalCard = ({ displayFaq, setDisplayFaq }) => {
+const FinalCard = ({ displayFaq, setDisplayFaq, step }) => {
   const [copySuccess, setCopySuccess] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,11 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
   return (
     <div className="main_section_box">
       <div className="final_card_header">
-        <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
+        <Header
+          displayFaq={displayFaq}
+          setDisplayFaq={setDisplayFaq}
+          step={step}
+        />
         <section className="final_card_info">
           <img
             src="/static/teleIcon.png"
@@ -38,7 +42,9 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
               height: "clamp(3.5rem, 7vh, 80px)",
             }}
           />
-          <p style={{ paddingRight: "50%" }} className="message">
+          <p
+          //  style={{ paddingRight: "50%" }} 
+          className="message msg_final_card">
             {" "}
             Stay by the phone, we’re just a whisper away ❉ We’ll let you know
             when it’s your turn to play!
