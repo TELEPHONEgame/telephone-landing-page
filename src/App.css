@@ -82,8 +82,8 @@ html * {
   flex-direction: column;
   justify-content: space-between;
   /* height: 100%; */
-  /* height: 94vh; */
-  height: 94%;
+  height: 94vh;
+  /* height: 94%; */
 }
 
 .main_btn {
@@ -173,9 +173,9 @@ html * {
 }
 .landing_page_animation {
   margin: 0 auto;
-  /* height: 449px; */
+  height: 449px;
   overflow: hidden;
-  height: 55%;
+  /* height: 55%; */
   padding-bottom: 2%
 }
 .landing_page_animation > img {
