@@ -57,7 +57,7 @@ const SignUpForm = ({ step, setStep }) => {
     return cookieValue;
   };
 
-  const submitForm: SubmitHandler<SignUpFormType> = values => {
+  const submitForm: SubmitHandler<SignUpFormType> = (values) => {
     setLoading(true);
     const csrf_token = csrfcookie();
     const formData = new FormData();
@@ -97,7 +97,7 @@ const SignUpForm = ({ step, setStep }) => {
       },
       body: formData,
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(
             `Network response was not ok, status: ${response.status}`
@@ -105,7 +105,7 @@ const SignUpForm = ({ step, setStep }) => {
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         if (JSON.stringify(data) === "{}") {
           console.log("success... data--", JSON.stringify(data));
           setStep(5);
@@ -114,7 +114,7 @@ const SignUpForm = ({ step, setStep }) => {
           setIsModalOpen(true);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         // what do we want to do with the error?
         setError(error);
         setIsModalOpen(true);
@@ -152,10 +152,7 @@ const SignUpForm = ({ step, setStep }) => {
           <StepThree setStep={setStep} />
         ) : step === 4 ? (
           <StepFour setStep={setStep} loading={loading} error={error} />
-        ) : // : step === 5 ? (
-        //   <FinalCard displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
-        // )
-        null}
+        ) : null}
       </form>
     </FormProvider>
   );

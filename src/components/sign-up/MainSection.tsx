@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Header from "./Header";
 import SignUpForm from "./SignUpForm";
@@ -15,14 +15,16 @@ const MainSection = ({
   setDisplayFaq,
   setDisplayHowToPlay,
 }) => {
-  
   return (
     <div className={`main_section ${step === 5 ? "final_card" : ""}`}>
       {joined === false ? (
         <Header displayFaq={displayFaq} setDisplayFaq={setDisplayFaq} />
       ) : null}
       {joined === false ? (
-        <InitialScreen setJoined={setJoined} setDisplayHowToPlay={setDisplayHowToPlay} />
+        <InitialScreen
+          setJoined={setJoined}
+          setDisplayHowToPlay={setDisplayHowToPlay}
+        />
       ) : (
         <>
           {step === 5 ? null : (

@@ -55,7 +55,6 @@ const Header = ({ displayFaq, setDisplayFaq }) => {
           menu={{ items }} // hover can't be used on touchscreens
           trigger={["click"]}
           placement="bottom"
-          // onVisibleChange={() => setDisplayFaq(false)}
         >
           <a onClick={(e) => e.preventDefault()}>
             <IoMenu size={26} />

@@ -77,11 +77,7 @@ const StepThree = ({ setStep }: Props) => {
       </div>
 
       <div className="next_btn_box">
-        <button
-          className="main_btn"
-          type="button"
-          onClick={() => setStep(4)}
-        >
+        <button className="main_btn" type="button" onClick={() => setStep(4)}>
           Next
         </button>
       </div>

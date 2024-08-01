@@ -48,11 +48,8 @@ const FinalCard = ({ displayFaq, setDisplayFaq }) => {
       {copySuccess ? (
         <Alert
           message="Copied to Clipboard!"
-          // type="success"
           type="info"
           showIcon
-          // closable={true}
-          // onClose={() => setCopySuccess(false)}
           className="final_card_alert"
         />
       ) : null}

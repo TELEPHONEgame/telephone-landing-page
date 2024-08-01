@@ -56,7 +56,6 @@ html * {
 }
 .main_section {
   height: 100vh;
-  /* height: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -81,9 +80,7 @@ html * {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* height: 100%; */
   height: 94vh;
-  /* height: 94%; */
 }
 
 .main_btn {

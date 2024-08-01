@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 import { SignUpFormType } from "./types";
 import { ErrorMessage } from "../ErrorMessage";
@@ -13,8 +13,6 @@ const StepOne = ({ setStep }: Props) => {
     formState: { errors },
     trigger,
   } = useFormContext<SignUpFormType>();
-  // where to add setDisableNextBtn(false); to handle Next button styles
-  // const [disableNextBtn, setDisableNextBtn] = useState(true)
 
   const validateEmail = (email: string) => {
     const isValidEmail = email
@@ -47,7 +45,7 @@ const StepOne = ({ setStep }: Props) => {
             placeholder="Email"
             {...register("email", {
               required: "Email is required",
-              validate: value => validateEmail(value),
+              validate: (value) => validateEmail(value),
             })}
           />
           {errors.email && <ErrorMessage message={errors.email.message} />}
@@ -86,11 +84,7 @@ const StepOne = ({ setStep }: Props) => {
         </section>
       </div>
       <div className="next_btn_box">
-        <button
-          type="button"
-          className="main_btn"
-          onClick={handleNext}
-        >
+        <button type="button" className="main_btn" onClick={handleNext}>
           Next
         </button>
       </div>

@@ -41,9 +41,7 @@ const StepFour = ({ setStep, loading, error }: Props) => {
             })}
             <section className="files_notice">
               <span style={{ padding: "0 12px " }}>
-                <FaInfoCircle 
-                // style={{ height: "4vw", width: "4vw" }} 
-                />
+                <FaInfoCircle />
               </span>
               <p style={{ fontSize: "clamp(13px, 2vw, 1.5rem)" }}>
                 Each file has a 20mb limit
