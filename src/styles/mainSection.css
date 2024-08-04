@@ -1,6 +1,8 @@
   /* stepper  */
   .stepper {
-    height: 24px;
+    /* height: 24px; */
+    /* height: 6vh; */
+    height: 6%;
     /* padding: 15px 15px; */
     display: flex;
     /* flex-direction: row; */

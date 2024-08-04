@@ -36,7 +36,7 @@ function App() {
         {page === "faq" ? (
           <Faq setDisplayFaq={setDisplayFaq} />
         ) : page === "how-to-play" ? (
-          <HowToPlay setDisplayHowToPlay={setDisplayHowToPlay} />
+          <HowToPlay setDisplayHowToPlay={setDisplayHowToPlay} setDisplayFaq={setDisplayFaq}/>
         ) : (
           <MainSection
             step={step}

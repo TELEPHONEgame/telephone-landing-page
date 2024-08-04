@@ -33,4 +33,5 @@ export enum ArtForm {
   Dance = "Dance",
   Photography = "Photography",
   Sculpture = "Sculpture",
+  DigitalArt = "Digital Art",
 }

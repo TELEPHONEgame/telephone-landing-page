@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { EmailAnchor } from "./EmailAnchor";
+import Faq from "./sign-up/Faq";
 import { IoMdClose } from "react-icons/io";
 
-const Faq = ({ setDisplayHowToPlay }) => {
+const HowToPlay = ({ setDisplayHowToPlay, setDisplayFaq }) => {
+  //const [displayFaq, setDisplayFaq] = useState(false);
   return (
     <div className="htp">
-      <button className="btn_reset close_icon" onClick={() => setDisplayHowToPlay(false)}>
+      <button
+        className="btn_reset close_icon"
+        onClick={() => setDisplayHowToPlay(false)}
+      >
         <IoMdClose size={25} />
       </button>
 
@@ -27,9 +33,24 @@ const Faq = ({ setDisplayHowToPlay }) => {
           your work to us, and it will be passed to another artist somewhere on
           our big, beautiful globe to translate in turn.
         </p>
+
+        <p className="htp_paragraph">
+          We hope that you will play with us! The first two games, in 2015 and
+          2021, produced amazing results. This game is going to be even more
+          fun!
+        </p>
+
+        <p className="htp_paragraph">
+          If you have further questions, please read <a href="#" onClick={() => setDisplayFaq(true)}>this.</a>
+          {/* <Faq setDisplayFaq={} /> */}
+        </p>
+
+        <p className="htp_paragraph">
+          If you need to contact us, please write to us here. <EmailAnchor />
+        </p>
       </div>
     </div>
   );
 };
 
-export default Faq;
+export default HowToPlay;

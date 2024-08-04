@@ -68,16 +68,19 @@ const StepThree = ({ setStep }: Props) => {
           />
 
           <div className="art_form_box">
-            {artFormList.map(artForm => (
+            {artFormList.map((artForm) => (
               <ArtFormBtn key={artForm} name={artForm} />
             ))}
           </div>
           {errors.artForm && <ErrorMessage message={errors.artForm.message} />}
         </article>
       </div>
-      <button className="main_btn" onClick={() => setStep(4)}>
-        Next
-      </button>
+
+      <div className="next_btn_box">
+        <button className="main_btn" type="button" onClick={() => setStep(4)}>
+          Next
+        </button>
+      </div>
     </>
   );
 };

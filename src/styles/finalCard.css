@@ -1,18 +1,13 @@
 .final_card_header {
-  background-color: black;
+  /* background-color: black; */
   color: white;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 16%;
+  height: 16%; */
 }
 .final_card_alert {
   margin: 0 auto;
-}
-.final_card_info {
-  display: flex;
-  flex-direction: row;
-  padding-top: 3%;
 }
 
 @media screen and (max-width: 768px) {
@@ -23,11 +18,14 @@
 
 @media screen and (max-width: 480px) {
   .message {
-    font-size: 12px;
+    font-size: 14px;
     padding-right: 30% !important;
-    margin-top: 0.5rem!important;
+    margin-top: 0.5rem !important;
   }
   .initial_screen {
     margin-top: -25px !important;
   }
 }
+
+
+/* ,essahe font-size: clamp(12px, 1.5vw, 32px); */

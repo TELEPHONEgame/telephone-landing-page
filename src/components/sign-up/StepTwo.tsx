@@ -113,15 +113,27 @@ const StepTwo = ({ setStep }: Props) => {
     );
     api.open({
       message: "Confirm " + label,
-      description: "You have entered: \"" + cityValue + "\". We have found it as \"" + city + "\". Is this correct?",
+      description:
+        'You have entered: "' +
+        cityValue +
+        '". We have found it as "' +
+        city +
+        '". Is this correct?',
       btn,
       key,
       duration: null,
       placement: "top",
     });
-  };
+  }
 
-  function geocode(request, thisMap: google.maps.Map, thisMarker, responseRef, latField, longField) {
+  function geocode(
+    request,
+    thisMap: google.maps.Map,
+    thisMarker,
+    responseRef,
+    latField,
+    longField
+  ) {
     initMaps();
     responseRef.current!.innerText = "";
     geocoder
@@ -135,8 +147,12 @@ const StepTwo = ({ setStep }: Props) => {
         if (addressResponseRef.current) {
           responseRef.current.style.display = "block";
           responseRef.current.innerText = results[0].formatted_address;
-          latField.current!.value = results[0].geometry.location.lat().toString();
-          longField.current!.value = results[0].geometry.location.lng().toString();
+          latField.current!.value = results[0].geometry.location
+            .lat()
+            .toString();
+          longField.current!.value = results[0].geometry.location
+            .lng()
+            .toString();
         }
       })
       .catch((e) => {
@@ -144,11 +160,26 @@ const StepTwo = ({ setStep }: Props) => {
       });
   }
 
-  function lookupCity(city, countryField, thisMap, thisMarker, responseRef, latField, longField) {
+  function lookupCity(
+    city,
+    countryField,
+    thisMap,
+    thisMarker,
+    responseRef,
+    latField,
+    longField
+  ) {
     if (city) {
       const country = getValues(countryField);
       let address = city + ", " + country;
-      geocode({ address: address }, thisMap, thisMarker, responseRef, latField, longField);
+      geocode(
+        { address: address },
+        thisMap,
+        thisMarker,
+        responseRef,
+        latField,
+        longField
+      );
     }
   }
 
@@ -213,7 +244,15 @@ const StepTwo = ({ setStep }: Props) => {
             })}
             onChange={(e) => {
               if (rawCityRef.current?.value) {
-                lookupCity(rawCityRef.current?.value, "country", map, marker, addressResponseRef, latRef, longRef);
+                lookupCity(
+                  rawCityRef.current?.value,
+                  "country",
+                  map,
+                  marker,
+                  addressResponseRef,
+                  latRef,
+                  longRef
+                );
               }
             }}
           >
@@ -238,7 +277,7 @@ const StepTwo = ({ setStep }: Props) => {
             {...register("city", {
               required: "City is required",
             })}
-            onKeyUp={e => {
+            onKeyUp={(e) => {
               lookupCity(
                 (e.target as HTMLInputElement).value,
                 "country",
@@ -249,7 +288,7 @@ const StepTwo = ({ setStep }: Props) => {
                 longRef
               );
             }}
-            onChange={e => {
+            onChange={(e) => {
               setValue("city", (e.target as HTMLInputElement).value);
               rawCityRef.current!.value = (e.target as HTMLInputElement).value;
               lookupCity(
@@ -302,7 +341,7 @@ const StepTwo = ({ setStep }: Props) => {
                   className="form_input"
                   id="home_country"
                   {...register("home_country", { required: false })}
-                  onChange={e => {
+                  onChange={(e) => {
                     if (rawHomeCityRef.current?.value) {
                       lookupCity(
                         rawHomeCityRef.current?.value,
@@ -317,7 +356,7 @@ const StepTwo = ({ setStep }: Props) => {
                   }}
                 >
                   <option value={""}>Country</option>
-                  {countryList.map(elem => (
+                  {countryList.map((elem) => (
                     <option key={`${elem[0]}+${elem[1]}`} value={elem[1]}>
                       {elem[1]}
                     </option>
@@ -338,7 +377,7 @@ const StepTwo = ({ setStep }: Props) => {
                   id="home_city"
                   placeholder="City"
                   {...register("home_city", { required: false })}
-                  onKeyUp={e => {
+                  onKeyUp={(e) => {
                     lookupCity(
                       (e.target as HTMLInputElement).value,
                       "home_country",
@@ -349,7 +388,7 @@ const StepTwo = ({ setStep }: Props) => {
                       homeLongRef
                     );
                   }}
-                  onChange={e => {
+                  onChange={(e) => {
                     setValue("home_city", (e.target as HTMLInputElement).value);
                     rawHomeCityRef.current!.value = (
                       e.target as HTMLInputElement
@@ -391,11 +430,7 @@ const StepTwo = ({ setStep }: Props) => {
       </div>
 
       <div className="next_btn_box">
-        <button
-          className="main_btn next_btn"
-          type="button"
-          onClick={handleSubmit}
-        >
+        <button className="main_btn" type="button" onClick={handleSubmit}>
           Next
         </button>
       </div>

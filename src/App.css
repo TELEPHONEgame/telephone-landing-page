@@ -44,15 +44,10 @@ html * {
   top: 0;
   left: 0;
   width: 100%;
-  height: 20%;
+  /* height: 20%; */
+  height: 25%;
   content: "";
   background-color: rgb(0, 0, 0);
-}
-.ham_menu {
-  right: 25% !important;
-}
-.ham_menu:hover {
-  cursor: pointer;
 }
 .main_section {
   height: 100vh;
@@ -66,9 +61,11 @@ html * {
 .fields_box {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 60vh;
+  /* justify-content: space-between; */
+  /* height: 60vh; */
+  height: 60%;
   padding: 1rem 0;
+  /* overflow-y: auto; */
 }
 .overflow_hidden {
   overflow: hidden;
@@ -79,7 +76,6 @@ html * {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
 }
 
 .main_btn {
@@ -90,6 +86,7 @@ html * {
   padding: 10px 0px;
   border-radius: 10px;
   font-family: "JetBrains mono";
+  margin-top: 10px;
 }
 .main_btn:hover {
   cursor: pointer;
@@ -133,6 +130,7 @@ html * {
 .main_text {
   font-family: "Crimson Pro";
   font-style: italic;
+  width: 80%;
 }
 .bold_text {
   font-weight: 620;
@@ -141,9 +139,11 @@ html * {
 /* header  */
 .header {
   font-size: 22px;
-  width: 350px;
+  /* width: 350px; */
   height: 24px;
+  /* height: 4%; */
   display: flex;
+  width: 100%;
 }
 .main_text {
   font-family: "Crimson Pro";
@@ -152,16 +152,19 @@ html * {
 .bold_text {
   font-weight: 620;
 }
-
 .ham_menu {
-  position: absolute;
-  right: 10px;
+  /* right: 25%;
+  position: absolute; */
   height: inherit;
+  width: 20%;
+}
+.ham_menu:hover {
+  cursor: pointer;
 }
 
 /* main section  */
 .message {
-  font-size: 12px;
+  /* font-size: 12px; */
   /* padding-right: 40%; */
   padding-right: 60%;
   font-size: clamp(12px, 1.5vw, 32px);
@@ -170,6 +173,8 @@ html * {
   margin: 0 auto;
   height: 449px;
   overflow: hidden;
+  /* height: 55%; */
+  padding-bottom: 2%;
 }
 .landing_page_animation > img {
   width: 300px;
@@ -180,6 +185,7 @@ html * {
   color: black;
   background-color: white;
   margin-bottom: 10px;
+  /* margin-top: 10px; */
 }
 
 /* sign up form  */
@@ -282,6 +288,17 @@ html * {
   cursor: pointer;
 }
 
+/* final card  */
+.final_card_info {
+  display: flex;
+  flex-direction: row;
+  padding-top: 4%;
+}
+.msg_final_card {
+  padding-right: 55%;
+  font-size: 18px;
+}
+
 /* mobile devices  */
 @media (max-width: 480px) {
   .App {
@@ -310,11 +327,32 @@ html * {
     /* width: 78px !important;
     height: 45px !important; */
   }
+  .message {
+    font-size: clamp(14px, 1.5vw, 32px);
+  }
+  .final_card:before {
+    height: 20%;
+  }
 }
 /* iPads, Tablets */
 @media screen and (max-width: 768px) {
-  .message {
-    /* border: 2px solid pink; */
+  .msg_final_card {
+    padding-right: 40%;
+  }
+}
+@media screen and (max-height: 710px) {
+  .landing_page_animation {
+    height: 369px;
+    width: 260px;
+  }
+  .landing_page_animation > img {
+    height: 370px;
+  }
+  .msg_final_card {
+    padding-right: 30%;
+  }
+  .final_card_info > img {
+    height: clamp(3rem, 6.5vh, 70px) !important;
   }
 }
 @media screen and (max-height: 680px) {
@@ -325,19 +363,65 @@ html * {
   .landing_page_animation > img {
     height: 360px;
   }
+  .final_card_info {
+    padding-top: 2%;
+  }
+  .final_card_info > img {
+    height: clamp(3rem, 6.5vh, 70px);
+  }
+}
+@media screen and (max-height: 600px) {
+  .main_section {
+    /* height: 100%; */
+    height: 100vh;
+  }
+  .final_card:before {
+    height: 22%;
+  }
+  .landing_page_animation {
+    height: 300px;
+    width: 240px;
+  }
+  .landing_page_animation > img {
+    height: 301px;
+  }
+}
+@media screen and (max-height: 830px) {
+  .final_card:before {
+    height: 22%;
+  }
+  .final_card_info {
+    padding-top: 2%;
+  }
 }
 
 /* small screens, laptops*/
 @media screen and (max-width: 1024px) {
-  .main_section {
-    overflow: hidden;
+  .msg_final_card {
+    padding-right: 40%;
   }
 }
 
-/* desktops, large screens*/
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 600px) {
+  .ham_menu {
+    right: 10px;
+  }
 }
 
+@media screen and (min-height: 600px) {
+  /* .final_card:before {
+    height: 22%;
+  } */
+  /* .landing_page_animation {
+    height: 250px;
+    width: 190px;
+  }
+  .landing_page_animation > img {
+    height: 251px;
+  } */
+}
+
+/* desktops, large screens*/
 @media screen and (max-height: 800px) {
 }
 

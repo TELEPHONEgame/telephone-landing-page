@@ -25,7 +25,12 @@ export const InitialScreen = ({ setDisplayHowToPlay, setJoined }: Props) => {
         />
       </div>
       <div>
-        <button className="main_btn btn_white" onClick={() => setDisplayHowToPlay(true)}>How do I play?</button>
+        <button
+          className="main_btn btn_white"
+          onClick={() => setDisplayHowToPlay(true)}
+        >
+          How do I play?
+        </button>
         <button className="main_btn" onClick={() => setJoined(true)}>
           Join
         </button>
