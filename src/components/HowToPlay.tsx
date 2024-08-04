@@ -3,8 +3,8 @@ import { EmailAnchor } from "./EmailAnchor";
 import Faq from "./sign-up/Faq";
 import { IoMdClose } from "react-icons/io";
 
-const HowToPlay = ({ setDisplayHowToPlay }) => {
-  const [displayFaq, setDisplayFaq] = useState(false);
+const HowToPlay = ({ setDisplayHowToPlay, setDisplayFaq }) => {
+  //const [displayFaq, setDisplayFaq] = useState(false);
   return (
     <div className="htp">
       <button
@@ -41,7 +41,7 @@ const HowToPlay = ({ setDisplayHowToPlay }) => {
         </p>
 
         <p className="htp_paragraph">
-          If you have further questions, please read this.{" "}
+          If you have further questions, please read <a href="#" onClick={() => setDisplayFaq(true)}>this.</a>
           {/* <Faq setDisplayFaq={} /> */}
         </p>
 
