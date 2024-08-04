@@ -75,7 +75,7 @@ html * {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 94vh;
+  /* height: 94vh; */
 }
 
 .main_btn {
