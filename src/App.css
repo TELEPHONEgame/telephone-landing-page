@@ -162,7 +162,6 @@ html * {
   cursor: pointer;
 }
 
-
 /* main section  */
 .message {
   /* font-size: 12px; */
@@ -175,7 +174,7 @@ html * {
   height: 449px;
   overflow: hidden;
   /* height: 55%; */
-  padding-bottom: 2%
+  padding-bottom: 2%;
 }
 .landing_page_animation > img {
   width: 300px;
@@ -300,7 +299,6 @@ html * {
   font-size: 18px;
 }
 
-
 /* mobile devices  */
 @media (max-width: 480px) {
   .App {
@@ -338,8 +336,8 @@ html * {
 }
 /* iPads, Tablets */
 @media screen and (max-width: 768px) {
-  .message {
-    /* border: 2px solid pink; */
+  .msg_final_card {
+    padding-right: 40%;
   }
 }
 @media screen and (max-height: 710px) {
@@ -354,7 +352,7 @@ html * {
     padding-right: 30%;
   }
   .final_card_info > img {
-    height: clamp(3rem,6.5vh, 70px)!important;
+    height: clamp(3rem, 6.5vh, 70px) !important;
   }
 }
 @media screen and (max-height: 680px) {
@@ -369,7 +367,7 @@ html * {
     padding-top: 2%;
   }
   .final_card_info > img {
-    height: clamp(3rem,6.5vh, 70px);
+    height: clamp(3rem, 6.5vh, 70px);
   }
 }
 @media screen and (max-height: 600px) {
@@ -399,17 +397,15 @@ html * {
 
 /* small screens, laptops*/
 @media screen and (max-width: 1024px) {
-  .main_section {
-    /* overflow: hidden; */
+  .msg_final_card {
+    padding-right: 40%;
   }
 }
-
 
 @media screen and (max-width: 600px) {
   .ham_menu {
     right: 10px;
   }
-
 }
 
 @media screen and (min-height: 600px) {
@@ -423,7 +419,6 @@ html * {
   .landing_page_animation > img {
     height: 251px;
   } */
-
 }
 
 /* desktops, large screens*/
