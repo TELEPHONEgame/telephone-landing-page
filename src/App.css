@@ -61,10 +61,11 @@ html * {
 .fields_box {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   /* height: 60vh; */
   height: 60%;
   padding: 1rem 0;
+  /* overflow-y: auto; */
 }
 .overflow_hidden {
   overflow: hidden;
@@ -75,7 +76,6 @@ html * {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* height: 94vh; */
 }
 
 .main_btn {
