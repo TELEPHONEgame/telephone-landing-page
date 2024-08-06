@@ -307,7 +307,7 @@ const StepTwo = ({ setStep }: Props) => {
           <div
             id="addressResponse"
             ref={addressResponseRef}
-            style={{ height: "20px" }}
+            style={{ height: "fit-content" }}
           />
           <div
             id="map"
@@ -412,7 +412,7 @@ const StepTwo = ({ setStep }: Props) => {
                 <div
                   id="homeAddressResponse"
                   ref={homeAddressResponseRef}
-                  style={{ height: "50px" }}
+                  style={{ height: "fit-content" }}
                 />
                 <div
                   id="home_map"

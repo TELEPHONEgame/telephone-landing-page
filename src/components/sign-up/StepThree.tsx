@@ -11,16 +11,21 @@ type Props = {
 };
 
 const StepThree = ({ setStep }: Props) => {
-  const { register, watch, formState } = useFormContext<SignUpFormType>();
+  const {
+    register,
+    watch,
+    formState: { errors },
+    trigger,
+  } = useFormContext<SignUpFormType>();
   const artFormList = Object.values(ArtForm);
-  const { errors } = formState;
+  // const { errors } = formState;
 
   const abstractVal = parseInt(watch("abstract"));
   return (
     <>
       <div
         className="fields_box"
-        style={{ justifyContent: "flex-start", height: "100%" }}
+        style={{ justifyContent: "flex-start", height: "100%", padding: "0" }}
       >
         <section className="field_header">
           <label htmlFor="abstract" className="input_label question_label">
@@ -77,7 +82,14 @@ const StepThree = ({ setStep }: Props) => {
       </div>
 
       <div className="next_btn_box">
-        <button className="main_btn" type="button" onClick={() => setStep(4)}>
+        <button
+          className="main_btn"
+          type="button"
+          onClick={async () => {
+            const isValid = await trigger(["artForm"]);
+            if (isValid) setStep(4);
+          }}
+        >
           Next
         </button>
       </div>
