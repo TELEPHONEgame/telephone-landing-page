@@ -210,10 +210,10 @@ const StepTwo = ({ setStep }: Props) => {
     }
     handleNextStep();
   };
-  const optionalFields =
-    rawHomeCityRef.current && homeLatRef.current && homeLongRef.current;
 
   const handleNextStep = async () => {
+    const optionalFields =
+      rawHomeCityRef.current && homeLatRef.current && homeLongRef.current;
     setValue("city", rawCityRef.current!.value);
     setValue("city_lat", Number(latRef.current!.value));
     setValue("city_long", Number(longRef.current!.value));
@@ -224,7 +224,6 @@ const StepTwo = ({ setStep }: Props) => {
       setValue("home_city_long", Number(homeLongRef.current.value));
     }
 
-    console.log("GETTING VALUES FROM SUB", getValues());
     const hasValidInputs = await trigger(["country", "city"]);
     if (hasValidInputs) setStep(3);
   };
@@ -307,7 +306,7 @@ const StepTwo = ({ setStep }: Props) => {
           <div
             id="addressResponse"
             ref={addressResponseRef}
-            style={{ height: "20px" }}
+            style={{ height: "fit-content" }}
           />
           <div
             id="map"
@@ -412,7 +411,7 @@ const StepTwo = ({ setStep }: Props) => {
                 <div
                   id="homeAddressResponse"
                   ref={homeAddressResponseRef}
-                  style={{ height: "50px" }}
+                  style={{ height: "fit-content" }}
                 />
                 <div
                   id="home_map"
