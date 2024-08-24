@@ -4,6 +4,10 @@ p {
   margin-bottom: 5px;
 }
 
+.onhover_pointer:hover {
+  cursor: pointer;
+}
+
 .main_portal_box {
   /* padding-top: 20px;
   padding-bottom: 20px; */
@@ -20,9 +24,58 @@ p {
   height: 2.5vh;
   width: 2.5vw;
 }
+.arrow_icon_portal:hover {
+  cursor: pointer;
+}
 
 .main_portal_btn {
   border: 1px solid hsl(0, 0%, 0%) !important;
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.main_portal_btn:hover {
+  cursor: pointer;
+}
+
+
+.square_grid {
+  /* width: 80vw; */
+  display: grid;
+  grid-gap: 1rem;
+  /* max-width: 600px;
+  margin: 20px;
+  display: grid; */
+  grid-template: repeat(1, 1fr) / repeat(4, 1fr);
+  grid-gap: 10px;
+
+
+  /* grid-auto-columns: minmax(10px, auto); */
+  /* grid-template-columns: 1; */
+  /* grid-template-columns: 66px 93px; */
+}
+
+.grid_item {
+  height: 93px;
+  width: 66px;
+  /* unicode-bidi: isolate; */
+  border: 1px solid #79747E;
+  border-radius: 5px;
+  /* display: inline; */
+  /* position: relative; */
+  text-align: center;
+}
+/* .grid_item:first-child {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}
+
+.grid_item:last-child {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+}
+
+.grid_child {
+  transform: translate(-50%, -50%);
+} */

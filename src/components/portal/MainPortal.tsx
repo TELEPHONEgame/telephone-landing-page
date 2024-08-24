@@ -25,7 +25,77 @@ const MainPortal = ({ page }) => {
           <div style={{ fontSize: "32px" }}>Welcome {userName}!</div>
           <div className="inner_box">
             <p style={{ fontSize: "14px" }}>Your submission is due in:</p>
-            <div>COUNTDOWN</div>
+
+            <div className="square_grid" style={{ padding: '10px'}}>
+              <div
+                className="grid_item"
+                // style={{ position: "relative" }}
+              >
+                <div
+                  className="grid_child"
+                  // style={{ position: "absolute", top: "30%", left: "30%" }}
+                >
+                  06
+                </div>
+                <div
+                  className="grid_child"
+                  // style={{ position: "absolute", top: "60%", left: "50%" }}
+                >
+                  days
+                </div> 
+              </div>
+              <div
+                className="grid_item"
+                // style={{ position: "relative" }}
+              >
+                <div
+                  className="grid_child"
+                  // style={{ position: "absolute", top: "30%", left: "50%" }}
+                >
+                  05
+                </div>
+                <div
+                  className="grid_child"
+                  // style={{ position: "absolute", top: "60%", left: "50%" }}
+                >
+                  hours
+                </div>
+              </div>
+              <div
+                className="grid_item"
+                // style={{ position: "relative" }}
+              >
+                <div
+                  className="grid_child"
+                  // style={{ position: "absolute", top: "30%", left: "50%" }}
+                >
+                  11
+                </div>
+                <div
+                  className="grid_child"
+                  // style={{ position: "absolute", top: "60%", left: "50%" }}
+                >
+                  mins
+                </div>
+              </div>
+              <div
+                className="grid_item"
+                // style={{ position: "relative" }}
+              >
+                <div
+                  className="grid_child"
+                  // style={{ position: "absolute", top: "30%", left: "50%" }}
+                >
+                  43
+                </div>
+                <div
+                  className="grid_child"
+                  // style={{ position: "absolute", top: "60%", left: "50%" }}
+                >
+                  secs
+                </div>
+              </div>
+            </div>
 
             <p
               style={{
@@ -33,6 +103,7 @@ const MainPortal = ({ page }) => {
                 fontStyle: "italic",
                 textDecoration: "underline",
               }}
+              className="onhover_pointer"
             >
               Need an extension?
             </p>
@@ -77,6 +148,7 @@ const MainPortal = ({ page }) => {
   return (
     <div
       className={`main_section`} // should we keep this
+      style={{ padding: '25px'}}
     >
       <Header
         displayFaq={null}
