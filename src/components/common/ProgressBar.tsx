@@ -4,11 +4,12 @@ import "../../styles/mainSection.css";
 
 type Props = {
   step: number;
+  totalSteps: number;
   setStep: (currentStep: number) => void;
   setJoined: (joined: boolean) => void;
 };
 
-const ProgressBar = ({ step, setStep, setJoined }: Props) => {
+const ProgressBar = ({ step, totalSteps, setStep, setJoined }: Props) => {
   const handleStepBack = () => {
     if (step !== 1) {
       setStep(step - 1);
@@ -27,10 +28,10 @@ const ProgressBar = ({ step, setStep, setJoined }: Props) => {
       <div className="progress_bar_box">
         <div
           className="progress_bar"
-          style={{ width: `${step * 25}%`, color: "#0A0C0E" }}
+          style={{ width: `${step * (100 / totalSteps)}%`, color: "#0A0C0E" }}
         />
       </div>
-      <span className="span_progress">{`${step}/4`}</span>
+      <span className="span_progress">{`${step}/${totalSteps}`}</span>
     </div>
   );
 };
