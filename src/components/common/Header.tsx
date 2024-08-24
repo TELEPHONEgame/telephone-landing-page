@@ -4,8 +4,9 @@ import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 
 import { IoMenu } from "react-icons/io5";
+import { FaArrowLeft } from "react-icons/fa";
 
-const Header = ({ displayFaq, setDisplayFaq, step }) => {
+const Header = ({ displayFaq, setDisplayFaq, step, page, task, setTask }) => {
   const [displayDropdown, setDisplayDropdown] = useState(false);
 
   const items: MenuProps["items"] = [
@@ -43,10 +44,35 @@ const Header = ({ displayFaq, setDisplayFaq, step }) => {
       key: "2",
     },
   ];
-  console.log("FINAL sssss--", step);
+  console.log("HEADER step--", step);
+  console.log("HEADER page--", page);
+
+  const getHeaderClasses = () => {
+    let headerClasses = "header ";
+    if (step === 5) {
+      headerClasses += "final_card_header";
+    }
+    if (!step) {
+      console.log("add header PORTAL classes");
+    }
+
+    // console.log("headerClasses--", headerClasses);
+    return headerClasses;
+  };
+
+  const headerClasses = getHeaderClasses();
+
   return (
-    <header className={`header ${step === 5 ? "final_card_header" : ""}`}>
-      <span className="main_text">TELEPHONE</span>
+    <header className={headerClasses}>
+      {task !== 0 ? (
+        <FaArrowLeft
+          onClick={() => setTask(0)}
+          className="arrow_icon_portal"
+        />
+      ) : null}
+      <span className="main_text">
+        {page === "portal" ? "TELEPHONE: Artist Portal" : "TELEPHONE"}
+      </span>
       <div
         className="ham_menu"
         onClick={() => setDisplayDropdown(!displayDropdown)}
