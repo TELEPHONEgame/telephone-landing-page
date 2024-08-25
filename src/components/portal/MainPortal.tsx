@@ -11,7 +11,7 @@ const MainPortal = ({ page }) => {
   const [userName, setUserName] = useState("");
   const [countdown, setCountdown] = useState(null);
   const [task, setTask] = useState(0);
-  console.log("MainPortal countdown--", countdown);
+  // console.log("MainPortal countdown--", countdown);
 
   useEffect(() => {
     console.log("Set username and countdown...");
