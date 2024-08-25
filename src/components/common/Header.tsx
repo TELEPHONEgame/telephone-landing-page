@@ -44,8 +44,8 @@ const Header = ({ displayFaq, setDisplayFaq, step, page, task, setTask }) => {
       key: "2",
     },
   ];
-  console.log("HEADER step--", step);
-  console.log("HEADER page--", page);
+  // console.log("HEADER step--", step);
+  // console.log("HEADER page--", page);
 
   const getHeaderClasses = () => {
     let headerClasses = "header ";
@@ -53,7 +53,7 @@ const Header = ({ displayFaq, setDisplayFaq, step, page, task, setTask }) => {
       headerClasses += "final_card_header";
     }
     if (!step) {
-      console.log("add header PORTAL classes");
+      // console.log("add header PORTAL classes");
     }
 
     // console.log("headerClasses--", headerClasses);

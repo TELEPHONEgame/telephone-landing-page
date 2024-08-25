@@ -9,13 +9,50 @@ import "../../styles/mainPortal.css";
 
 const MainPortal = ({ page }) => {
   const [userName, setUserName] = useState("");
-  const [countdown, setCountdown] = useState("");
+  const [countdown, setCountdown] = useState(null);
   const [task, setTask] = useState(0);
-  console.log("MainPortal page--", page);
+  console.log("MainPortal countdown--", countdown);
 
   useEffect(() => {
     console.log("Set username and countdown...");
-    setUserName("User");
+    const data = {
+      id: 629,
+      first_name: "Benjamin",
+      last_name: "Sarsgard",
+      accepted: "2024-09-25T13:39:18Z",
+    };
+    const userName = data.first_name + " " + data.last_name;
+    setUserName(userName);
+
+    const interval = setInterval(() => {
+      // Target UTC datetime string
+      const targetDateTime: string = data.accepted;
+      // Parse the target datetime string into a Date object
+      const targetDate: Date = new Date(targetDateTime);
+      // Get the current time
+      const now: Date = new Date();
+      // Calculate the difference in milliseconds
+      const differenceInMs: number = targetDate.getTime() - now.getTime();
+      // Calculate the difference in days, hours, minutes, and seconds
+      const days: number = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+      const hours: number = Math.floor(
+        (differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes: number = Math.floor(
+        (differenceInMs % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const seconds: number = Math.floor((differenceInMs % (1000 * 60)) / 1000);
+      const countdownObj = {
+        days: days,
+        hours: hours,
+        mins: minutes,
+        secs: seconds,
+      };
+
+      setCountdown(countdownObj);
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const renderWelcomePage = () => {
@@ -26,7 +63,7 @@ const MainPortal = ({ page }) => {
           <div className="inner_box">
             <p style={{ fontSize: "14px" }}>Your submission is due in:</p>
 
-            <div className="square_grid" style={{ padding: '10px'}}>
+            <div className="square_grid">
               <div
                 className="grid_item"
                 // style={{ position: "relative" }}
@@ -35,15 +72,18 @@ const MainPortal = ({ page }) => {
                   className="grid_child"
                   // style={{ position: "absolute", top: "30%", left: "30%" }}
                 >
-                  06
+                  {countdown ? countdown.days : null}
                 </div>
                 <div
                   className="grid_child"
                   // style={{ position: "absolute", top: "60%", left: "50%" }}
                 >
                   days
-                </div> 
+                </div>
               </div>
+
+              <div className="grid_separator">:</div>
+
               <div
                 className="grid_item"
                 // style={{ position: "relative" }}
@@ -52,7 +92,7 @@ const MainPortal = ({ page }) => {
                   className="grid_child"
                   // style={{ position: "absolute", top: "30%", left: "50%" }}
                 >
-                  05
+                  {countdown ? countdown.hours : null}
                 </div>
                 <div
                   className="grid_child"
@@ -61,6 +101,7 @@ const MainPortal = ({ page }) => {
                   hours
                 </div>
               </div>
+              <div className="grid_separator">:</div>
               <div
                 className="grid_item"
                 // style={{ position: "relative" }}
@@ -69,7 +110,7 @@ const MainPortal = ({ page }) => {
                   className="grid_child"
                   // style={{ position: "absolute", top: "30%", left: "50%" }}
                 >
-                  11
+                  {countdown ? countdown.mins : null}
                 </div>
                 <div
                   className="grid_child"
@@ -78,6 +119,7 @@ const MainPortal = ({ page }) => {
                   mins
                 </div>
               </div>
+              <div className="grid_separator">:</div>
               <div
                 className="grid_item"
                 // style={{ position: "relative" }}
@@ -86,7 +128,7 @@ const MainPortal = ({ page }) => {
                   className="grid_child"
                   // style={{ position: "absolute", top: "30%", left: "50%" }}
                 >
-                  43
+                  {countdown ? countdown.secs : null}
                 </div>
                 <div
                   className="grid_child"
@@ -148,7 +190,7 @@ const MainPortal = ({ page }) => {
   return (
     <div
       className={`main_section`} // should we keep this
-      style={{ padding: '25px'}}
+      style={{ padding: "25px" }}
     >
       <Header
         displayFaq={null}
