@@ -5,7 +5,7 @@ p {
 }
 
 .header {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .onhover_pointer:hover {

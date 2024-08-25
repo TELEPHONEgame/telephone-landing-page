@@ -151,7 +151,7 @@ const MainPortal = ({ page }) => {
             </p>
           </div>
         </div>
-        <div>
+        <div style={{ paddingBottom: '15%'}}>
           <div style={{ fontSize: "32px" }}>Tasks:</div>
           <div className="inner_box">
             <p style={{ fontSize: "14px" }}>
