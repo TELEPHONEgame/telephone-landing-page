@@ -65,12 +65,12 @@ const Header = ({ displayFaq, setDisplayFaq, step, page, task, setTask }) => {
   return (
     <header className={headerClasses}>
       {task !== 0 ? (
-        <FaArrowLeft
-          onClick={() => setTask(0)}
-          className="arrow_icon_portal"
-        />
+        <FaArrowLeft onClick={() => setTask(0)} className="arrow_icon_portal" />
       ) : null}
-      <span className="main_text">
+      <span
+        className="main_text"
+        style={{ fontStyle: "normal", overflow: "hidden" }}
+      >
         {page === "portal" ? "TELEPHONE: Artist Portal" : "TELEPHONE"}
       </span>
       <div

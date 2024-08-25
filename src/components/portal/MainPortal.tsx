@@ -4,7 +4,6 @@ import Header from "../common/Header";
 import ArtistPrompt from "./ArtistPrompt";
 import UploadArtwork from "./UploadArtwork";
 import ArtworkInfo from "./ArtworkInfo";
-// import ProgressBar from "../common/ProgressBar";
 import "../../styles/mainPortal.css";
 
 const MainPortal = ({ page }) => {
@@ -14,7 +13,6 @@ const MainPortal = ({ page }) => {
   // console.log("MainPortal countdown--", countdown);
 
   useEffect(() => {
-    console.log("Set username and countdown...");
     const data = {
       id: 629,
       first_name: "Benjamin",
@@ -143,11 +141,13 @@ const MainPortal = ({ page }) => {
               style={{
                 fontSize: "14px",
                 fontStyle: "italic",
-                textDecoration: "underline",
+                // textDecoration: "underline",
               }}
               className="onhover_pointer"
             >
-              Need an extension?
+              <a href="" target="_blank">
+                Need an extension?
+              </a>
             </p>
           </div>
         </div>
