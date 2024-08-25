@@ -63,7 +63,7 @@ p {
 .grid_separator {
   font-size: 22px;
   width: 66px;
-  border: 1px solid #79747E;
+  /* border: 1px solid #79747E; */
 }
 
 .grid_item {
