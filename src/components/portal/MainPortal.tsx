@@ -4,138 +4,60 @@ import Header from "../common/Header";
 import ArtistPrompt from "./ArtistPrompt";
 import UploadArtwork from "./UploadArtwork";
 import ArtworkInfo from "./ArtworkInfo";
+import CountdownTimer from "./CountdownTimer";
 import "../../styles/mainPortal.css";
+import { Artist } from "./types";
+import { Countdown } from "./types";
 
 const MainPortal = ({ page }) => {
   const [userName, setUserName] = useState("");
-  const [countdown, setCountdown] = useState(null);
+  const [artist, setArtist] = useState<Artist | null>(null);
   const [task, setTask] = useState(0);
   // console.log("MainPortal countdown--", countdown);
 
   useEffect(() => {
-    const data = {
-      id: 629,
-      first_name: "Benjamin",
-      last_name: "Sarsgard",
-      accepted: "2024-09-25T13:39:18Z",
+    console.log('hihihihi')
+    const server_url = window.location.hostname === 'localhost' ? 'http://localhost:8000/' : 'https://telephonegame.art/';
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get("token");
+    const headers = {
+        'Content-Type': 'application/json',
     };
-    const userName = data.first_name + " " + data.last_name;
-    setUserName(userName);
-
-    const interval = setInterval(() => {
-      // Target UTC datetime string
-      const targetDateTime: string = data.accepted;
-      // Parse the target datetime string into a Date object
-      const targetDate: Date = new Date(targetDateTime);
-      // Get the current time
-      const now: Date = new Date();
-      // Calculate the difference in milliseconds
-      const differenceInMs: number = targetDate.getTime() - now.getTime();
-      // Calculate the difference in days, hours, minutes, and seconds
-      const days: number = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
-      const hours: number = Math.floor(
-        (differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes: number = Math.floor(
-        (differenceInMs % (1000 * 60 * 60)) / (1000 * 60)
-      );
-      const seconds: number = Math.floor((differenceInMs % (1000 * 60)) / 1000);
-      const countdownObj = {
-        days: days,
-        hours: hours,
-        mins: minutes,
-        secs: seconds,
-      };
-
-      setCountdown(countdownObj);
-    }, 1000);
-
-    return () => clearInterval(interval);
+    if (token) {
+        headers['Authorization'] = `Token ${token}`;
+    }
+    fetch(`${server_url}api/artists/me/`, {
+        method: 'GET',
+        headers: headers,
+        credentials: 'include', // This sends cookies with the request
+        })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();  // Parse JSON response
+      })
+      .then((data: Artist) => {
+        setArtist(data);  // Update state with the fetched artist data
+      })
+      .catch((error) => {
+        console.error('Error fetching artist data:', error);
+      });
   }, []);
+
+  useEffect(() => {
+      if (artist) {
+          const userName = artist.first_name + " " + artist.last_name;
+          setUserName(userName);
+      }
+  }, [artist]);
 
   const renderWelcomePage = () => {
     return (
       <>
         <div className="main_portal_box">
           <div style={{ fontSize: "32px" }}>Welcome {userName}!</div>
-          <div className="inner_box">
-            <p style={{ fontSize: "14px" }}>Your submission is due in:</p>
-
-            <div className="square_grid">
-              <div
-                className="grid_item"
-                // style={{ position: "relative" }}
-              >
-                <div
-                  className="grid_child"
-                  // style={{ position: "absolute", top: "30%", left: "30%" }}
-                >
-                  {countdown ? countdown.days : null}
-                </div>
-                <div
-                  className="grid_child"
-                  // style={{ position: "absolute", top: "60%", left: "50%" }}
-                >
-                  days
-                </div>
-              </div>
-
-              <div className="grid_separator">:</div>
-
-              <div
-                className="grid_item"
-                // style={{ position: "relative" }}
-              >
-                <div
-                  className="grid_child"
-                  // style={{ position: "absolute", top: "30%", left: "50%" }}
-                >
-                  {countdown ? countdown.hours : null}
-                </div>
-                <div
-                  className="grid_child"
-                  // style={{ position: "absolute", top: "60%", left: "50%" }}
-                >
-                  hours
-                </div>
-              </div>
-              <div className="grid_separator">:</div>
-              <div
-                className="grid_item"
-                // style={{ position: "relative" }}
-              >
-                <div
-                  className="grid_child"
-                  // style={{ position: "absolute", top: "30%", left: "50%" }}
-                >
-                  {countdown ? countdown.mins : null}
-                </div>
-                <div
-                  className="grid_child"
-                  // style={{ position: "absolute", top: "60%", left: "50%" }}
-                >
-                  mins
-                </div>
-              </div>
-              <div className="grid_separator">:</div>
-              <div
-                className="grid_item"
-                // style={{ position: "relative" }}
-              >
-                <div
-                  className="grid_child"
-                  // style={{ position: "absolute", top: "30%", left: "50%" }}
-                >
-                  {countdown ? countdown.secs : null}
-                </div>
-                <div
-                  className="grid_child"
-                  // style={{ position: "absolute", top: "60%", left: "50%" }}
-                >
-                  secs
-                </div>
-              </div>
-            </div>
+            <CountdownTimer artist={artist} />
 
             <p
               style={{
@@ -149,7 +71,6 @@ const MainPortal = ({ page }) => {
                 Need an extension?
               </a>
             </p>
-          </div>
         </div>
         <div
         // style={{ paddingBottom: '15%'}}
@@ -203,7 +124,7 @@ const MainPortal = ({ page }) => {
         setTask={setTask}
       />
       {task === 0 ? renderWelcomePage() : null}
-      {task === 1 && <ArtistPrompt />}
+      {task === 1 && (<ArtistPrompt artist={artist} />)}
       {task === 2 && <UploadArtwork />}
       {task === 3 && <ArtworkInfo />}
     </div>
