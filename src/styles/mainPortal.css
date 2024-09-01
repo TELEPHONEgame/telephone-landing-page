@@ -113,8 +113,12 @@ p {
 .prompt_grid_item {
   height: 20vw;
   width: 20vw;
-  background-color: hsl(0, 0%, 85%);
+  background-color: hsl(0, 0%, 100%);
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid hsl(0, 0%, 0%);
 }
 
 .grid_img {

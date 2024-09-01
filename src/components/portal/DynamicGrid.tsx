@@ -29,7 +29,7 @@ const DynamicGrid = ({ gridElements }) => {
           );
         } else if (elem.type === "audio") {
           content = (
-            <audio controls src={elem.file}></audio>
+            <audio controls src={elem.file} style={{ width: "20vw" }}></audio>
           );
         }
 
