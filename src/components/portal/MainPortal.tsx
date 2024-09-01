@@ -17,6 +17,45 @@ const MainPortal = ({ page }) => {
 
   useEffect(() => {
     console.log('hihihihi')
+    if (window.location.hostname === '127.0.0.1') {
+        setArtist({
+            "id": 629,
+            "first_name": "Benjamin",
+            "last_name": "Sarsgard",
+            "accepted": "2024-08-25T13:39:18Z",
+            "rejected": null,
+            "assigned": "2024-08-29T14:02:41.428999Z",
+            "due": "2024-09-12T00:00:00Z",
+            "completed": null,
+            "parent": {
+                "id": 471,
+                "first_name": "Amanda",
+                "last_name": "Manitach",
+                "accepted": "2024-08-08T06:52:26Z",
+                "rejected": null,
+                "assigned": null,
+                "due": null,
+                "completed": "2024-08-08T10:44:57Z",
+                "parent": null,
+                "submissions": [
+                    {
+                        "id": 15,
+                        "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/Battle-Furious.mp3"
+                    },
+                    {
+                        "id": 16,
+                        "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/2024-02-07_21-26-29.mp4"
+                    },
+                    {
+                        "id": 17,
+                        "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/Snapshot_2_7-11-2023_11-54_AM.png"
+                    }
+                ]
+            },
+            "submissions": []
+        });
+        return;
+    }
     const server_url = window.location.hostname === 'localhost' ? 'http://localhost:8000/' : 'https://telephonegame.art/';
     const queryParams = new URLSearchParams(window.location.search);
     const token = queryParams.get("token");
