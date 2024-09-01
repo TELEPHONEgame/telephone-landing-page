@@ -55,7 +55,11 @@ const MainPortal = ({ page }) => {
                     }
                 ]
             },
-            "submissions": []
+            "submissions": [{
+                "id": 17,
+                "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/Snapshot_2_7-11-2023_11-54_AM.png",
+                "type": "image"
+            }]
         });
         return;
     }
