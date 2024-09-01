@@ -40,15 +40,18 @@ const MainPortal = ({ page }) => {
                 "submissions": [
                     {
                         "id": 15,
-                        "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/Battle-Furious.mp3"
+                        "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/Battle-Furious.mp3",
+                        "type": "audio"
                     },
                     {
                         "id": 16,
-                        "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/2024-02-07_21-26-29.mp4"
+                        "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/2024-02-07_21-26-29.mp4",
+                        "type": "video"
                     },
                     {
                         "id": 17,
-                        "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/Snapshot_2_7-11-2023_11-54_AM.png"
+                        "file": "https://storage.googleapis.com/telephone-2024.appspot.com/submissions/Snapshot_2_7-11-2023_11-54_AM.png",
+                        "type": "image"
                     }
                 ]
             },
@@ -164,7 +167,7 @@ const MainPortal = ({ page }) => {
       />
       {task === 0 ? renderWelcomePage() : null}
       {task === 1 && (<ArtistPrompt artist={artist} />)}
-      {task === 2 && <UploadArtwork />}
+      {task === 2 && (<UploadArtwork artist={artist} />)}
       {task === 3 && <ArtworkInfo />}
     </div>
   );
