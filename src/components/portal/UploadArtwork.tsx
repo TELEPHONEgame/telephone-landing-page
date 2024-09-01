@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import DynamicGrid from "./DynamicGrid";
 
 import "../../styles/mainPortal.css";
 
@@ -92,6 +93,7 @@ const UploadArtwork = ({artist}) => {
           Upload your artwork in 1-5 files or links. Feel free to include detail
           shots when uploading photographs.
         </p>
+        <DynamicGrid gridElements={artist.submissions} />
         <form>
           <input
             type="file"
