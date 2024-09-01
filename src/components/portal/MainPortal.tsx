@@ -16,7 +16,7 @@ const MainPortal = ({ page }) => {
   // console.log("MainPortal countdown--", countdown);
 
   useEffect(() => {
-    console.log('hihihihi')
+    // console.log('hihihihi')
     if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
         setArtist({
             "id": 629,

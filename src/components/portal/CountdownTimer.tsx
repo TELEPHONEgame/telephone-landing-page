@@ -3,7 +3,7 @@ import { Countdown } from "./types";
 
 
 const CountdownTimer = ({artist}) => {
-    console.log("countdown page--");
+    // console.log("countdown page--");
     const [countdown, setCountdown] = useState<Countdown | null>(null);
 
     useEffect(() => {

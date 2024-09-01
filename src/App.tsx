@@ -26,10 +26,6 @@ function App() {
     if (path.substring(0, 7) == "/portal") setPage("portal");
   }, []);
 
-  useEffect(() => {
-    console.log('this also')
-  }, []);
-
   return (
     <div className={`App ${step === 5 && page !== "faq" ? "final_card" : ""}`}>
       <ConfigProvider

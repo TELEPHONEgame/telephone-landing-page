@@ -114,6 +114,7 @@ p {
   height: 20vw;
   width: 20vw;
   background-color: hsl(0, 0%, 85%);
+  overflow: hidden;
 }
 
 .grid_img {
