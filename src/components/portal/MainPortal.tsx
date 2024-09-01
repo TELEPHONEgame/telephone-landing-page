@@ -17,7 +17,7 @@ const MainPortal = ({ page }) => {
 
   useEffect(() => {
     console.log('hihihihi')
-    if (window.location.hostname === '127.0.0.1') {
+    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
         setArtist({
             "id": 629,
             "first_name": "Benjamin",
