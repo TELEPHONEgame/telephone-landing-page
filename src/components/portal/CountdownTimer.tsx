@@ -6,35 +6,38 @@ const CountdownTimer = ({artist}) => {
     // console.log("countdown page--");
     const [countdown, setCountdown] = useState<Countdown | null>(null);
 
+    const refreshCountdown = () => {
+      // Target UTC datetime string
+      const targetDateTime: string = artist.due;
+      // Parse the target datetime string into a Date object
+      const targetDate: Date = new Date(targetDateTime);
+      // Get the current time
+      const now: Date = new Date();
+      // Calculate the difference in milliseconds
+      const differenceInMs: number = targetDate.getTime() - now.getTime();
+      // Calculate the difference in days, hours, minutes, and seconds
+      const days: number = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+      const hours: number = Math.floor(
+          (differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes: number = Math.floor(
+          (differenceInMs % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const seconds: number = Math.floor((differenceInMs % (1000 * 60)) / 1000);
+      const countdownObj: Countdown = {
+          days: days,
+          hours: hours,
+          mins: minutes,
+          secs: seconds,
+      };
+
+      setCountdown(countdownObj);
+    }
+
     useEffect(() => {
       if (artist) {
-          const interval = setInterval(() => {
-              // Target UTC datetime string
-              const targetDateTime: string = artist.due;
-              // Parse the target datetime string into a Date object
-              const targetDate: Date = new Date(targetDateTime);
-              // Get the current time
-              const now: Date = new Date();
-              // Calculate the difference in milliseconds
-              const differenceInMs: number = targetDate.getTime() - now.getTime();
-              // Calculate the difference in days, hours, minutes, and seconds
-              const days: number = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
-              const hours: number = Math.floor(
-                  (differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-              );
-              const minutes: number = Math.floor(
-                  (differenceInMs % (1000 * 60 * 60)) / (1000 * 60)
-              );
-              const seconds: number = Math.floor((differenceInMs % (1000 * 60)) / 1000);
-              const countdownObj: Countdown = {
-                  days: days,
-                  hours: hours,
-                  mins: minutes,
-                  secs: seconds,
-              };
-
-              setCountdown(countdownObj);
-          }, 1000);
+          refreshCountdown();
+          const interval = setInterval(refreshCountdown, 1000);
 
           return () => clearInterval(interval);
       }
@@ -53,7 +56,7 @@ const CountdownTimer = ({artist}) => {
                   className="grid_child"
                   // style={{ position: "absolute", top: "30%", left: "30%" }}
                 >
-                  {countdown ? countdown.days : null}
+                  {countdown ? countdown.days : "00"}
                 </div>
                 <div
                   className="grid_child"
@@ -73,7 +76,7 @@ const CountdownTimer = ({artist}) => {
                   className="grid_child"
                   // style={{ position: "absolute", top: "30%", left: "50%" }}
                 >
-                  {countdown ? countdown.hours : null}
+                  {countdown ? countdown.hours : "00"}
                 </div>
                 <div
                   className="grid_child"
@@ -91,7 +94,7 @@ const CountdownTimer = ({artist}) => {
                   className="grid_child"
                   // style={{ position: "absolute", top: "30%", left: "50%" }}
                 >
-                  {countdown ? countdown.mins : null}
+                  {countdown ? countdown.mins : "00"}
                 </div>
                 <div
                   className="grid_child"
@@ -109,7 +112,7 @@ const CountdownTimer = ({artist}) => {
                   className="grid_child"
                   // style={{ position: "absolute", top: "30%", left: "50%" }}
                 >
-                  {countdown ? countdown.secs : null}
+                  {countdown ? countdown.secs : "00"}
                 </div>
                 <div
                   className="grid_child"

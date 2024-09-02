@@ -119,6 +119,7 @@ p {
   justify-content: center;
   align-items: center;
   border: 1px solid hsl(0, 0%, 0%);
+  position: relative;
 }
 
 .grid_img {

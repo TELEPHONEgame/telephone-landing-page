@@ -8,16 +8,18 @@ import CountdownTimer from "./CountdownTimer";
 import "../../styles/mainPortal.css";
 import { Artist } from "./types";
 import { Countdown } from "./types";
+import LoadingOverlay from "./LoadingOverlay";
 
 const MainPortal = ({ page }) => {
   const [userName, setUserName] = useState("");
   const [artist, setArtist] = useState<Artist | null>(null);
   const [task, setTask] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   // console.log("MainPortal countdown--", countdown);
 
   useEffect(() => {
     // console.log('hihihihi')
-    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+    if (false && (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')) {
         setArtist({
             "id": 629,
             "first_name": "Benjamin",
@@ -63,6 +65,7 @@ const MainPortal = ({ page }) => {
         });
         return;
     }
+    setIsLoading(true);
     const server_url = window.location.hostname === 'localhost' ? 'http://localhost:8000/' : 'https://telephonegame.art/';
     const queryParams = new URLSearchParams(window.location.search);
     const token = queryParams.get("token");
@@ -93,6 +96,7 @@ const MainPortal = ({ page }) => {
 
   useEffect(() => {
       if (artist) {
+          setIsLoading(false);
           const userName = artist.first_name + " " + artist.last_name;
           setUserName(userName);
       }
@@ -124,7 +128,7 @@ const MainPortal = ({ page }) => {
           <div style={{ fontSize: "32px" }}>Tasks:</div>
           <div className="inner_box">
             <p style={{ fontSize: "14px" }}>
-              There are 3 things that we need from you.
+              There are 2 things that we need from you.
             </p>
             <div>
               <p style={{ fontSize: "14px" }}>Active task(s):</p>
@@ -144,7 +148,7 @@ const MainPortal = ({ page }) => {
               </button>
               <button
                 className="art_form_btn main_portal_btn"
-                style={{ display: "block" }}
+                style={{ display: "none" }}
                 onClick={() => setTask(3)}
               >
                 3. Fill out your artwork information
@@ -152,6 +156,9 @@ const MainPortal = ({ page }) => {
             </div>
           </div>
         </div>
+
+        {/* Loading Overlay */}
+        <LoadingOverlay isLoading={isLoading} />
       </>
     );
   };
