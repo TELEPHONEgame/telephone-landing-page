@@ -1,8 +1,8 @@
 import React from "react";
 
-import Header from "./Header";
+import Header from "../common/Header";
 import SignUpForm from "./SignUpForm";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "../common/ProgressBar";
 import FinalCard from "./FinalCard";
 import { InitialScreen } from "./InitialScreen";
 
@@ -32,7 +32,7 @@ const MainSection = ({
       ) : (
         <>
           {step === 5 ? null : (
-            <ProgressBar step={step} setStep={setStep} setJoined={setJoined} />
+            <ProgressBar step={step} totalSteps={4} setStep={setStep} setJoined={setJoined} />
           )}
 
           {step === 5 ? (

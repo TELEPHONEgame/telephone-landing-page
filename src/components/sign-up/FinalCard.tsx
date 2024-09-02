@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
+import Header from "../common/Header";
 
 import { Alert } from "antd";
 import "../../styles/finalCard.css";
