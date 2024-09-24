@@ -117,8 +117,8 @@ const MainPortal = ({ page }) => {
               }}
               className="onhover_pointer"
             >
-              <a href="" target="_blank">
-                Need an extension?
+              <a href="mailto:telephone.outreach@gmail.com?subject=I need more time" target="_blank">
+                Need more time?
               </a>
             </p>
         </div>
@@ -128,10 +128,9 @@ const MainPortal = ({ page }) => {
           <div style={{ fontSize: "32px" }}>Tasks:</div>
           <div className="inner_box">
             <p style={{ fontSize: "14px" }}>
-              There are 2 things that we need from you.
+              There are 3 things that we need from you.
             </p>
             <div>
-              <p style={{ fontSize: "14px" }}>Active task(s):</p>
               <button
                 className="art_form_btn main_portal_btn"
                 style={{ display: "block" }}
@@ -148,10 +147,10 @@ const MainPortal = ({ page }) => {
               </button>
               <button
                 className="art_form_btn main_portal_btn"
-                style={{ display: "none" }}
+                style={{ display: "block" }}
                 onClick={() => setTask(3)}
               >
-                3. Fill out your artwork information
+                3. Your Artist Bio - Coming Soon
               </button>
             </div>
           </div>

@@ -16,6 +16,7 @@ const DynamicGrid = ({ gridElements }) => {
         console.log("elem--", elem);
         let content;
         if (elem.type === "image") {
+          /*
           if (isModalOpen) {
             content = (
               <div
@@ -57,7 +58,12 @@ const DynamicGrid = ({ gridElements }) => {
               />
             );
           }
+          */
+          content = (
+            <div>Image File</div>
+          )
         } else if (elem.type === "video") {
+          /*
           content = (
             <video controls width="100%">
               <source
@@ -66,13 +72,22 @@ const DynamicGrid = ({ gridElements }) => {
               />
             </video>
           );
+          */
+          content = (
+            <div>Video File</div>
+          )
         } else if (elem.type === "audio") {
+          /*
           content = (
             <audio controls src={elem.file} style={{ width: "20vw" }}></audio>
           );
+          */
+          content = (
+            <div>Audio File</div>
+          )
         } else {
           content = (
-            <div>Unknown file type</div>
+            <div>{elem.file}</div>
           )
         }
         const download = (
@@ -94,11 +109,23 @@ const DynamicGrid = ({ gridElements }) => {
             }}
           >
             {/* Simple Unicode download icon; you can replace this with an actual icon if needed */}
-            ⬇️
+            {/*⬇️*/}
+            Download Art
           </a>
         );
+        const order = elem.order ? (
+          <div
+            className="grid_label"
+            style={{
+              position: 'absolute',
+              top: '10px',
+              left: '10px',
+              padding: '5px',
+            }}
+          >{["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"][elem.order]} {elem.type}</div>
+        ) : "";
 
-        return <div className="prompt_grid_item" key={elem.id}>{content}{download}</div>;
+        return <div className="prompt_grid_item" key={elem.id}>{order}{content}{download}</div>;
       })}
     </div>
   );
