@@ -27,14 +27,44 @@ const UploadArtwork = ({artist}) => {
 
     if (pdfBlob) {
       // Replace with the desired filename
-      const fileName = "generated_document.pdf";
+      const now = Date.now();
+      const fileName = `generated_document_${now}.pdf`;
       
       // Pass the generated PDF blob to the uploadFile method
-      await uploadFile(pdfBlob, fileName);
+      await uploadFile(pdfBlob, fileName, 'application/pdf');
     } else {
       alert("Failed to generate PDF");
     }
   };
+
+  const uploadFromHtml = async () => {
+    const pdfBlob = await generateHtmlBlob(contentRef);
+
+    if (pdfBlob) {
+      // Replace with the desired filename
+      const now = Date.now();
+      const fileName = `generated_document_${now}.html`;
+      
+      // Pass the generated PDF blob to the uploadFile method
+      await uploadFile(pdfBlob, fileName, 'text/html');
+    } else {
+      alert("Failed to generate HTML");
+    }
+  };
+
+  const generateHtmlBlob = async (contentRef: React.RefObject<HTMLDivElement>): Promise<Blob | null> => {
+    const element = contentRef.current;
+    if (!element) return null;
+
+    // Get the HTML content of the referenced element
+    const htmlContent = element.outerHTML;
+
+    // Create a new Blob with the HTML content
+    const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+
+    return htmlBlob;
+  };
+
 
   const generatePdfBlob = async (contentRef: React.RefObject<HTMLDivElement>): Promise<Blob | null> => {
     const element = contentRef.current;
@@ -72,7 +102,7 @@ const UploadArtwork = ({artist}) => {
 
       const fileName = file.name;
 
-      uploadFile(file, fileName);
+      uploadFile(file, fileName, file.type);
   }
 
   /*
@@ -150,7 +180,7 @@ const UploadArtwork = ({artist}) => {
   };
   */
 
-  const uploadFile = async (file: Blob, fileName: string) => {
+  const uploadFile = async (file: Blob, fileName: string, fileType: string) => {
     if (!file) {
       alert('No file to upload');
       return;
@@ -173,7 +203,7 @@ const UploadArtwork = ({artist}) => {
       }
 
       const signedUrlResponse = await fetch(
-        `${server_url}/api/generate-signed-url/?file_name=${fileName}&content_type=application/pdf`,
+        `${server_url}/api/generate-signed-url/?file_name=${fileName}&content_type=${fileType}`,
         {
           method: 'GET',
           headers: headers,
@@ -194,7 +224,7 @@ const UploadArtwork = ({artist}) => {
       const uploadResponse = await fetch(signedUrl, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/pdf',
+          'Content-Type': fileType,
         },
         body: file,
       });
@@ -231,6 +261,7 @@ const UploadArtwork = ({artist}) => {
     // Reset the input and button states
     if (fileInputRef.current) fileInputRef.current!.value = "";
     if (fileInputRef.current) fileInputRef.current!.disabled = false;
+    setEditorData('');
     if (uploadButtonRef.current) uploadButtonRef.current!.disabled = false;
   };
 
@@ -254,20 +285,22 @@ const UploadArtwork = ({artist}) => {
         {useEditor ? (
           <div>
             <p style={{ fontSize: "14px" }}>
-              Alternatively, you can create your content here and upload it.
+              Alternatively, you can create your content here and upload it. <i><b>Warning:</b> this does not auto-save and may lose your work. It is recommended that you edit your work somewhere else and then paste it here to upload.</i>
             </p>
             <CKEditor
               editor={ClassicEditor}
-              data=""
+              data={editorData}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setEditorData(data);
               }}
             />
             <div>
-              <div dangerouslySetInnerHTML={{ __html: editorData }} ref={contentRef} style={{"display": "none"}} />
+              <h2>Preview</h2>
+              <div dangerouslySetInnerHTML={{ __html: editorData }} ref={contentRef} />
             </div>
-            <button onClick={uploadFromPdf} disabled={!editorData} ref={uploadButtonRef}>Upload</button>
+            {/*<button onClick={uploadFromPdf} disabled={!editorData} ref={uploadButtonRef}>Upload as PDF</button>*/}
+            <button onClick={uploadFromHtml} disabled={!editorData} ref={uploadButtonRef}>Upload as HTML</button>
           </div>
         ) : (
           <form>

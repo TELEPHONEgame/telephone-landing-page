@@ -122,7 +122,7 @@ const DynamicGrid = ({ gridElements }) => {
               left: '10px',
               padding: '5px',
             }}
-          >{["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"][elem.order]} {elem.type}</div>
+          >{["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth", "Thirteenth", "Fourteenth", "Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth", "Twentieth"][elem.order]} {elem.type}</div>
         ) : "";
 
         return <div className="prompt_grid_item" key={elem.id}>{order}{content}{download}</div>;
