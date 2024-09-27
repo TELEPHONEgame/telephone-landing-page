@@ -65,7 +65,6 @@ const UploadArtwork = ({artist}) => {
     return htmlBlob;
   };
 
-
   const generatePdfBlob = async (contentRef: React.RefObject<HTMLDivElement>): Promise<Blob | null> => {
     const element = contentRef.current;
     if (!element) return null;
@@ -104,81 +103,6 @@ const UploadArtwork = ({artist}) => {
 
       uploadFile(file, fileName, file.type);
   }
-
-  /*
-      try {
-          //uploadButtonRef.current!.disabled = true;
-          fileInputRef.current!.disabled = true;
-          // Step 1: Get the signed URL for the file upload
-          const queryParams = new URLSearchParams(window.location.search);
-          const token = queryParams.get("token");
-          const headers = {
-              'Content-Type': 'application/json',
-          };
-          if (token) {
-              headers['Authorization'] = `Token ${token}`;
-          }
-          const signedUrlResponse = await fetch(`${server_url}/api/generate-signed-url/?file_name=${fileName}&content_type=${file.type}`,
-            {
-              method: 'GET',
-              headers: headers,
-              credentials: 'include', // This sends cookies with the request
-            }
-          );
-          if (!signedUrlResponse.ok) {
-              throw new Error('Failed to get signed URL');
-          }
-
-          const signedUrlData = await signedUrlResponse.json();
-          const signedUrl = signedUrlData.signed_url;
-
-          uploadStatusDivRef.current!.innerHTML = "UPLOAD IN PROGRESS, please wait ...";
-
-          // Step 2: Upload the file to Google Cloud Storage using the signed URL
-          const uploadResponse = await fetch(signedUrl, {
-              method: 'PUT',
-              headers: {
-                  'Content-Type': file.type,
-                  //'x-goog-acl': 'public-read',
-              },
-              body: file,
-          });
-
-          if (!uploadResponse.ok) {
-              throw new Error('Failed to upload file to Google Cloud Storage');
-          }
-
-          // Step 3: Save the file reference in the Django model using save_file_reference endpoint
-          const saveResponse = await fetch(`${server_url}/api/save-file-reference/`, {
-              method: 'POST',
-              headers: headers,
-              body: JSON.stringify({
-                  file_name: `${fileName}`,
-                  artist_id: artist.id,
-              }),
-          });
-
-          if (!saveResponse.ok) {
-              throw new Error('Failed to save file reference in Django model');
-          }
-
-          const saveData = await saveResponse.json();
-
-          const newSubmissions: any | null = [...(artist.submissions || []), saveData.submission];
-          artist.submissions = newSubmissions; // Update artist.submissions (if needed elsewhere)
-          setSubmissions(newSubmissions); // Update state to trigger re-render
-
-          uploadStatusDivRef.current!.innerHTML = "Upload complete!";
-      } catch (error) {
-          console.error('Error:', error);
-          alert('An error occurred: ' + error.message);
-      }
-      //uploadButtonRef.current!.disabled = false;
-      fileInputRef.current!.value = "";
-      fileInputRef.current!.disabled = false;
-      return false;
-  };
-  */
 
   const uploadFile = async (file: Blob, fileName: string, fileType: string) => {
     if (!file) {
