@@ -427,3 +427,13 @@ html * {
 
 @media screen and (max-height: 879px) {
 }
+
+.progress-bar-container {
+  width: 100%;
+  background-color: lightgray;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: green;
+}

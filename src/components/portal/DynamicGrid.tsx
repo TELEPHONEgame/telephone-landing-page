@@ -87,7 +87,7 @@ const DynamicGrid = ({ gridElements }) => {
           )
         } else {
           content = (
-            <div>{elem.file}</div>
+            <div>{elem.file.split('/').pop() || ''}</div>
           )
         }
         const download = (
@@ -113,7 +113,7 @@ const DynamicGrid = ({ gridElements }) => {
             Download Art
           </a>
         );
-        const order = elem.order ? (
+        const order = elem.order !== null ? (
           <div
             className="grid_label"
             style={{

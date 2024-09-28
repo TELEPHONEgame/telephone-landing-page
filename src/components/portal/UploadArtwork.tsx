@@ -12,6 +12,7 @@ const UploadArtwork = ({artist}) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const uploadButtonRef = useRef<HTMLButtonElement>(null);
   const uploadStatusDivRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const server_url = window.location.hostname === 'localhost' || window.location.hostname == '127.0.0.1' ? 'http://localhost:8000/' : 'https://telephonegame.art/';
   const [submissions, setSubmissions] = useState(null);
   const [editorData, setEditorData] = useState<string>('');
@@ -112,14 +113,13 @@ const UploadArtwork = ({artist}) => {
 
     try {
       // Disable inputs during the upload process
-      // uploadButtonRef.current!.disabled = true;
-      if (fileInputRef.current) fileInputRef.current!.disabled = true;
-      if (uploadButtonRef.current) uploadButtonRef.current!.disabled = false;
+      if (fileInputRef.current) fileInputRef.current.disabled = true;
+      if (uploadButtonRef.current) uploadButtonRef.current.disabled = true;
 
       // Step 1: Get the signed URL for the file upload
       const queryParams = new URLSearchParams(window.location.search);
       const token = queryParams.get("token");
-      const headers = {
+      const headers: Record<string, string> = {
         'Content-Type': 'application/json',
       };
       if (token) {
@@ -142,51 +142,74 @@ const UploadArtwork = ({artist}) => {
       const signedUrlData = await signedUrlResponse.json();
       const signedUrl = signedUrlData.signed_url;
 
-      if (uploadStatusDivRef.current) uploadStatusDivRef.current!.innerHTML = "UPLOAD IN PROGRESS, please wait...";
+      if (uploadStatusDivRef.current) uploadStatusDivRef.current.innerHTML = "UPLOAD IN PROGRESS, please wait...";
+      if (progressBarRef.current) progressBarRef.current.style.width = "0%";  // Reset progress bar
 
-      // Step 2: Upload the PDF to Google Cloud Storage using the signed URL
-      const uploadResponse = await fetch(signedUrl, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': fileType,
-        },
-        body: file,
-      });
+      // Step 2: Upload the file using XMLHttpRequest to track progress
+      const xhr = new XMLHttpRequest();
 
-      if (!uploadResponse.ok) {
-        throw new Error('Failed to upload file to Google Cloud Storage');
-      }
+      xhr.open('PUT', signedUrl, true);
+      xhr.setRequestHeader('Content-Type', fileType);
 
-      // Step 3: Save the file reference in the Django model
-      const saveResponse = await fetch(`${server_url}/api/save-file-reference/`, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({
-          file_name: `${fileName}`,
-          artist_id: artist.id,
-        }),
-      });
+      // Monitor the upload progress
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percentComplete = (event.loaded / event.total) * 100;
+          if (progressBarRef.current) {
+            progressBarRef.current.style.width = percentComplete + "%";
+          }
+          if (uploadStatusDivRef.current) {
+            uploadStatusDivRef.current.innerHTML = `Upload in progress... ${Math.round(percentComplete)}%`;
+          }
+        }
+      };
 
-      if (!saveResponse.ok) {
-        throw new Error('Failed to save file reference in Django model');
-      }
+      xhr.onload = async () => {
+        if (xhr.status === 200) {
+          if (uploadStatusDivRef.current) uploadStatusDivRef.current.innerHTML = "Uploaded successfully, processing ...";
 
-      const saveData = await saveResponse.json();
-      const newSubmissions: any | null = [...(artist.submissions || []), saveData.submission];
-      artist.submissions = newSubmissions;
-      setSubmissions(newSubmissions);
+          // Step 3: Save the file reference in the Django model
+          const saveResponse = await fetch(`${server_url}/api/save-file-reference/`, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+              file_name: fileName,
+              artist_id: artist.id,
+            }),
+          });
 
-      if (uploadStatusDivRef.current) uploadStatusDivRef.current!.innerHTML = "Upload complete!";
-    } catch (error) {
+          if (!saveResponse.ok) {
+            throw new Error('Failed to save file reference in Django model');
+          }
+
+          const saveData = await saveResponse.json();
+          const newSubmissions: any | null = [...(artist.submissions || []), saveData.submission];
+          artist.submissions = newSubmissions;
+          setSubmissions(newSubmissions);
+
+          if (uploadStatusDivRef.current) uploadStatusDivRef.current.innerHTML = "Upload complete!";
+        } else {
+          throw new Error('Failed to upload file to Google Cloud Storage');
+        }
+      };
+
+      xhr.onerror = () => {
+        alert('An error occurred during file upload');
+        if (fileInputRef.current) fileInputRef.current.disabled = false;
+        if (uploadButtonRef.current) uploadButtonRef.current.disabled = false;
+        if (uploadStatusDivRef.current) uploadStatusDivRef.current.innerHTML = "Upload failed!";
+      };
+
+      // Send the file
+      xhr.send(file);
+    } catch (error: any) {
       console.error('Error:', error);
       alert('An error occurred: ' + error.message);
+    } finally {
+      // Reset input and button states
+      if (fileInputRef.current) fileInputRef.current.disabled = false;
+      if (uploadButtonRef.current) uploadButtonRef.current.disabled = false;
     }
-
-    // Reset the input and button states
-    if (fileInputRef.current) fileInputRef.current!.value = "";
-    if (fileInputRef.current) fileInputRef.current!.disabled = false;
-    setEditorData('');
-    if (uploadButtonRef.current) uploadButtonRef.current!.disabled = false;
   };
 
   useEffect(() => {
@@ -202,6 +225,9 @@ const UploadArtwork = ({artist}) => {
           shots when uploading photographs.
         </p>
         <div ref={uploadStatusDivRef}></div>
+        <div className="progress-bar-container">
+          <div className="progress-bar" id="progress-bar" ref={progressBarRef} style={{ width: '0%', height: '20px', backgroundColor: 'green' }}></div>
+        </div>
         <div>
           <input type="radio" id="useUploader" name="uploadMethod" checked={!useEditor} onChange={handleUploadMethodChange} />&nbsp;<label htmlFor="useUploader">Upload Files</label><br/>
           <input type="radio" id="useEditor" name="uploadMethod" checked={useEditor} onChange={handleUploadMethodChange} />&nbsp;<label htmlFor="useEditor">Edit Text In-Browser</label>
