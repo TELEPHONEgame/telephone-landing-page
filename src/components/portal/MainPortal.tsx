@@ -66,7 +66,7 @@ const MainPortal = () => {
         return;
     }
     setIsLoading(true);
-    const server_url = 'https://telephonegame.art/';
+    const server_url = window.location.hostname === 'localhost' ? 'http://localhost:8000/' : 'https://telephonegame.art/';
     const queryParams = new URLSearchParams(window.location.search);
     const token = queryParams.get("token");
     const headers = {
