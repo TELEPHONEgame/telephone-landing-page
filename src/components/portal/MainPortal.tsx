@@ -10,7 +10,7 @@ import { Artist } from "./types";
 import { Countdown } from "./types";
 import LoadingOverlay from "./LoadingOverlay";
 
-const MainPortal = ({ page }) => {
+const MainPortal = () => {
   const [userName, setUserName] = useState("");
   const [artist, setArtist] = useState<Artist | null>(null);
   const [task, setTask] = useState(0);
@@ -66,7 +66,7 @@ const MainPortal = ({ page }) => {
         return;
     }
     setIsLoading(true);
-    const server_url = window.location.hostname === 'localhost' ? 'http://localhost:8000/' : 'https://telephonegame.art/';
+    const server_url = 'https://telephonegame.art/';
     const queryParams = new URLSearchParams(window.location.search);
     const token = queryParams.get("token");
     const headers = {
@@ -168,12 +168,7 @@ const MainPortal = ({ page }) => {
       style={{ padding: "25px" }}
     >
       <Header
-        displayFaq={null}
-        setDisplayFaq={null}
-        step={null}
-        page={page}
-        task={task}
-        setTask={setTask}
+        title="TELEPHONE: Artist Portal"
       />
       {task === 0 ? renderWelcomePage() : null}
       {task === 1 && (<ArtistPrompt artist={artist} />)}

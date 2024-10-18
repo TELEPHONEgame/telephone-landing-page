@@ -4,7 +4,7 @@ import Header from "../common/Header";
 import { Alert } from "antd";
 import "../../styles/finalCard.css";
 
-const FinalCard = ({ displayFaq, setDisplayFaq, step }) => {
+const FinalCard = ({ step }) => {
   const [copySuccess, setCopySuccess] = useState(false);
 
   useEffect(() => {
@@ -29,8 +29,6 @@ const FinalCard = ({ displayFaq, setDisplayFaq, step }) => {
     <div className="main_section_box">
       <div className="final_card_header">
         <Header
-          displayFaq={displayFaq}
-          setDisplayFaq={setDisplayFaq}
           step={step}
         />
         <section className="final_card_info">

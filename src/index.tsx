@@ -2,10 +2,48 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import Faq from "./components/sign-up/Faq";
+import HowToPlay from "./components/HowToPlay";
+import InitialScreen from "./components/sign-up/InitialScreen";
+import SignUp from "./components/sign-up/MainSection";
+import MainPortal from "./components/portal/MainPortal";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <InitialScreen />
+      },
+      {
+        path: "faq",
+        element: <Faq />
+      },
+      {
+        path: "how-to-play",
+        element: <HowToPlay />
+      },
+      {
+        path: "portal",
+        element: <MainPortal />,
+      },
+      {
+        path: "sign-up",
+        element: <SignUp />
+      }
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

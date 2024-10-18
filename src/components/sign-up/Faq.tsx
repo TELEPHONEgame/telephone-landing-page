@@ -2,16 +2,17 @@ import React from "react";
 import { IoMdClose } from "react-icons/io";
 import { EmailAnchor } from "../EmailAnchor";
 import { ScrollButton } from "../ScrollButton";
+import { Link } from "react-router-dom";
 
-const Faq = ({ setDisplayFaq }) => {
+const Faq = () => {
   return (
     <div className="faq">
-      <button
+      <Link
         className="btn_reset close_icon"
-        onClick={() => setDisplayFaq(false)}
+        to="/"
       >
         <IoMdClose size={25} />
-      </button>
+      </Link>
       <h3 className="faq_item">TELEPHONE FAQ</h3>
 
       <p className="faq_item faq_question">Where is my assignment?</p>

@@ -1,14 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { TbWorld } from "react-icons/tb";
+import Header from "../common/Header";
 
-type Props = {
-  setDisplayHowToPlay: (show: boolean) => void;
-  setJoined: (joined: boolean) => void;
-};
-
-export const InitialScreen = ({ setDisplayHowToPlay, setJoined }: Props) => {
+const InitialScreen = () => {
   return (
-    <>
+    <div className="main_section">
+      <Header />
       <div className="message initial_screen">
         A message changing forms as it travels across the world{" "}
         <span className="world_icon">
@@ -25,16 +23,18 @@ export const InitialScreen = ({ setDisplayHowToPlay, setJoined }: Props) => {
         />
       </div>
       <div>
-        <button
-          className="main_btn btn_white"
-          onClick={() => setDisplayHowToPlay(true)}
+        <Link
+          className="btn_reset main_btn btn_white"
+          to="/how-to-play"
         >
           How do I play?
-        </button>
-        <button className="main_btn" onClick={() => setJoined(true)}>
+        </Link>
+        <Link className="btn_reset main_btn" to="/sign-up">
           Join
-        </button>
+        </Link>
       </div>
-    </>
+    </div>
   );
 };
+
+export default InitialScreen;

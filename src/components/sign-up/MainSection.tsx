@@ -1,50 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 
 import Header from "../common/Header";
 import SignUpForm from "./SignUpForm";
 import ProgressBar from "../common/ProgressBar";
 import FinalCard from "./FinalCard";
-import { InitialScreen } from "./InitialScreen";
 
-const MainSection = ({
-  step,
-  setStep,
-  joined,
-  setJoined,
-  displayFaq,
-  setDisplayFaq,
-  setDisplayHowToPlay,
-}) => {
+const MainSection = () => {
+  const [joined, setJoined] = useState(false);
+  const [step, setStep] = useState<number>(1);
+
   return (
     <div className={`main_section ${step === 5 ? "final_card" : ""}`}>
-      {joined === false ? (
-        <Header
-          displayFaq={displayFaq}
-          setDisplayFaq={setDisplayFaq}
+      {step === 5 ? null : (
+        <ProgressBar step={step} totalSteps={4} setStep={setStep} setJoined={setJoined} />
+      )}
+
+      {step === 5 ? (
+        <FinalCard
           step={step}
         />
-      ) : null}
-      {joined === false ? (
-        <InitialScreen
-          setJoined={setJoined}
-          setDisplayHowToPlay={setDisplayHowToPlay}
-        />
       ) : (
-        <>
-          {step === 5 ? null : (
-            <ProgressBar step={step} totalSteps={4} setStep={setStep} setJoined={setJoined} />
-          )}
-
-          {step === 5 ? (
-            <FinalCard
-              displayFaq={displayFaq}
-              setDisplayFaq={setDisplayFaq}
-              step={step}
-            />
-          ) : (
-            <SignUpForm step={step} setStep={setStep} />
-          )}
-        </>
+        <SignUpForm step={step} setStep={setStep} />
       )}
     </div>
   );
