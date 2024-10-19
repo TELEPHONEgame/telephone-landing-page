@@ -1,10 +1,11 @@
 import React from "react";
 
 import { Artist } from "../../types";
+import styles from "./styles.module.scss"
 
 const PortalUpload = ({artist}: {artist: Artist}) => {
   return (
-    <div>
+    <div className={styles.root}>
       UPLOAD
     </div>
   );
