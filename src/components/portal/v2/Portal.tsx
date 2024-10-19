@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Header from "../../common/Header";
 import "../../../styles/mainPortal.css";
 import { Artist } from "./types";
 import LoadingOverlay from "./LoadingOverlay";
@@ -30,7 +29,6 @@ const Portal = () => {
 
   return (
     <div>
-      <Header title="TELEPHONE: Artist Portal" />
       <Routes>
         <Route path="/" element={<PortalLanding artist={artist} />} />
         <Route path="/prompt" element={<PortalPrompt artist={artist} />} />

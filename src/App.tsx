@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
+import TelephoneHeader from "./components/common/v2/TelephoneHeader";
 import MainPortal from "./components/portal/MainPortal";
 import MainSection from "./components/sign-up/MainSection";
 import HowToPlay from "./components/HowToPlay";
@@ -24,6 +25,7 @@ function App() {
           },
         }}
       >
+        <TelephoneHeader />
         <Outlet />
       </ConfigProvider>
     </div>
