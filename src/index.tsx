@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         element: <HowToPlay />
       },
       {
-        path: "portal",
+        path: "portal/*",
         element: <ArtistPortal />
       },
       {
