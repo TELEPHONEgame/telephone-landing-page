@@ -30,11 +30,6 @@ html * {
 }
 
 .App {
-  padding-left: 20%;
-  padding-right: 20%;
-}
-
-.App {
   --desktop-font-size: clamp(0.5rem, 2vw, 1.5rem);
   --mobile-font-size: clamp(1rem, 2.5vw, 2rem);
 }
@@ -303,10 +298,6 @@ html * {
 
 /* mobile devices  */
 @media (max-width: 480px) {
-  .App {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
   .ham_menu {
     right: 15px !important;
   }
