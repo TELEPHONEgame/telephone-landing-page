@@ -6,7 +6,7 @@ import Faq from "./components/sign-up/Faq";
 import HowToPlay from "./components/HowToPlay";
 import InitialScreen from "./components/sign-up/InitialScreen";
 import SignUp from "./components/sign-up/MainSection";
-import MainPortal from "./components/portal/MainPortal";
+import ArtistPortal from "./components/portal/v2/Portal";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: "portal",
-        element: <MainPortal />,
+        element: <ArtistPortal />
       },
       {
         path: "sign-up",
