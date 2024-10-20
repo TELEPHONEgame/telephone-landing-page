@@ -1,0 +1,23 @@
+.root {
+  background-color: #F8F8F8;
+  border: 1px solid #D9D9D9;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.timer {
+  align-items: center;
+  display: flex;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.cell {
+  align-items: center;
+  background-color: #000;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
