@@ -14,6 +14,12 @@
   text-decoration: none;
 }
 
+@mixin list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 @mixin centered-container {
   margin-inline: auto;
   max-width: variables.$desktop-container-max-width;

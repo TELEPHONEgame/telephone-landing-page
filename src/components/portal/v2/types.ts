@@ -1,6 +1,7 @@
 export interface Submission {
   id: number;
   file: string;
+  type: "audio" | "image" | "video" | "file";
 }
 
 export interface Artist {

@@ -1,2 +1,6 @@
-.root {
+@use "../common/styles/mixins";
+@use "../common/styles/variables";
+
+.content {
+  @include mixins.centered-container;
 }

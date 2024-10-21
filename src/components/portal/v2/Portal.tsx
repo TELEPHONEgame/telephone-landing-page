@@ -23,7 +23,7 @@ const Portal = () => {
     });
   }, []);
 
-  if (isLoading) {
+  if (isLoading || !artist) {
     return <LoadingOverlay isLoading={isLoading} />;
   }
 
