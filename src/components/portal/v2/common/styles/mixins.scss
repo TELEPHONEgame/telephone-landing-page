@@ -1,0 +1,65 @@
+@use "sass:meta";
+@use "./variables";
+
+
+@mixin btn-reset {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 100%;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}
+
+@mixin centered-container {
+  margin-inline: auto;
+  max-width: variables.$desktop-container-max-width;
+  width: 95%;
+}
+
+/* Media query mixins */
+
+@mixin _check-breakpoint-args($args...) {
+  @each $arg in $args {
+    @if type-of($arg) != number {
+      @error "breakpoint mixin args should be a number. Received #{$arg}.";
+    }
+  }
+}
+
+@mixin breakpoint-above($min) {
+  @include _check-breakpoint-args($min);
+  @media only screen and (min-width: $min + 1) {
+    @content;
+  }
+}
+
+@mixin breakpoint-below($max) {
+  @include _check-breakpoint-args($max);
+  @media only screen and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin breakpoint-between($min, $max) {
+  @include _check-breakpoint-args($min, $max);
+  @media only screen and (min-width: $min + 1) and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin narrow-or-short-screen {
+  @media only screen and (max-width: variables.$breakpoint-md),
+    (max-height: variables.$breakpoint-short) {
+    @content;
+  }
+}
+
+@mixin wide-and-tall-screen {
+  @media only screen and (min-width: variables.$breakpoint-md + 1) and (min-height: variables.$breakpoint-short + 1) {
+    @content;
+  }
+}

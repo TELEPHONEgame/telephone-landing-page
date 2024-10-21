@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import "../../../styles/mainPortal.css";
+// import "../../../styles/mainPortal.css";
 import { Artist } from "./types";
 import LoadingOverlay from "./LoadingOverlay";
 import { getArtist } from "./api";
