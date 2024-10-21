@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Artist } from "../../types";
-import PortalSectionHeader from "../common/page/header/PortalPageHeader";
+import { Artist } from "@components/portal/v2/types";
+import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 
 const PortalPrompt = ({artist}: {artist: Artist}) => {
   return (

@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import Faq from "./components/sign-up/Faq";
-import HowToPlay from "./components/HowToPlay";
-import InitialScreen from "./components/sign-up/InitialScreen";
-import SignUp from "./components/sign-up/MainSection";
-import ArtistPortal from "./components/portal/v2/Portal";
+import Faq from "@components/sign-up/Faq";
+import HowToPlay from "@components/HowToPlay";
+import InitialScreen from "@components/sign-up/InitialScreen";
+import SignUp from "@components/sign-up/MainSection";
+import ArtistPortal from "@components/portal/v2/Portal";
 import {
   createBrowserRouter,
   RouterProvider,

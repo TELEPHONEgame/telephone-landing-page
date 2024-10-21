@@ -1,15 +1,17 @@
 import React from "react";
 
-import { Artist } from "../../types";
 import styles from "./styles.module.scss"
-import PortalSectionHeader from "../common/page/header/PortalPageHeader";
+import { Artist } from "@components/portal/v2/types";
+import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 
 const PortalUpload = ({artist}: {artist: Artist}) => {
   return (
-    <div className={styles.root}>
+    <>
       <PortalSectionHeader showBackButton={true} title="Artwork Response" />
-      UPLOAD
-    </div>
+      <div className={styles.content}>
+        <button>Upload a file</button>
+      </div>
+    </>
   );
 };
 

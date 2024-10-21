@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Artist } from "../../types";
-import { PortalLink } from "../common/PortalLink";
-import { SubmissionCountdown } from "../countdown/SubmissionCountdown";
+import { Artist } from "@components/portal/v2/types";
+import { PortalLink } from "@components/portal/v2/common/PortalLink";
+import { SubmissionCountdown } from "@components/portal/v2/countdown/SubmissionCountdown";
 import styles from "./styles.module.scss";
-import PortalSectionHeader from "../common/page/header/PortalPageHeader";
+import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 
 const PortalLanding = ({artist}: {artist: Artist}) => {
   return (

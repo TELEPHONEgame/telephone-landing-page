@@ -1,8 +1,6 @@
 import React from "react";
 
-import { Artist } from "../../../types";
 import styles from "./styles.module.scss";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface Props {

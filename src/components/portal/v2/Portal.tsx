@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 // import "../../../styles/mainPortal.css";
-import { Artist } from "./types";
-import LoadingOverlay from "./LoadingOverlay";
-import { getArtist } from "./api";
+import { Artist } from "@components/portal/v2/types";
+import LoadingOverlay from "@components/portal/v2/LoadingOverlay";
+import { getArtist } from "@components/portal/v2/api";
 import { Route, Routes } from "react-router-dom";
-import PortalLanding from "./landing/PortalLanding";
-import PortalPrompt from "./prompt/PortalPrompt";
-import PortalUpload from "./upload/PortalUpload";
+import PortalLanding from "@components/portal/v2/landing/PortalLanding";
+import PortalPrompt from "@components/portal/v2/prompt/PortalPrompt";
+import PortalUpload from "@components/portal/v2/upload/PortalUpload";
 
 const Portal = () => {
   const [artist, setArtist] = useState<Artist | null>(null);

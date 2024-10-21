@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import TelephoneHeader from "./components/common/v2/header/TelephoneHeader";
-import MainPortal from "./components/portal/MainPortal";
-import MainSection from "./components/sign-up/MainSection";
-import HowToPlay from "./components/HowToPlay";
-import Faq from "./components/sign-up/Faq";
+import TelephoneHeader from "@components/common/v2/header/TelephoneHeader";
 import { ConfigProvider } from "antd";
 import "./App.css";
 
