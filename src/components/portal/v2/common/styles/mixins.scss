@@ -17,7 +17,7 @@
 @mixin centered-container {
   margin-inline: auto;
   max-width: variables.$desktop-container-max-width;
-  width: 95%;
+  width: 95vw;
 }
 
 /* Media query mixins */
