@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 import { Submission } from "@components/portal/v2/types";
+import { PortalLink } from "@components/portal/v2/common/PortalLink";
 
 interface PortalSubmissionPreviewProps {
   readonly listIndex: number;
@@ -42,7 +43,7 @@ const PortalSubmissionPreview = ({
           Main Thumbnail
         </button>
         <span className={styles.footerSpacer} />
-        <button className={styles.footerButton}>
+        <PortalLink to={`/portal/response/${submission.id}/edit`} className={styles.footerButton}>
           <svg
             className={styles.footerButtonIcon}
             height="12"
@@ -56,7 +57,7 @@ const PortalSubmissionPreview = ({
             />
           </svg>
           Edit
-        </button>
+        </PortalLink>
         <button className={styles.footerButton}>
           <svg
             className={styles.footerButtonIcon}

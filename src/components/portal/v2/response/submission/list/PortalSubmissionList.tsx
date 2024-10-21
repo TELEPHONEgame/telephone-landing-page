@@ -8,7 +8,7 @@ const PortalSubmissionList = ({ artist }: { artist: Artist }) => {
   return (
     <ol className={styles.root}>
       {artist.submissions.map((submission, index) => (
-        <li className={styles.listItem}>
+        <li className={styles.listItem} key={submission.id}>
           <PortalSubmissionPreview
             listIndex={index}
             showListInfo={artist.submissions.length > 1}

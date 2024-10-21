@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router-dom";
 import PortalLanding from "@components/portal/v2/landing/PortalLanding";
 import PortalPrompt from "@components/portal/v2/prompt/PortalPrompt";
 import PortalResponse from "@components/portal/v2/response/PortalResponse";
+import PortalSubmissionEdit from "@components/portal/v2/response/submission/edit/PortalSubmissionEdit";
 
 const Portal = () => {
   const [artist, setArtist] = useState<Artist | null>(null);
@@ -33,6 +34,14 @@ const Portal = () => {
         <Route path="/" element={<PortalLanding artist={artist} />} />
         <Route path="/prompt" element={<PortalPrompt artist={artist} />} />
         <Route path="/response" element={<PortalResponse artist={artist} />} />
+        <Route
+          path="/response/:submissionId/edit"
+          element={
+            <PortalSubmissionEdit
+              artist={artist}
+            />
+          }
+        />
       </Routes>
     </div>
   );
