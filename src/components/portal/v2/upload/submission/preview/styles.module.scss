@@ -36,7 +36,17 @@ $divider-border: 2px solid rgba(0, 0, 0, 0.1);
   font-size: variables.$fs-11;
   font-weight: 500;
   height: 32px;
-  padding-inline: 12px;
+  padding-inline: 18px;
+}
+
+.footerButtonIcon {
+  fill: variables.$color-gray-blue;
+  margin-inline-end: 10px;
+  margin-inline-start: -4px;
+}
+
+.footerSpacer {
+  margin-inline-start: auto;
 }
 
 .header {
