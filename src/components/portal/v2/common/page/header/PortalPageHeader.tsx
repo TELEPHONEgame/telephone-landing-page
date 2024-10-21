@@ -4,11 +4,12 @@ import styles from "./styles.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface Props {
+  readonly backToPath?: string;
   readonly showBackButton?: boolean;
   readonly title: string;
 }
 
-const PortalPageHeader = ({ showBackButton, title }: Props) => {
+const PortalPageHeader = ({ backToPath, showBackButton, title }: Props) => {
   const navigate = useNavigate();
   const { search } = useLocation();
 
@@ -18,7 +19,7 @@ const PortalPageHeader = ({ showBackButton, title }: Props) => {
         <button
           aria-label="Go back"
           className={styles.backButton}
-          onClick={goToPortalHome}
+          onClick={goBack}
         >
           <svg width="28" height="18" viewBox="0 0 28 18">
             <path
@@ -32,8 +33,9 @@ const PortalPageHeader = ({ showBackButton, title }: Props) => {
     </div>
   );
 
-  function goToPortalHome() {
-    navigate(`/portal${search}`);
+  function goBack() {
+    const path = backToPath ?? "/portal";
+    navigate(`${path}${search}`);
   }
 };
 

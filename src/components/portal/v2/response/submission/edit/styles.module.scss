@@ -3,5 +3,9 @@
 
 
 .root {
+  @include mixins.centered-container;
 }
 
+.editor {
+  @include mixins.shadow-container;
+}

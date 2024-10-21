@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { Artist } from "@components/portal/v2/types";
 import { useParams } from "react-router-dom";
+import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 
 interface PortalSubmissionEditProps {
   readonly artist: Artist;
@@ -18,7 +19,13 @@ const PortalSubmissionEdit = ({ artist }: PortalSubmissionEditProps) => {
     return <div>Not found</div>;
   }
 
-  return <div className={styles.root}>{submission.file}</div>;
+  return (
+    <div className={styles.root}>
+      <PortalSectionHeader backToPath="/portal/response" showBackButton={true} title="Edit Artwork" />
+
+      <div className={styles.editor}>{submission.file}</div>
+    </div>
+  );
 };
 
 export default PortalSubmissionEdit;
