@@ -10,6 +10,10 @@ $divider-border: 2px solid rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
 
+.content {
+  padding-block: 20px;
+}
+
 .footer {
   align-items: center;
   border-top: $divider-border;

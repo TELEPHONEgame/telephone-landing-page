@@ -26,7 +26,7 @@ const PortalSubmissionPreview = ({
           </div>
         ) : null}
       </div>
-      <div>
+      <div className={styles.content}>
         <FilePreview submission={submission} />
       </div>
       <div className={styles.footer}>
