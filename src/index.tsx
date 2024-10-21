@@ -7,10 +7,7 @@ import HowToPlay from "@components/HowToPlay";
 import InitialScreen from "@components/sign-up/InitialScreen";
 import SignUp from "@components/sign-up/MainSection";
 import ArtistPortal from "@components/portal/v2/Portal";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -19,24 +16,24 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <InitialScreen />
+        element: <InitialScreen />,
       },
       {
         path: "faq",
-        element: <Faq />
+        element: <Faq />,
       },
       {
         path: "how-to-play",
-        element: <HowToPlay />
+        element: <HowToPlay />,
       },
       {
         path: "portal/*",
-        element: <ArtistPortal />
+        element: <ArtistPortal />,
       },
       {
         path: "sign-up",
-        element: <SignUp />
-      }
+        element: <SignUp />,
+      },
     ],
   },
 ]);
