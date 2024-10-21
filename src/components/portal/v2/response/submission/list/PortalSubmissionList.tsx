@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 import { Artist } from "@components/portal/v2/types";
-import PortalSubmissionPreview from "@components/portal/v2/upload/submission/preview/PortalSubmissionPreview";
+import PortalSubmissionPreview from "@components/portal/v2/response/submission/preview/PortalSubmissionPreview";
 
 const PortalSubmissionList = ({ artist }: { artist: Artist }) => {
   return (

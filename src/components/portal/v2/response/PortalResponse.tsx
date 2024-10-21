@@ -3,9 +3,9 @@ import React from "react";
 import styles from "./styles.module.scss"
 import { Artist } from "@components/portal/v2/types";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
-import PortalSubmissionList from "@components/portal/v2/upload/submission/list/PortalSubmissionList";
+import PortalSubmissionList from "@components/portal/v2/response/submission/list/PortalSubmissionList";
 
-const PortalUpload = ({artist}: {artist: Artist}) => {
+const PortalResponse = ({artist}: {artist: Artist}) => {
   return (
     <>
       <PortalSectionHeader showBackButton={true} title="Artwork Response" />
@@ -18,4 +18,4 @@ const PortalUpload = ({artist}: {artist: Artist}) => {
   );
 };
 
-export default PortalUpload;
+export default PortalResponse;

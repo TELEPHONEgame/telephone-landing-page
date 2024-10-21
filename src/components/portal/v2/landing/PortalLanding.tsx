@@ -13,7 +13,7 @@ const PortalLanding = ({artist}: {artist: Artist}) => {
       <SubmissionCountdown />
       <h2>Tasks</h2>
       <div><PortalLink to="/portal/prompt">View your artistic prompt</PortalLink></div>
-      <div><PortalLink to="/portal/upload">Upload your artwork response</PortalLink></div>
+      <div><PortalLink to="/portal/response">Upload your artwork response</PortalLink></div>
       <button>Submit</button>
     </div>
   );
