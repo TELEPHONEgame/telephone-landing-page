@@ -23,4 +23,10 @@
     line-height: 12px;
     margin: 20px 0;
   }
+
+  .taskButton {
+    @include mixins.outlined-btn();
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
 }

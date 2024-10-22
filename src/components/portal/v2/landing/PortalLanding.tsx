@@ -15,10 +15,21 @@ const PortalLanding = ({artist}: {artist: Artist}) => {
       <div className={styles.tasksSubtitle}>
         There are 2 things that we need from you.
       </div>
-      <div><PortalLink to="/portal/prompt">View your artistic prompt</PortalLink></div>
-      <div><PortalLink to="/portal/response">Upload your artwork response</PortalLink></div>
+      <TaskButton route="/portal/prompt" label="View your artistic prompt" />
+      <TaskButton route="/portal/response" label="Upload your artwork response" />
       <button>Submit</button>
     </div>
+  );
+};
+
+const TaskButton = ({label, route}: {label: string, route: string}) => {
+  return (
+    <PortalLink to={route} className={styles.taskButton}>
+      {label}
+      <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 8L16 8M16 8L10 2M16 8L10 14" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </PortalLink>
   );
 };
 
