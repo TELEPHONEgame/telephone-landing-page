@@ -50,16 +50,15 @@ const PortalSubmissionEdit = ({ artist }: PortalSubmissionEditProps) => {
         <button className={styles.footerButtonFilled}>Save</button>
       </div>
 
-      {isDiscardConfirmationDialogOpen ? (
-        <PortalConfirmationDialog
-          title="Discard Artwork"
-          body="Are you sure you want to Discard artwork? This action cannot be undone."
-          cancelText="Cancel"
-          confirmText="Discard Artwork"
-          onCancel={closeDiscardDialog}
-          onConfirm={closeDiscardDialog}
-        />
-      ) : null}
+      <PortalConfirmationDialog
+        title="Discard Artwork"
+        body="Are you sure you want to Discard artwork? This action cannot be undone."
+        cancelText="Cancel"
+        confirmText="Discard Artwork"
+        isOpen={isDiscardConfirmationDialogOpen}
+        onCancel={closeDiscardDialog}
+        onConfirm={closeDiscardDialog}
+      />
     </div>
   );
 };

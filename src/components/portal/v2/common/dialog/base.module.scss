@@ -28,3 +28,15 @@
   border-radius: 12px;
   max-width: 95%;
 }
+
+.open {
+  opacity: 1;
+  transition: opacity 200ms, visibility 0ms 0ms;
+  visibility: visible;
+}
+
+.closed {
+  opacity: 0;
+  transition: opacity 200ms, visibility 0ms 200ms;
+  visibility: hidden;
+}

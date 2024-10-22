@@ -6,6 +6,7 @@ interface PortalConfirmationDialogProps {
   readonly body: string;
   readonly cancelText?: string;
   readonly confirmText?: string;
+  readonly isOpen: boolean;
   readonly onCancel: () => void;
   readonly onConfirm: () => void;
   readonly title: string;
@@ -15,12 +16,13 @@ const PortalConfirmationDialog = ({
   body,
   cancelText,
   confirmText,
+  isOpen,
   onCancel,
   onConfirm,
   title,
 }) => {
   return (
-    <PortalDialog>
+    <PortalDialog isOpen={isOpen}>
       <div className={styles.dialogContent}>
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.body}>{body}</p>
