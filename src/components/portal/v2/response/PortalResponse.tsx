@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import styles from "./styles.module.scss";
 import { Artist } from "@components/portal/v2/types";
@@ -23,7 +22,7 @@ const PortalResponse = ({ artist }: { artist: Artist }) => {
             present your work digitally in our online exhibition of TELEPHONE.
             All other usage would require your further permission. You retain
             all other digital and physical rights to your own work. To read more
-            details please <Link to="/faq">click here</Link>.
+            details please <a href="/faq" target="_blank">click here</a>.
           </PortalAccordion>
           <PortalAccordion title="Artwork Order and Main Thumbnail">
             After uploading your artwork, it's important to review the order and

@@ -6,6 +6,11 @@
   @include mixins.centered-container;
 }
 
+.accordion {
+  margin-block-end: 32px;
+  @include mixins.centered-container($pad-mobile: true);
+}
+
 .editor {
   @include mixins.shadow-container;
 }

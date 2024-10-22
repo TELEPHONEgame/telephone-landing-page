@@ -5,6 +5,7 @@ import { Artist } from "@components/portal/v2/types";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
 import { useParams } from "react-router-dom";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
+import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 
 interface PortalSubmissionEditProps {
   readonly artist: Artist;
@@ -37,6 +38,18 @@ const PortalSubmissionEdit = ({ artist }: PortalSubmissionEditProps) => {
         showBackButton={true}
         title="Edit Artwork"
       />
+
+      <div className={styles.accordion}>
+        <PortalAccordion title="How do you want your artwork presented?">
+          Now that you've imported your artwork, you have the option to provide
+          additional details. Please take a moment to review the{" "}
+          <a href="/faq" target="_blank">
+            Usage and Permissions guidelines
+          </a>{" "}
+          related to your artwork to ensure you understand how it may be used
+          and shared.
+        </PortalAccordion>
+      </div>
 
       <div className={styles.editor}>{submission.file}</div>
 
