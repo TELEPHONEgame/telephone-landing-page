@@ -24,6 +24,11 @@ const PortalSubmissionEdit = ({ artist }: PortalSubmissionEditProps) => {
       <PortalSectionHeader backToPath="/portal/response" showBackButton={true} title="Edit Artwork" />
 
       <div className={styles.editor}>{submission.file}</div>
+
+      <div className={styles.footer}>
+        <button className={styles.footerButtonOutlined}>Discard</button>
+        <button className={styles.footerButtonFilled}>Save</button>
+      </div>
     </div>
   );
 };

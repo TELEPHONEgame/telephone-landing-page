@@ -9,3 +9,26 @@
 .editor {
   @include mixins.shadow-container;
 }
+
+.footer {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  justify-content: end;
+  margin-top: 36px;
+}
+
+.footerButton {
+  flex: 1 1 50%;
+  max-width: 168px;
+}
+
+.footerButtonFilled {
+  composes: footerButton;
+  @include mixins.filled-btn;
+}
+
+.footerButtonOutlined {
+  composes: footerButton;
+  @include mixins.outlined-btn;
+}

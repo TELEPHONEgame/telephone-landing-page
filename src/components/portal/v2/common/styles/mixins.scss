@@ -14,6 +14,31 @@
   text-decoration: none;
 }
 
+@mixin standard-btn {
+  @include btn-reset;
+  align-items: center;
+  border-radius: 10px;
+  display: flex;
+  font-size: variables.$fs-16;
+  font-weight: 700;
+  height: 48px;
+  justify-content: center;
+  padding-inline: 20px;
+  text-align: center;
+}
+
+@mixin filled-btn {
+  @include standard-btn;
+  background-color: variables.$color-gray-blue;
+  color: variables.$color-white;
+}
+
+@mixin outlined-btn {
+  @include standard-btn;
+  border: 2px solid variables.$color-gray-blue;
+  color: variables.$color-gray-blue;
+}
+
 @mixin list-reset {
   list-style: none;
   margin: 0;
