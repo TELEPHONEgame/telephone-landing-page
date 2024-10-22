@@ -5,6 +5,10 @@
   @include mixins.centered-container;
 }
 
+.accordion {
+  margin-block-end: 32px;
+}
+
 .addButton {
   @include mixins.outlined-btn;
   justify-content: space-between;

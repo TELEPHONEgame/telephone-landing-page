@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 import { Artist } from "@components/portal/v2/types";
+import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 import PortalSubmissionList from "@components/portal/v2/response/submission/list/PortalSubmissionList";
 
@@ -11,6 +12,18 @@ const PortalResponse = ({ artist }: { artist: Artist }) => {
       <PortalSectionHeader showBackButton={true} title="Artwork Response" />
 
       <div className={styles.content}>
+        <div className={styles.accordion}>
+          <PortalAccordion title="Upload your artwork">
+            content
+          </PortalAccordion>
+          <PortalAccordion title="Usage and Permissions">
+            content
+          </PortalAccordion>
+          <PortalAccordion title="Artwork Order and Main Thumbnail">
+            content
+          </PortalAccordion>
+        </div>
+
         <PortalSubmissionList artist={artist} />
 
         <div className={styles.footer}>
