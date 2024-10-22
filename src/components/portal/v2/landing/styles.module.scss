@@ -8,4 +8,19 @@
   h1 {
     text-align: center;
   }
+
+  h2 {
+    color: variables.$color-gray-blue;
+    font-size: variables.$fs-22;
+    font-weight: normal;
+    line-height: 16px;
+    margin-top: 36px;
+  }
+
+  .tasksSubtitle {
+    color: variables.$color-gray-blue;
+    font-size: variables.$fs-16;
+    line-height: 12px;
+    margin: 20px 0;
+  }
 }

@@ -12,6 +12,9 @@ const PortalLanding = ({artist}: {artist: Artist}) => {
       <PortalSectionHeader title="Artist Portal" />
       <SubmissionCountdown artistName={artist.first_name} />
       <h2>Tasks</h2>
+      <div className={styles.tasksSubtitle}>
+        There are 2 things that we need from you.
+      </div>
       <div><PortalLink to="/portal/prompt">View your artistic prompt</PortalLink></div>
       <div><PortalLink to="/portal/response">Upload your artwork response</PortalLink></div>
       <button>Submit</button>
