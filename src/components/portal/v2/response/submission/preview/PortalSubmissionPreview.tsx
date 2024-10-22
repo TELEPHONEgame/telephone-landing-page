@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./styles.module.scss";
 import { Submission } from "@components/portal/v2/types";
 import { PortalLink } from "@components/portal/v2/common/PortalLink";
+import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
 
 interface PortalSubmissionPreviewProps {
   readonly listIndex: number;
@@ -15,6 +16,16 @@ const PortalSubmissionPreview = ({
   showListInfo,
   submission,
 }: PortalSubmissionPreviewProps) => {
+  const [isDiscardConfirmationDialogOpen, setIsDiscardConfirmationDialogOpen] =
+    useState(false);
+  const openDiscardDialog = () => {
+    setIsDiscardConfirmationDialogOpen(true);
+  };
+
+  const closeDiscardDialog = () => {
+    setIsDiscardConfirmationDialogOpen(false);
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.header}>
@@ -42,7 +53,10 @@ const PortalSubmissionPreview = ({
           </svg>
           Main Thumbnail
         </button>
-        <PortalLink to={`/portal/response/${submission.id}/edit`} className={styles.footerButton}>
+        <PortalLink
+          to={`/portal/response/${submission.id}/edit`}
+          className={styles.footerButton}
+        >
           <svg
             className={styles.footerButtonIcon}
             height="12"
@@ -57,7 +71,7 @@ const PortalSubmissionPreview = ({
           </svg>
           Edit
         </PortalLink>
-        <button className={styles.footerButton}>
+        <button className={styles.footerButton} onClick={openDiscardDialog}>
           <svg
             className={styles.footerButtonIcon}
             height="12"
@@ -73,6 +87,18 @@ const PortalSubmissionPreview = ({
           Delete
         </button>
       </div>
+
+
+      {isDiscardConfirmationDialogOpen ? (
+        <PortalConfirmationDialog
+          title="Discard Artwork"
+          body="Are you sure you want to Discard artwork? This action cannot be undone."
+          cancelText="Cancel"
+          confirmText="Discard Artwork"
+          onCancel={closeDiscardDialog}
+          onConfirm={closeDiscardDialog}
+        />
+      ) : null}
     </div>
   );
 };
