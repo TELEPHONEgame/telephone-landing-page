@@ -2,10 +2,10 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 
-export const SubmissionCountdown = () => {
+export const SubmissionCountdown = ({artistName}: {artistName: string}) => {
   return (
     <div className={styles.root}>
-      Your submission is due in:
+      {artistName}, Your submission is due in:
       <div className={styles.timer}>
         <CountdownCell count={1} timeDenomination={"days"} />
         <div className={styles.colon}></div>
