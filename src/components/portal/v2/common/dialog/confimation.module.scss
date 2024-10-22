@@ -1,0 +1,41 @@
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-block-start: 20px;
+}
+
+.body {
+  color: variables.$color-gray-blue;
+  font-size: variables.$fs-16;
+  line-height: 1.25;
+}
+
+.cancelButton,
+.confirmButton {
+  flex: 1 1 calc(50% - 20px);
+  min-width: 190px;
+}
+
+.cancelButton {
+  @include mixins.outlined-btn;
+}
+
+.confirmButton {
+  @include mixins.filled-btn;
+}
+
+.dialogContent {
+  padding: 20px;
+}
+
+.title {
+  color: variables.$color-gray-blue;
+  font-size: variables.$fs-16;
+  font-weight: 700;
+  margin-block: 20px;
+  text-align: center;
+}

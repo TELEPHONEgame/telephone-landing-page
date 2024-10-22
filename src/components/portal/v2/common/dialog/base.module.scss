@@ -1,0 +1,30 @@
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.backdrop,
+.contents {
+  height: 100%;
+  inset: 0;
+  position: fixed;
+  
+}
+
+.backdrop {
+  background-color: rgba(0,0,0,.5);
+  pointer-events: none;;
+  z-index: 5;
+}
+
+.contents {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  z-index: 2000;
+}
+
+.dialog {
+  background-color: variables.$color-white;
+  border-radius: 12px;
+  max-width: 95%;
+}
