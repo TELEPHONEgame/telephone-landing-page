@@ -29,4 +29,11 @@
     justify-content: space-between;
     margin-bottom: 12px;
   }
+
+  .submitButton {
+    @include mixins.filled-btn();
+    margin-left: auto;
+    margin-top: 36px;
+    width: 168px;
+  }
 }

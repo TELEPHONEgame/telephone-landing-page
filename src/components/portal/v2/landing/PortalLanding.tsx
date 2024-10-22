@@ -17,7 +17,7 @@ const PortalLanding = ({artist}: {artist: Artist}) => {
       </div>
       <TaskButton route="/portal/prompt" label="View your artistic prompt" />
       <TaskButton route="/portal/response" label="Upload your artwork response" />
-      <button>Submit</button>
+      <button className={styles.submitButton}>Submit</button>
     </div>
   );
 };
