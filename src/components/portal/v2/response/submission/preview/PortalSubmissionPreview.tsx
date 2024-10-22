@@ -42,7 +42,6 @@ const PortalSubmissionPreview = ({
           </svg>
           Main Thumbnail
         </button>
-        <span className={styles.footerSpacer} />
         <PortalLink to={`/portal/response/${submission.id}/edit`} className={styles.footerButton}>
           <svg
             className={styles.footerButtonIcon}
