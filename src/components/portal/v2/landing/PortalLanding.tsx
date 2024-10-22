@@ -26,8 +26,8 @@ const TaskButton = ({label, route}: {label: string, route: string}) => {
   return (
     <PortalLink to={route} className={styles.taskButton}>
       {label}
-      <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 8L16 8M16 8L10 2M16 8L10 14" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="18" height="16" viewBox="0 0 18 16">
+        <path d="M2 8L16 8M16 8L10 2M16 8L10 14" stroke="black" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     </PortalLink>
   );
