@@ -8,7 +8,7 @@
   grid-template-columns: 40px 1fr 40px;
   padding: 64px 0;
   
-  @include mixins.narrow-or-short-screen {
+  @include mixins.narrow-screen {
     padding: 52px 0;
   }
 }
@@ -27,7 +27,7 @@
   font-size: variables.$fs-32;
   text-align: center;
 
-  @include mixins.narrow-or-short-screen {
+  @include mixins.narrow-screen {
     font-size: 22px;
   }
 }

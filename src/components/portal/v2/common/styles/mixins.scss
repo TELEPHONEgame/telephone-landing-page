@@ -45,17 +45,30 @@
   padding: 0;
 }
 
-@mixin centered-container {
+@mixin centered-container($pad-mobile: false) {
   margin-inline: auto;
   max-width: variables.$desktop-container-max-width;
-  width: 95vw;
+  
+  @include wide-screen {
+    width: 95vw;
+  }
+
+  @if ($pad-mobile) {
+    @include narrow-screen {
+      padding-inline: 20px;
+    }
+  }
 }
 
 @mixin shadow-container {
+  background-color: variables.$color-white;;
   border: 1px solid #d9d9d9;
-  border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  
+  @include wide-screen {
+    border-radius: 8px;
+  }
 }
 
 /* Media query mixins */
@@ -89,15 +102,14 @@
   }
 }
 
-@mixin narrow-or-short-screen {
-  @media only screen and (max-width: variables.$breakpoint-md),
-    (max-height: variables.$breakpoint-short) {
+@mixin narrow-screen {
+  @media only screen and (max-width: variables.$desktop-container-max-width) {
     @content;
   }
 }
 
-@mixin wide-and-tall-screen {
-  @media only screen and (min-width: variables.$breakpoint-md + 1) and (min-height: variables.$breakpoint-short + 1) {
+@mixin wide-screen {
+  @media only screen and (min-width: variables.$desktop-container-max-width + 1) {
     @content;
   }
 }

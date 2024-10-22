@@ -16,6 +16,7 @@
   gap: 20px;
   justify-content: end;
   margin-top: 36px;
+  @include mixins.centered-container(true);
 }
 
 .footerButton {
