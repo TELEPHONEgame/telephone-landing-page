@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import styles from "./styles.module.scss";
 import { Artist } from "@components/portal/v2/types";
@@ -14,13 +15,20 @@ const PortalResponse = ({ artist }: { artist: Artist }) => {
       <div className={styles.content}>
         <div className={styles.accordion}>
           <PortalAccordion title="Upload your artwork">
-            content
+            Upload your artwork, you can upload up to 10 files. Feel free to
+            include detail shots when uploading photographs.
           </PortalAccordion>
           <PortalAccordion title="Usage and Permissions">
-            content
+            By submitting this work, you allow TELEPHONE digital rights to
+            present your work digitally in our online exhibition of TELEPHONE.
+            All other usage would require your further permission. You retain
+            all other digital and physical rights to your own work. To read more
+            details please <Link to="/faq">click here</Link>.
           </PortalAccordion>
           <PortalAccordion title="Artwork Order and Main Thumbnail">
-            content
+            After uploading your artwork, it's important to review the order and
+            select your main thumbnail favorite. You can use the up and down
+            arrows to change the order of your artwork.
           </PortalAccordion>
         </div>
 
