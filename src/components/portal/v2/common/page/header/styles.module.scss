@@ -2,14 +2,14 @@
 @use "../../styles/variables";
 
 .root {
-  @include mixins.centered-container;
   align-items: center;
   display: grid;
   grid-template-columns: 40px 1fr 40px;
-  padding: 64px 0;
+  padding-block: 64px;
+  @include mixins.centered-container($pad-mobile: true);
   
   @include mixins.narrow-screen {
-    padding: 52px 0;
+    padding-block: 52px;
   }
 }
 
