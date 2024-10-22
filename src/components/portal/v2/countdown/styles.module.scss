@@ -1,7 +1,13 @@
+@use "../common/styles/mixins";
+@use "../common/styles/variables";
+
 .root {
   background-color: #F8F8F8;
   border: 1px solid #D9D9D9;
   border-radius: 16px;
+  color: variables.$color-black;
+  font-size: variables.$fs-16;
+  line-height: 20px;
   padding: 20px;
 }
 
@@ -10,14 +16,41 @@
   display: flex;
   margin: 20px 0;
   width: 100%;
+
+  .colon {
+    font-size: variables.$fs-22;
+    margin: 0 6px;
+
+    &::after {
+      content: ":";
+    }
+  }
 }
 
 .cell {
   align-items: center;
-  background-color: #000;
+  background-color: variables.$color-black;
   border-radius: 8px;
-  color: #fff;
+  color: variables.$color-white;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  height: 88px;
+  justify-content: center;
+
+  .value {
+    font-size: variables.$fs-36;
+    line-height: 26px;
+    margin-bottom: 7px;
+  }
+
+  .denomination {
+    font-size: variables.$fs-14;
+    line-height: 10px;
+  }
+}
+
+.extensionButton {
+  @include mixins.filled-btn();
+  width: 100%;
 }

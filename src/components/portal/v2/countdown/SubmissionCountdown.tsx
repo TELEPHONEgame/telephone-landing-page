@@ -7,12 +7,15 @@ export const SubmissionCountdown = () => {
     <div className={styles.root}>
       Your submission is due in:
       <div className={styles.timer}>
-        <CountdownCell count={1} timeDenomination={"days"} />:
-        <CountdownCell count={12} timeDenomination={"hours"} />:
-        <CountdownCell count={2} timeDenomination={"mins"} />:
-        <CountdownCell count={38} timeDenomination={"secs"} />:
+        <CountdownCell count={1} timeDenomination={"days"} />
+        <div className={styles.colon}></div>
+        <CountdownCell count={12} timeDenomination={"hours"} />
+        <div className={styles.colon}></div>
+        <CountdownCell count={2} timeDenomination={"mins"} />
+        <div className={styles.colon}></div>
+        <CountdownCell count={38} timeDenomination={"secs"} />
       </div>
-      <button>
+      <button className={styles.extensionButton}>
         Request an extension
       </button>
     </div>
@@ -27,8 +30,8 @@ const CountdownCell = ({count, timeDenomination}) => {
 
   return (
     <div className={styles.cell}>
-      <div>{addZeroPlaceholder(count)}</div>
-      <div>{timeDenomination}</div>
+      <div className={styles.value}>{addZeroPlaceholder(count)}</div>
+      <div className={styles.denomination}>{timeDenomination}</div>
     </div>
   );
 };

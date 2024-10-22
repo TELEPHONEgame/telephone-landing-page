@@ -1,6 +1,9 @@
+@use "../common/styles/mixins";
+@use "../common/styles/variables";
+
 .root {
   margin: 0 auto;
-  width: 552px;
+  width: variables.$desktop-container-max-width;
 
   h1 {
     text-align: center;
