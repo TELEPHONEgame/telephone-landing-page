@@ -4,3 +4,18 @@
 .content {
   @include mixins.centered-container;
 }
+
+.addButton {
+  @include mixins.outlined-btn;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.addButtonIcon {
+  fill: variables.$color-gray-blue;
+}
+
+.footer {
+  padding-block: 36px;
+  @include mixins.centered-container($pad-mobile: true);
+}
