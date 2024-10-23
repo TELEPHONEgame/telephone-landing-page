@@ -9,7 +9,7 @@ export const PortalLink = ({ children, to, ...props }) => {
   const { search } = useLocation();
 
   return (
-    <Link to={to + search} {...props}>
+    <Link to={to + search} {...props} viewTransition>
       {children}
     </Link>
   );

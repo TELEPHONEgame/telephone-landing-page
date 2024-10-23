@@ -2,11 +2,14 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 import { Artist } from "@components/portal/v2/types";
+import { useArtist } from "@components/portal/v2/Portal";
 import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 import PortalSubmissionList from "@components/portal/v2/response/submission/list/PortalSubmissionList";
 
-const PortalResponse = ({ artist }: { artist: Artist }) => {
+const PortalResponse = () => {
+  const {artist} = useArtist();
+
   return (
     <>
       <PortalSectionHeader showBackButton={true} title="Artwork Response" />

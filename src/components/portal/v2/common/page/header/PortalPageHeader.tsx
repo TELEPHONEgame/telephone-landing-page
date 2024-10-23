@@ -1,7 +1,8 @@
 import React from "react";
 
 import styles from "./styles.module.scss";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { PortalLink } from "@components/portal/v2/common/PortalLink";
 
 interface Props {
   readonly backToPath?: string;
@@ -10,16 +11,15 @@ interface Props {
 }
 
 const PortalPageHeader = ({ backToPath, showBackButton, title }: Props) => {
-  const navigate = useNavigate();
   const { search } = useLocation();
 
   return (
     <div className={styles.root}>
       {showBackButton ? (
-        <button
+        <PortalLink
           aria-label="Go back"
           className={styles.backButton}
-          onClick={goBack}
+          to={getBackToPath()}
         >
           <svg width="28" height="18" viewBox="0 0 28 18">
             <path
@@ -27,15 +27,15 @@ const PortalPageHeader = ({ backToPath, showBackButton, title }: Props) => {
               fill="black"
             />
           </svg>
-        </button>
+        </PortalLink>
       ) : <span />}
       <h1 className={styles.title}>{title}</h1>
     </div>
   );
 
-  function goBack() {
+  function getBackToPath() {
     const path = backToPath ?? "/portal";
-    navigate(`${path}${search}`);
+    return`${path}${search}`;
   }
 };
 

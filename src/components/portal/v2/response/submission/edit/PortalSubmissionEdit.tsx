@@ -2,15 +2,11 @@ import React, { useState } from "react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 
 import styles from "./styles.module.scss";
-import { Artist } from "@components/portal/v2/types";
+import { useArtist } from "@components/portal/v2/Portal";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
 import { useParams } from "react-router-dom";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
-
-interface PortalSubmissionEditProps {
-  readonly artist: Artist;
-}
 
 interface FormData {
   title: string;
@@ -18,7 +14,8 @@ interface FormData {
   dimensions: string;
 }
 
-const PortalSubmissionEdit = ({ artist }: PortalSubmissionEditProps) => {
+const PortalSubmissionEdit = () => {
+  const {artist} = useArtist();
   const { submissionId } = useParams();
   const { register, handleSubmit } = useForm<FormData>();
 

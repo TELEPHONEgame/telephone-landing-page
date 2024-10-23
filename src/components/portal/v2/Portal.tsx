@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-// import "../../../styles/mainPortal.css";
 import { Artist } from "@components/portal/v2/types";
 import LoadingOverlay from "@components/portal/v2/LoadingOverlay";
 import { getArtist } from "@components/portal/v2/api";
-import { Route, Routes } from "react-router-dom";
-import PortalLanding from "@components/portal/v2/landing/PortalLanding";
-import PortalPrompt from "@components/portal/v2/prompt/PortalPrompt";
-import PortalResponse from "@components/portal/v2/response/PortalResponse";
-import PortalSubmissionEdit from "@components/portal/v2/response/submission/edit/PortalSubmissionEdit";
+import { Outlet, useOutletContext } from "react-router-dom";
+
+interface PortalContext {
+  readonly artist: Artist;
+}
 
 const Portal = () => {
   const [artist, setArtist] = useState<Artist | null>(null);
-  const [task, setTask] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -28,23 +26,11 @@ const Portal = () => {
     return <LoadingOverlay isLoading={isLoading} />;
   }
 
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<PortalLanding artist={artist} />} />
-        <Route path="/prompt" element={<PortalPrompt artist={artist} />} />
-        <Route path="/response" element={<PortalResponse artist={artist} />} />
-        <Route
-          path="/response/:submissionId/edit"
-          element={
-            <PortalSubmissionEdit
-              artist={artist}
-            />
-          }
-        />
-      </Routes>
-    </div>
-  );
+  return <Outlet context={{artist} satisfies PortalContext} />;
 };
+
+export function useArtist() {
+  return useOutletContext<PortalContext>();
+}
 
 export default Portal;
