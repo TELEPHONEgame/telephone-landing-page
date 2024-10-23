@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm, UseFormRegisterReturn } from "react-hook-form";
 
 import styles from "./styles.module.scss";
 import { Artist } from "@components/portal/v2/types";
@@ -11,8 +12,16 @@ interface PortalSubmissionEditProps {
   readonly artist: Artist;
 }
 
+interface FormData {
+  title: string;
+  materials: string;
+  dimensions: string;
+}
+
 const PortalSubmissionEdit = ({ artist }: PortalSubmissionEditProps) => {
   const { submissionId } = useParams();
+  const { register, handleSubmit } = useForm<FormData>();
+
   const [isDiscardConfirmationDialogOpen, setIsDiscardConfirmationDialogOpen] =
     useState(false);
   const submission = artist.submissions.find(
@@ -51,7 +60,25 @@ const PortalSubmissionEdit = ({ artist }: PortalSubmissionEditProps) => {
         </PortalAccordion>
       </div>
 
-      <div className={styles.editor}>{submission.file}</div>
+      <div className={styles.editor}>
+        <TextFormField
+          label="Title (optional)"
+          placeholder="Enter artwork title"
+          inputProps={register("title")}
+        />
+        <TextFormField
+          label="Materials (optional)"
+          placeholder="Enter your materials"
+          inputProps={register("materials")}
+        />
+        <TextFormField
+          label="Dimensions (optional)"
+          placeholder="Enter artwork dimensions"
+          inputProps={register("dimensions")}
+        />
+        <hr className={styles.divider} />
+        {submission.file}
+      </div>
 
       <div className={styles.footer}>
         <button
@@ -71,6 +98,35 @@ const PortalSubmissionEdit = ({ artist }: PortalSubmissionEditProps) => {
         isOpen={isDiscardConfirmationDialogOpen}
         onCancel={closeDiscardDialog}
         onConfirm={closeDiscardDialog}
+      />
+    </div>
+  );
+};
+
+interface TextFormFieldProps {
+  readonly inputProps: UseFormRegisterReturn;
+  readonly label: string;
+  readonly placeholder: string;
+}
+
+const TextFormField = ({
+  inputProps,
+  label,
+  placeholder,
+}: TextFormFieldProps) => {
+  const fieldId = `field_${inputProps.name}`;
+
+  return (
+    <div className={styles.formField}>
+      <label className={styles.formFieldLabel} htmlFor={fieldId}>
+        {label}
+      </label>
+      <input
+        className={styles.formFieldInput}
+        id={fieldId}
+        type="text"
+        placeholder={placeholder}
+        {...inputProps}
       />
     </div>
   );

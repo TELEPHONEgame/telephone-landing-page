@@ -11,6 +11,11 @@
   @include mixins.centered-container($pad-mobile: true);
 }
 
+.divider {
+  border-top: 2px solid rgba(0,0,0,.1);
+  margin-block: 36px;
+}
+
 .editor {
   @include mixins.shadow-container;
 }
@@ -37,4 +42,28 @@
 .footerButtonOutlined {
   composes: footerButton;
   @include mixins.outlined-btn;
+}
+
+.formField {
+  + .formField {
+    margin-block-start: 16px;
+  }
+}
+
+.formFieldInput {
+  background-color: #F4FAFF;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  color: variables.$color-black;
+  font-size: 16px;
+  height: 48px;
+  width: 100%;
+}
+
+.formFieldLabel {
+  color: variables.$color-black;
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-block-end: 8px;
 }
