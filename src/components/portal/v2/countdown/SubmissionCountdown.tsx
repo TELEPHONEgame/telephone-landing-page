@@ -1,25 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {Artist, Countdown} from "../../types";
 
 import styles from "./styles.module.scss";
 
-export const SubmissionCountdown = ({artistName}: {artistName: string}) => {
+export const SubmissionCountdown = ({artist}) => {
+  const {due: dueDate, first_name: firstName} = artist;
   return (
     <div className={styles.root}>
-      {artistName}, your submission is due in:
-      <div className={styles.timer}>
-        <CountdownCell count={1} timeDenomination={"days"} />
-        <div className={styles.colon}></div>
-        <CountdownCell count={12} timeDenomination={"hours"} />
-        <div className={styles.colon}></div>
-        <CountdownCell count={2} timeDenomination={"mins"} />
-        <div className={styles.colon}></div>
-        <CountdownCell count={38} timeDenomination={"secs"} />
-      </div>
+      {firstName}, your submission is due in:
+      <CountdownTimer targetDateTime={dueDate} />
       <button className={styles.extensionButton}>
         Request an extension
       </button>
     </div>
   );
+};
+
+const CountdownTimer = ({targetDateTime}: {targetDateTime: string}) => {
+  const [countdown, setCountdown] = useState<Countdown | null>(null);
+
+  const refreshCountdown = () => {
+    const targetMs = new Date(targetDateTime).getTime();
+    const timeLeftMs = targetMs - new Date().getTime();
+
+    if (timeLeftMs > 0) {
+      setCountdown({
+        days: Math.floor(timeLeftMs / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((timeLeftMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        mins: Math.floor((timeLeftMs % (1000 * 60 * 60)) / (1000 * 60)),
+        secs: Math.floor((timeLeftMs % (1000 * 60)) / 1000),
+      });
+      return true;
+    } else {
+      setCountdown({days: 0, hours: 0, mins: 0, secs: 0});
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    refreshCountdown();
+    const interval = setInterval(() => {
+      const shouldContinueTimer = refreshCountdown();
+      if (!shouldContinueTimer) {
+        clearInterval(interval);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [targetDateTime]);
+
+  return (
+    <div className={styles.timer}>
+      <CountdownCell count={countdown?.days ?? 0} timeDenomination={"days"} />
+      <div className={styles.colon}></div>
+      <CountdownCell count={countdown?.hours ?? 0} timeDenomination={"hours"} />
+      <div className={styles.colon}></div>
+      <CountdownCell count={countdown?.mins ?? 0} timeDenomination={"mins"} />
+      <div className={styles.colon}></div>
+      <CountdownCell count={countdown?.secs ?? 0} timeDenomination={"secs"} />
+    </div>
+  )
 };
 
 const CountdownCell = ({count, timeDenomination}) => {
