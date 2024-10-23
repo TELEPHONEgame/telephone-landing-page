@@ -20,7 +20,25 @@
   fill: variables.$color-gray-blue;
 }
 
+.fileLimitWarning {
+  align-items: center;
+  display: flex;
+}
+
+.fileLimitWarningIcon {
+  flex: 0 0 auto;
+  margin-inline-end: 10px;
+}
+
+.fileLimitWarningText {
+  color: rgba(0,0,0,.54);
+  font-size: variables.$fs-16;
+}
+
 .footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   padding-block: 36px;
   @include mixins.centered-container($pad-mobile: true);
 }

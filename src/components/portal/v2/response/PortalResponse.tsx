@@ -22,7 +22,11 @@ const PortalResponse = ({ artist }: { artist: Artist }) => {
             present your work digitally in our online exhibition of TELEPHONE.
             All other usage would require your further permission. You retain
             all other digital and physical rights to your own work. To read more
-            details please <a href="/faq" target="_blank">click here</a>.
+            details please{" "}
+            <a href="/faq" target="_blank">
+              click here
+            </a>
+            .
           </PortalAccordion>
           <PortalAccordion title="Artwork Order and Main Thumbnail">
             After uploading your artwork, it's important to review the order and
@@ -34,20 +38,49 @@ const PortalResponse = ({ artist }: { artist: Artist }) => {
         <PortalSubmissionList artist={artist} />
 
         <div className={styles.footer}>
-          <button className={styles.addButton}>
-            Upload a file
+          <AddButton label="Upload a file" />
+          <AddButton label="Written work" />
+
+          <div className={styles.fileLimitWarning}>
             <svg
-              className={styles.addButtonIcon}
+              className={styles.fileLimitWarningIcon}
               height="20"
               viewBox="0 0 20 20"
               width="20"
             >
-              <path d="M8.66406 11.3346H0.664062V8.66797H8.66406V0.667969H11.3307V8.66797H19.3307V11.3346H11.3307V19.3346H8.66406V11.3346Z" />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 15C9.45 15 9 14.55 9 14V10C9 9.45 9.45 9 10 9C10.55 9 11 9.45 11 10V14C11 14.55 10.55 15 10 15ZM9 7H11V5H9V7Z"
+                fill="#2D4663"
+              />
             </svg>
-          </button>
+            <span className={styles.fileLimitWarningText}>10 file limit</span>
+          </div>
         </div>
       </div>
     </>
+  );
+};
+
+interface AddButtonProps {
+  readonly label: string;
+  readonly onClick?: () => void;
+}
+
+const AddButton = ({label, onClick}: AddButtonProps) => {
+  return (
+    <button className={styles.addButton} onClick={onClick}>
+      {label}
+      <svg
+        className={styles.addButtonIcon}
+        height="20"
+        viewBox="0 0 20 20"
+        width="20"
+      >
+        <path d="M8.66406 11.3346H0.664062V8.66797H8.66406V0.667969H11.3307V8.66797H19.3307V11.3346H11.3307V19.3346H8.66406V11.3346Z" />
+      </svg>
+    </button>
   );
 };
 
