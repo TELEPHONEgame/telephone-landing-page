@@ -1,7 +1,6 @@
 import React from "react";
 
 import styles from "./styles.module.scss";
-import { useLocation } from "react-router-dom";
 import { PortalLink } from "@components/portal/v2/common/PortalLink";
 
 interface Props {
@@ -11,8 +10,6 @@ interface Props {
 }
 
 const PortalPageHeader = ({ backToPath, showBackButton, title }: Props) => {
-  const { search } = useLocation();
-
   return (
     <div className={styles.root}>
       {showBackButton ? (
@@ -34,8 +31,7 @@ const PortalPageHeader = ({ backToPath, showBackButton, title }: Props) => {
   );
 
   function getBackToPath() {
-    const path = backToPath ?? "/portal";
-    return`${path}${search}`;
+    return backToPath ?? "/portal";
   }
 };
 
