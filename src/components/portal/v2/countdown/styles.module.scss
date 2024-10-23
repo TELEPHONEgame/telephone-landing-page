@@ -13,7 +13,8 @@
 
 .timer {
   align-items: center;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr min-content 1fr min-content 1fr;
   margin: 20px 0;
   width: 100%;
 
