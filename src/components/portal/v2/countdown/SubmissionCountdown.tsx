@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from "react";
-import {Artist, Countdown} from "../../types";
+import {Countdown} from "../../types";
 
 import styles from "./styles.module.scss";
 
 export const SubmissionCountdown = ({artist}) => {
   const {due: dueDate, first_name: firstName} = artist;
+  const dueDateMs = new Date(dueDate).getTime();
+
+  const [timeLeftMs, setTimeLeftMs] = useState<number|null>(null);
+
+  useEffect(() => {
+    setTimeLeftMs(calculateTimeLeftMs(dueDateMs));
+    // Every second, recalculate and set time left until due date.
+    const interval = setInterval(() => {
+      const timeLeftMs = calculateTimeLeftMs(dueDateMs);
+      setTimeLeftMs(timeLeftMs);
+      // Stop when time left reaches 0.
+      if (timeLeftMs === 0) {
+        clearInterval(interval);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [dueDateMs]);
+
   return (
     <div className={styles.root}>
       {firstName}, your submission is due in:
-      <CountdownTimer targetDateTime={dueDate} />
+      <TimeLeftDisplay timeLeftMs={timeLeftMs} />
       <button className={styles.extensionButton}>
         Request an extension
       </button>
@@ -16,37 +34,13 @@ export const SubmissionCountdown = ({artist}) => {
   );
 };
 
-const CountdownTimer = ({targetDateTime}: {targetDateTime: string}) => {
-  const [countdown, setCountdown] = useState<Countdown | null>(null);
-
-  const refreshCountdown = () => {
-    const targetMs = new Date(targetDateTime).getTime();
-    const timeLeftMs = targetMs - new Date().getTime();
-
-    if (timeLeftMs > 0) {
-      setCountdown({
-        days: Math.floor(timeLeftMs / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((timeLeftMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        mins: Math.floor((timeLeftMs % (1000 * 60 * 60)) / (1000 * 60)),
-        secs: Math.floor((timeLeftMs % (1000 * 60)) / 1000),
-      });
-      return true;
-    } else {
-      setCountdown({days: 0, hours: 0, mins: 0, secs: 0});
-      return false;
-    }
-  }
-
-  useEffect(() => {
-    refreshCountdown();
-    const interval = setInterval(() => {
-      const shouldContinueTimer = refreshCountdown();
-      if (!shouldContinueTimer) {
-        clearInterval(interval);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [targetDateTime]);
+const TimeLeftDisplay = ({timeLeftMs}: {timeLeftMs: number}) => {
+  const countdown: Countdown = {
+    days: Math.floor(timeLeftMs / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((timeLeftMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+    mins: Math.floor((timeLeftMs % (1000 * 60 * 60)) / (1000 * 60)),
+    secs: Math.floor((timeLeftMs % (1000 * 60)) / 1000),
+  };
 
   return (
     <div className={styles.timer}>
@@ -73,4 +67,10 @@ const CountdownCell = ({count, timeDenomination}) => {
       <div className={styles.denomination}>{timeDenomination}</div>
     </div>
   );
+};
+
+function calculateTimeLeftMs(dueDateMs: number) {
+  const timeLeftMs = dueDateMs - new Date().getTime();
+  // Don't let the time left go negative.
+  return Math.max(timeLeftMs, 0);
 };
