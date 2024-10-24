@@ -10,6 +10,7 @@ import ArtistPortal from "@components/portal/v2/Portal";
 import PortalLanding from "@components/portal/v2/landing/PortalLanding";
 import PortalPrompt from "@components/portal/v2/prompt/PortalPrompt";
 import PortalResponse from "@components/portal/v2/response/PortalResponse";
+import PortalResponseUpload from "@components/portal/v2/response/upload/PortalResponseUpload";
 import PortalSubmissionEdit from "@components/portal/v2/response/submission/edit/PortalSubmissionEdit";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
           {
             path: "response",
             element: <PortalResponse />,
+          },
+          {
+            path: "response/upload/:submissionType",
+            element: <PortalResponseUpload />,
           },
           {
             path: "response/:submissionId/edit",

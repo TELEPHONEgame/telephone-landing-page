@@ -40,6 +40,8 @@ const PortalSubmissionPreview = ({
       await api.deleteSubmission(submission.id);
       await reloadArtist();
     } catch (e) {
+      // TODO: better alerts
+      alert("Delete failed. Please try again.");
     }
 
     setIsDeleting(false);

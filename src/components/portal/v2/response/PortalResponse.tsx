@@ -1,11 +1,11 @@
 import React from "react";
 
 import styles from "./styles.module.scss";
-import { Artist } from "@components/portal/v2/types";
 import { useArtist } from "@components/portal/v2/Portal";
 import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 import PortalSubmissionList from "@components/portal/v2/response/submission/list/PortalSubmissionList";
+import { PortalLink } from "@components/portal/v2/common/PortalLink";
 
 const PortalResponse = () => {
   const {artist} = useArtist();
@@ -41,8 +41,8 @@ const PortalResponse = () => {
         <PortalSubmissionList artist={artist} />
 
         <div className={styles.footer}>
-          <AddButton label="Upload a file" />
-          <AddButton label="Written work" />
+          <AddButton label="Upload a file" submissionType="file" />
+          <AddButton label="Written work" submissionType="text" />
 
           <div className={styles.fileLimitWarning}>
             <svg
@@ -68,12 +68,12 @@ const PortalResponse = () => {
 
 interface AddButtonProps {
   readonly label: string;
-  readonly onClick?: () => void;
+  readonly submissionType: "file"|"text";
 }
 
-const AddButton = ({label, onClick}: AddButtonProps) => {
+const AddButton = ({label, submissionType}: AddButtonProps) => {
   return (
-    <button className={styles.addButton} onClick={onClick}>
+    <PortalLink className={styles.addButton} to={`/portal/response/upload/${submissionType}`}>
       {label}
       <svg
         className={styles.addButtonIcon}
@@ -83,7 +83,7 @@ const AddButton = ({label, onClick}: AddButtonProps) => {
       >
         <path d="M8.66406 11.3346H0.664062V8.66797H8.66406V0.667969H11.3307V8.66797H19.3307V11.3346H11.3307V19.3346H8.66406V11.3346Z" />
       </svg>
-    </button>
+    </PortalLink>
   );
 };
 

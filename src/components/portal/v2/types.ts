@@ -1,22 +1,27 @@
 export interface Submission {
-  id: number;
-  file: string;
-  type: "audio" | "image" | "video" | "file";
+  readonly dimensions: string;
+  readonly id: number;
+  readonly file: string;
+  readonly focal_x: number;
+  readonly focal_y: number;
+  readonly materials: string;
+  readonly title: string;
+  readonly type: "audio" | "image" | "video" | "file";
 }
 
 export interface Artist {
-  id: number;
-  first_name: string;
-  last_name: string;
-  accepted: Date;
-  due: Date;
-  parent: Artist;
-  submissions: Array<Submission>;
+  readonly id: number;
+  readonly first_name: string;
+  readonly last_name: string;
+  readonly accepted: Date;
+  readonly due: Date;
+  readonly parent: Artist;
+  readonly submissions: Array<Submission>;
 }
 
 export interface Countdown {
-  days: number;
-  hours: number;
-  mins: number;
-  secs: number;
+  readonly days: number;
+  readonly hours: number;
+  readonly mins: number;
+  readonly secs: number;
 }
