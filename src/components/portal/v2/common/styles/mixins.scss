@@ -71,6 +71,22 @@
   }
 }
 
+@mixin error-callout {
+  align-items: center;
+  background-color: variables.$color-error;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  font-size: 16px;
+  font-weight: bold; 
+  line-height: 12px;
+  padding: 16px 20px;
+
+  svg {
+    margin-right: 20px;
+  }
+}
+
 /* Media query mixins */
 
 @mixin _check-breakpoint-args($args...) {

@@ -1,7 +1,7 @@
 @use "../common/styles/mixins";
 @use "../common/styles/variables";
 
-.root {
+.content {
   background-color: #F8F8F8;
   border: 1px solid #D9D9D9;
   border-radius: 16px;
@@ -9,6 +9,11 @@
   font-size: variables.$fs-16;
   line-height: 20px;
   padding: 20px;
+}
+
+.errorCallout {
+  @include mixins.error-callout();
+  margin-bottom: 12px;
 }
 
 .timer {
