@@ -1,7 +1,12 @@
 @use "../common/styles/mixins";
 @use "../common/styles/variables";
 
-.content {
+.errorCallout {
+  @include mixins.error-callout();
+  margin-bottom: 12px;
+}
+
+.timer {
   background-color: #F8F8F8;
   border: 1px solid #D9D9D9;
   border-radius: 16px;
@@ -9,14 +14,22 @@
   font-size: variables.$fs-16;
   line-height: 20px;
   padding: 20px;
+
+  &.expired {
+    background-color: rgba(255, 0, 0, 0.2);
+    border-color: variables.$color-error;
+
+    .cell {
+      background-color: variables.$color-error;
+    }
+
+    .colon {
+      color: red;
+    }
+  }
 }
 
-.errorCallout {
-  @include mixins.error-callout();
-  margin-bottom: 12px;
-}
-
-.timer {
+.timeDisplay {
   align-items: center;
   display: grid;
   grid-template-columns: 1fr min-content 1fr min-content 1fr min-content 1fr;

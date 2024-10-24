@@ -34,7 +34,7 @@ export const SubmissionCountdown = ({artist}) => {
 
   return (<>
     {timeLeftMs === 0 ? errorCallout : null}
-    <div className={styles.content}>
+    <div className={`${styles.timer} ${timeLeftMs === 0 ? styles.expired : ''}`}>
       {firstName}, your submission is due in:
       <TimeLeftDisplay timeLeftMs={timeLeftMs} />
       <button className={styles.extensionButton}>
@@ -53,7 +53,7 @@ const TimeLeftDisplay = ({timeLeftMs}: {timeLeftMs: number}) => {
   };
 
   return (
-    <div className={styles.timer}>
+    <div className={styles.timeDisplay}>
       <CountdownCell count={countdown?.days ?? 0} timeDenomination={"days"} />
       <div className={styles.colon}></div>
       <CountdownCell count={countdown?.hours ?? 0} timeDenomination={"hours"} />
