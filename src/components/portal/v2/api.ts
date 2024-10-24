@@ -1,4 +1,5 @@
 import { Artist } from "./types";
+import { Submission } from "@/components/portal/v2/types";
 
 const SERVER_URL = "https://telephonegame.art/";
 
@@ -21,6 +22,21 @@ export async function deleteSubmission(submissionId: number) {
     method: "DELETE",
     headers: getAuthHeaders(),
     credentials: "include", // This sends cookies with the request
+  });
+
+  if (!response.ok) {
+    throw new Error("");
+  }
+
+  return;
+}
+
+export async function updateSubmission(submissionId: number, submission: Submission) {
+  const response = await fetch(`${SERVER_URL}api/submissions/${submissionId}/`, {
+    method: "PATCH",
+    headers: getAuthHeaders(),
+    credentials: "include", // This sends cookies with the request
+    body: JSON.stringify(submission),
   });
 
   if (!response.ok) {

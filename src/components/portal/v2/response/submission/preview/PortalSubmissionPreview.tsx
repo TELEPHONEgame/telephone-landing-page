@@ -51,7 +51,7 @@ const PortalSubmissionPreview = ({
     <div className={styles.root}>
       <div className={styles.header}>
         <span className={styles.ordinal}>{listIndex + 1}</span>
-        <span className={styles.title}>Untitled</span>
+        <span className={styles.title}>{submission.title ? submission.title : "Untitled"}</span>
         {showListInfo ? (
           <div className={styles.sortButtons}>
             <SortButton direction="up" />
