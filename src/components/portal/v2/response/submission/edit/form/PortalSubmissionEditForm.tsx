@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { useForm, UseFormRegisterReturn } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import styles from "./styles.module.scss";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
 import { Submission } from "@/components/portal/v2/types";
+import AudioPreview from "./AudioPreviewField";
+import ImagePreview from "./ImagePreviewField";
+import VideoPreview from "./VideoPreviewField";
+import ImageFocalPointSelector from "./ImageFocalPointSelector";
+import TextFormField from "./TextFormField";
 
 interface FormData {
   title: string;
@@ -34,24 +39,49 @@ const PortalSubmissionEditForm = ({
   return (
     <>
       <div className={styles.editor}>
-        <TextFormField
-          label="Title (optional)"
-          placeholder="Enter artwork title"
-          inputProps={register("title")}
-        />
-        <TextFormField
-          label="Materials (optional)"
-          placeholder="Enter your materials"
-          inputProps={register("materials")}
-        />
-        <TextFormField
-          label="Dimensions (optional)"
-          placeholder="Enter artwork dimensions"
-          inputProps={register("dimensions")}
-        />
-        <hr className={styles.divider} />
-        File: {submission.file}<br />
-        Type: {submission.type}
+        {submission.type === "image" ? (
+          <>
+            <TextFormField
+              label="Title (optional)"
+              placeholder="Enter artwork title"
+              inputProps={register("title")}
+            />
+            <TextFormField
+              label="Materials (optional)"
+              placeholder="Enter your materials"
+              inputProps={register("materials")}
+            />
+            <TextFormField
+              label="Dimensions (optional)"
+              placeholder="Enter artwork dimensions"
+              inputProps={register("dimensions")}
+            />
+            <hr className={styles.divider} />
+            <ImageFocalPointSelector submission={submission} />
+            <hr className={styles.divider} />
+            <ImagePreview submission={submission} />
+          </>
+        ) : submission.type === "audio" ? (
+          <>
+            <TextFormField
+              label="Title (optional)"
+              placeholder="Enter artwork title"
+              inputProps={register("title")}
+            />
+            <hr className={styles.divider} />
+            <AudioPreview submission={submission} />
+          </>
+        ): submission.type === "video" ? (
+          <>
+            <TextFormField
+              label="Title (optional)"
+              placeholder="Enter artwork title"
+              inputProps={register("title")}
+            />
+            <hr className={styles.divider} />
+            <VideoPreview submission={submission} />
+          </>
+        ) : null}
       </div>
 
       <div className={styles.footer}>
@@ -74,35 +104,6 @@ const PortalSubmissionEditForm = ({
         onConfirm={closeDiscardDialog}
       />
     </>
-  );
-};
-
-interface TextFormFieldProps {
-  readonly inputProps: UseFormRegisterReturn;
-  readonly label: string;
-  readonly placeholder: string;
-}
-
-const TextFormField = ({
-  inputProps,
-  label,
-  placeholder,
-}: TextFormFieldProps) => {
-  const fieldId = `field_${inputProps.name}`;
-
-  return (
-    <div className={styles.formField}>
-      <label className={styles.formFieldLabel} htmlFor={fieldId}>
-        {label}
-      </label>
-      <input
-        className={styles.formFieldInput}
-        id={fieldId}
-        type="text"
-        placeholder={placeholder}
-        {...inputProps}
-      />
-    </div>
   );
 };
 

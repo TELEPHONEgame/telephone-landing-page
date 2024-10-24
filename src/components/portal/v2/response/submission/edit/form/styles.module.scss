@@ -16,7 +16,7 @@
   display: flex;
   gap: 20px;
   justify-content: end;
-  margin-top: 36px;
+  padding-block: 36px;
   @include mixins.centered-container(true);
 }
 
@@ -45,7 +45,7 @@
   background-color: #F4FAFF;
   border: 1px solid #D9D9D9;
   border-radius: 4px;
-  color: variables.$color-black;
+  color: variables.$color-gray-blue;
   font-size: 16px;
   height: 48px;
   padding-inline: 18px;
@@ -58,4 +58,10 @@
   font-size: 16px;
   font-weight: 500;
   margin-block-end: 8px;
+}
+
+.formFieldHelpText {
+  color: variables.$color-gray-blue;
+  font-size: 16px;
+  margin-block-start: 16px;
 }
