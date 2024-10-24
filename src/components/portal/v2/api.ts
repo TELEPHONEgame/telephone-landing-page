@@ -1,19 +1,11 @@
 import { Artist } from "./types";
 
-export async function getArtist(): Promise<Artist> {
-  const server_url = "https://telephonegame.art/";
-  const queryParams = new URLSearchParams(window.location.search);
-  const token = queryParams.get("token");
-  const headers = {
-    "Content-Type": "application/json",
-  };
-  if (token) {
-    headers["Authorization"] = `Token ${token}`;
-  }
+const SERVER_URL = "https://telephonegame.art/";
 
-  const response = await fetch(`${server_url}api/artists/me/`, {
+export async function getArtist(): Promise<Artist> {
+  const response = await fetch(`${SERVER_URL}api/artists/me/`, {
     method: "GET",
-    headers: headers,
+    headers: getAuthHeaders(),
     credentials: "include", // This sends cookies with the request
   });
 
@@ -21,5 +13,32 @@ export async function getArtist(): Promise<Artist> {
     throw new Error("");
   }
 
-  return await response.json() as Artist;
+  return (await response.json()) as Artist;
+}
+
+export async function deleteSubmission(submissionId: number) {
+  const response = await fetch(`${SERVER_URL}api/submissions/${submissionId}/`, {
+    method: "DELETE",
+    headers: getAuthHeaders(),
+    credentials: "include", // This sends cookies with the request
+  });
+
+  if (!response.ok) {
+    throw new Error("");
+  }
+
+  return;
+}
+
+function getAuthHeaders(): Record<string, string> {
+  const queryParams = new URLSearchParams(window.location.search);
+  const token = queryParams.get("token");
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  if (token) {
+    headers["Authorization"] = `Token ${token}`;
+  }
+
+  return headers;
 }

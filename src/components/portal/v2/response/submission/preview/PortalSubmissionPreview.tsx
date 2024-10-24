@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 
 import styles from "./styles.module.scss";
+
+import * as api from "@components/portal/v2/api";
+import { useArtist } from "@components/portal/v2/Portal";
 import { Submission } from "@components/portal/v2/types";
 import { PortalLink } from "@components/portal/v2/common/PortalLink";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
+import LoadingOverlay from "@/components/portal/LoadingOverlay";
 
 interface PortalSubmissionPreviewProps {
   readonly listIndex: number;
@@ -16,8 +20,11 @@ const PortalSubmissionPreview = ({
   showListInfo,
   submission,
 }: PortalSubmissionPreviewProps) => {
+  const { reloadArtist } = useArtist();
   const [isDiscardConfirmationDialogOpen, setIsDiscardConfirmationDialogOpen] =
     useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  
   const openDiscardDialog = () => {
     setIsDiscardConfirmationDialogOpen(true);
   };
@@ -26,6 +33,18 @@ const PortalSubmissionPreview = ({
     setIsDiscardConfirmationDialogOpen(false);
   };
 
+  const deleteSubmission = async () => {
+    setIsDeleting(true);
+
+    try {
+      await api.deleteSubmission(submission.id);
+      await reloadArtist();
+    } catch (e) {
+    }
+
+    setIsDeleting(false);
+  }
+  
   return (
     <div className={styles.root}>
       <div className={styles.header}>
@@ -95,8 +114,10 @@ const PortalSubmissionPreview = ({
         confirmText="Discard Artwork"
         isOpen={isDiscardConfirmationDialogOpen}
         onCancel={closeDiscardDialog}
-        onConfirm={closeDiscardDialog}
+        onConfirm={deleteSubmission}
       />
+
+      <LoadingOverlay isLoading={isDeleting} message="Deleting..." />
     </div>
   );
 };

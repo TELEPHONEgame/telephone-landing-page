@@ -7,6 +7,7 @@ import { Outlet, useOutletContext } from "react-router-dom";
 
 interface PortalContext {
   readonly artist: Artist;
+  readonly reloadArtist: () => Promise<Artist>;
 }
 
 const Portal = () => {
@@ -14,19 +15,31 @@ const Portal = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-
-    getArtist().then((artist: Artist) => {
-      setArtist(artist);
-      setIsLoading(false);
-    });
+    loadArtist();
   }, []);
 
-  if (isLoading || !artist) {
-    return <LoadingOverlay isLoading={isLoading} />;
-  }
+  return (
+    <>
+      <LoadingOverlay isLoading={isLoading} />
+      {artist ? (
+        <Outlet
+          context={{ artist, reloadArtist: loadArtist } satisfies PortalContext}
+        />
+      ) : null}
+    </>
+  );
 
-  return <Outlet context={{artist} satisfies PortalContext} />;
+  function loadArtist(): Promise<Artist> {
+    setIsLoading(true);
+
+    return new Promise((resolve) => {
+      getArtist().then((artist: Artist) => {
+        setArtist(artist);
+        setIsLoading(false);
+        resolve(artist);
+      });
+    });
+  }
 };
 
 export function useArtist() {
