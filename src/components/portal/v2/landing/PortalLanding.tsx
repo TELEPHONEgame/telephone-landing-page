@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useArtist } from "@components/portal/v2/Portal";
 import { PortalLink } from "@components/portal/v2/common/PortalLink";
@@ -8,39 +8,84 @@ import PortalSectionHeader from "@components/portal/v2/common/page/header/Portal
 
 const PortalLanding = () => {
   const {artist} = useArtist();
+
   const artistHasUploads = artist.submissions.length > 0;
+  const dueDateMs = new Date(artist.due).getTime();
+
+  const [timeLeftMs, setTimeLeftMs] = useState<number|null>(null);
+  const timesUp = timeLeftMs <= 0;
+
+  useEffect(() => {
+    setTimeLeftMs(calculateTimeLeftMs(dueDateMs));
+    // Every second, recalculate and set time left until due date.
+    const interval = setInterval(() => {
+      const timeLeftMs = calculateTimeLeftMs(dueDateMs);
+      setTimeLeftMs(timeLeftMs);
+      // Stop when time left reaches 0.
+      if (timeLeftMs === 0) {
+        clearInterval(interval);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [dueDateMs]);
 
   return (
     <div className={styles.root}>
       <PortalSectionHeader title="Artist Portal" />
-      <SubmissionCountdown artist={artist} />
+      <SubmissionCountdown firstName={artist.first_name} timeLeftMs={timeLeftMs} />
       <h2>Tasks</h2>
       <div className={styles.tasksSubtitle}>
         There are 2 things that we need from you.
       </div>
-      <TaskButton route="/portal/prompt" label="View your artistic prompt" />
+      <TaskButton 
+        isDisabled={timesUp}
+        label="View your artistic prompt"
+        route="/portal/prompt"
+      />
       <TaskButton
+        doneMessage="Artwork response uploaded"
+        isDisabled={timesUp}
+        isDone={artistHasUploads}
         route="/portal/response"
         label="Upload your artwork response"
-        isDone={artistHasUploads}
-        doneMessage="Artwork response uploaded"
       />
-      <button className={styles.submitButton}>Submit</button>
+      <button
+        className={styles.submitButton}
+        disabled={timesUp}
+      >
+        Submit
+      </button>
     </div>
   );
 };
 
+function calculateTimeLeftMs(dueDateMs: number) {
+  const timeLeftMs = dueDateMs - new Date().getTime();
+  // Don't let the time left go negative.
+  return Math.max(timeLeftMs, 0);
+};
+
 const TaskButton = ({
-  route,
-  label,
-  isDone = false,
   doneMessage = '',
+  isDisabled = false,
+  isDone = false,
+  label,
+  route,
 }: {
-  route: string,
-  label: string,
-  isDone?: boolean,
   doneMessage?: string,
+  isDisabled?: boolean;
+  isDone?: boolean,
+  label: string,
+  route: string,
 }) => {
+  const taskButtonLabel =
+    <>
+      {label}
+      <svg width="18" height="16" viewBox="0 0 18 16">
+        <path d="M2 8L16 8M16 8L10 2M16 8L10 14" stroke="black" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </>
+
   const taskDoneIndicator = 
     <div className={styles.taskDoneIndicator}>
       <div className={styles.doneIcon}>
@@ -51,16 +96,19 @@ const TaskButton = ({
       {doneMessage}
     </div>
 
-  return (
-    <div className={styles.taskContainer}>
+  const task = isDisabled ?
+    <button disabled className={styles.taskButton}>
+      {taskButtonLabel}
+    </button> :
+    <>
       <PortalLink to={route} className={styles.taskButton}>
-        {label}
-        <svg width="18" height="16" viewBox="0 0 18 16">
-          <path d="M2 8L16 8M16 8L10 2M16 8L10 14" stroke="black" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+        {taskButtonLabel}
       </PortalLink>
       {isDone ? taskDoneIndicator : null}
-    </div>
+    </>
+
+  return (
+    <div className={styles.taskContainer}>{task}</div>
   );
 };
 

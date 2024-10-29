@@ -38,6 +38,11 @@
   .taskButton {
     @include mixins.outlined-btn();
     justify-content: space-between;
+    width: 100%;
+
+    &[disabled] svg path {
+      stroke: variables.$color-disabled-button-text;
+    }
   }
   
   .taskDoneIndicator {

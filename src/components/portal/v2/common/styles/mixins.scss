@@ -25,6 +25,13 @@
   justify-content: center;
   padding-inline: 20px;
   text-align: center;
+
+  &[disabled] {
+    background-color: variables.$color-disabled-button;
+    border-color: variables.$color-disabled-button;
+    color: variables.$color-disabled-button-text;
+    pointer-events: none;
+  }
 }
 
 @mixin filled-btn {

@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {Countdown} from "../../types";
 
 import styles from "./styles.module.scss";
 
-export const SubmissionCountdown = ({artist}) => {
-  const {due: dueDate, first_name: firstName} = artist;
-  const dueDateMs = new Date(dueDate).getTime();
-
-  const [timeLeftMs, setTimeLeftMs] = useState<number|null>(null);
-
-  useEffect(() => {
-    setTimeLeftMs(calculateTimeLeftMs(dueDateMs));
-    // Every second, recalculate and set time left until due date.
-    const interval = setInterval(() => {
-      const timeLeftMs = calculateTimeLeftMs(dueDateMs);
-      setTimeLeftMs(timeLeftMs);
-      // Stop when time left reaches 0.
-      if (timeLeftMs === 0) {
-        clearInterval(interval);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [dueDateMs]);
-
+export const SubmissionCountdown = ({
+  firstName,
+  timeLeftMs
+}: {
+  firstName: string,
+  timeLeftMs: number
+}) => {
   const errorCallout = (
     <div className={styles.errorCallout}>
       <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,10 +67,4 @@ const CountdownCell = ({count, timeDenomination}) => {
       <div className={styles.denomination}>{timeDenomination}</div>
     </div>
   );
-};
-
-function calculateTimeLeftMs(dueDateMs: number) {
-  const timeLeftMs = dueDateMs - new Date().getTime();
-  // Don't let the time left go negative.
-  return Math.max(timeLeftMs, 0);
 };
