@@ -1,8 +1,21 @@
+@use "../../../portal/v2/common/styles/variables";
+
 .root {
   align-items: center;
   background-color: #F6F6F6;
   display: flex;
   height: 72px;
   justify-content: space-between;
-  padding: 0 156px;
+
+  @media (min-width: variables.$breakpoint-1024) {
+    padding: 0 156px;
+  }
+
+  @media 
+    (min-width: variables.$breakpoint-320)
+    and 
+    (max-width: variables.$breakpoint-1024)
+  {
+    padding: 0 24px;
+  }
 }
