@@ -37,9 +37,12 @@ export const SubmissionCountdown = ({artist}) => {
     <div className={`${styles.timer} ${timeLeftMs === 0 ? styles.expired : ''}`}>
       {firstName}, your submission is due in:
       <TimeLeftDisplay timeLeftMs={timeLeftMs} />
-      <button className={styles.extensionButton}>
+      <a href="mailto:telephone.outreach@gmail.com?subject=I need more time"
+         target="_blank"
+         className={styles.extensionButton}
+      >
         Request an extension
-      </button>
+      </a>
     </div>
   </>);
 };
