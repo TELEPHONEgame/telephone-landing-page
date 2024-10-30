@@ -2,8 +2,7 @@
 @use "../common/styles/variables";
 
 .root {
-  margin: 0 auto;
-  width: variables.$desktop-container-max-width;
+  @include mixins.centered-container($pad-mobile: true);
 
   h1 {
     text-align: center;
