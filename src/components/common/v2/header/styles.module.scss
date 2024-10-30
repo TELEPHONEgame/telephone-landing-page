@@ -1,4 +1,4 @@
-@use "../../../portal/v2/common/styles/variables";
+@use "../../../portal/v2/common/styles/mixins";
 
 .root {
   align-items: center;
@@ -7,15 +7,11 @@
   height: 72px;
   justify-content: space-between;
 
-  @media (min-width: variables.$breakpoint-1024) {
+  @include mixins.wide-screen {
     padding: 0 156px;
   }
 
-  @media 
-    (min-width: variables.$breakpoint-320)
-    and 
-    (max-width: variables.$breakpoint-1024)
-  {
+  @include mixins.narrow-screen {
     padding: 0 24px;
   }
 }
