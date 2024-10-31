@@ -1,29 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import styles from "./styles.module.scss";
+import * as api from "@components/portal/v2/api";
 import {
   displayMediaFilePicker,
   FilePickerResult,
-  getSubmissionTypeFromFileMimeType,
   MAX_MEDIA_FILE_SIZE_MB,
 } from "@components/portal/v2/common/file/filepicker";
 import { useArtist } from "@components/portal/v2/Portal";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import LoadingOverlay from "@/components/portal/LoadingOverlay";
-import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
-import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
-import PortalSubmissionEditForm from "@components/portal/v2/response/submission/edit/form/PortalSubmissionEditForm";
-import { Submission } from "@/components/portal/v2/types";
 
 const PortalResponseUpload = () => {
   const { search } = useLocation();
   const navigate = useNavigate();
-  const { artist } = useArtist();
+  const { artist, reloadArtist } = useArtist();
   const { submissionType } = useParams();
   const initFilePickerTimeout = useRef<
     ReturnType<typeof setTimeout> | undefined
   >();
-  const [submission, setSubmission] = useState<Submission|undefined>();
+  const [savePercentage, setSavePercentage] = useState(0);
 
   useEffect(() => {
     if (submissionType === "file") {
@@ -46,55 +41,30 @@ const PortalResponseUpload = () => {
         alert(getUserVisibleFileUploadError(error));
       }
 
-      if (file && !error) {
-        setSubmission({
-          dimensions: "",
-          id: -1,
-          file: URL.createObjectURL(file),
-          focal_x: .5,
-          focal_y: .5,
-          materials: "",
-          title: "",
-          type: getSubmissionTypeFromFileMimeType(file.type),
-        });
-      } else {
+      if (!file) {
         navigate(`/portal/response${search}`, {
           replace: true,
           viewTransition: true,
         });
       }
+
+      const uploadPromise = api.createSubmission(artist.id, file);
+
+      uploadPromise.onProgress(progress => {
+        setSavePercentage(progress);
+      });
+
+      const submission = await uploadPromise;
+      await reloadArtist();
+
+      navigate(`/portal/response/${submission.id}/edit${search}`, {
+        replace: true,
+        viewTransition: true,
+      });
     }, 50);
   };
 
-  return (
-    <>
-      <LoadingOverlay isLoading={!submission} />
-
-      {submission ? (
-        <div className={styles.root}>
-          <PortalSectionHeader
-            backToPath="/portal/response"
-            showBackButton={true}
-            title="Upload Artwork"
-          />
-
-          <div className={styles.accordion}>
-            <PortalAccordion title="How do you want your artwork presented?">
-              Now that you've imported your artwork, you have the option to
-              provide additional details. Please take a moment to review the{" "}
-              <a href="/faq" target="_blank">
-                Usage and Permissions guidelines
-              </a>{" "}
-              related to your artwork to ensure you understand how it may be
-              used and shared.
-            </PortalAccordion>
-          </div>
-
-          <PortalSubmissionEditForm submission={submission} />
-        </div>
-      ) : null}
-    </>
-  );
+  return <LoadingOverlay isLoading={true} message={`Uploading (${Math.round(savePercentage * 100)}%)...`} />;
 };
 
 export default PortalResponseUpload;

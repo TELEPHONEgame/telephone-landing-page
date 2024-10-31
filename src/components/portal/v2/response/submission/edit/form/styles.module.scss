@@ -65,3 +65,21 @@
   font-size: 16px;
   margin-block-start: 16px;
 }
+
+.imageContainer {
+  cursor: crosshair;
+  display: inline-block;
+  position: relative;
+}
+
+.marker {
+  background-color: #FF0000;
+  border: 2px solid variables.$color-white;
+  border-radius: 50%;
+  height: 18px;
+  margin-left: -9px;
+  margin-top: -9px;
+  position: absolute;
+  transition: left 200ms, top 200ms;
+  width: 18px;
+}

@@ -9,6 +9,11 @@ export interface Submission {
   readonly type: "audio" | "image" | "video" | "file";
 }
 
+export type MutableSubmissionFields = Pick<
+  Submission,
+  "dimensions" | "id" | "focal_x" | "focal_y" | "materials" | "title"
+>;
+
 export interface Artist {
   readonly id: number;
   readonly first_name: string;

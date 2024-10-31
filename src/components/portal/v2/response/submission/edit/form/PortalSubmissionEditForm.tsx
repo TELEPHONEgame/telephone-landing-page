@@ -1,45 +1,39 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-
-import * as api from "@components/portal/v2/api";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useForm, useWatch } from "react-hook-form";
 
 import styles from "./styles.module.scss";
-import LoadingOverlay from "@/components/portal/LoadingOverlay";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
-import { useArtist } from "@components/portal/v2/Portal";
-import { Submission } from "@/components/portal/v2/types";
+import { Submission, MutableSubmissionFields } from "@components/portal/v2/types";
 import AudioPreview from "./AudioPreviewField";
 import ImagePreview from "./ImagePreviewField";
 import VideoPreview from "./VideoPreviewField";
 import ImageFocalPointSelector from "./ImageFocalPointSelector";
 import TextFormField from "./TextFormField";
 
-type FormData = Omit<Submission, "file" | "id" | "type">;
 
 interface PortalSubmissionEditFormProps {
+  readonly onSubmit?: (updatedData: MutableSubmissionFields) => void;
   readonly submission: Submission;
 }
 
 const PortalSubmissionEditForm = ({
   submission,
+  onSubmit,
 }: PortalSubmissionEditFormProps) => {
-  const { search } = useLocation();
-  const { reloadArtist } = useArtist();
-  const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<FormData>({
-    defaultValues: {
-      dimensions: submission.dimensions,
-      focal_x: submission.focal_x,
-      focal_y: submission.focal_y,
-      materials: submission.materials,
-      title: submission.title,
-    },
-  });
+  const { register, handleSubmit, setValue, watch } =
+    useForm<MutableSubmissionFields>({
+      defaultValues: {
+        dimensions: submission.dimensions,
+        focal_x: submission.focal_x ?? 50,
+        focal_y: submission.focal_y ?? 50,
+        materials: submission.materials,
+        title: submission.title,
+      },
+    });
+  const watchFocalPoint = watch(["focal_x", "focal_y"]);
 
   const [isDiscardConfirmationDialogOpen, setIsDiscardConfirmationDialogOpen] =
     useState(false);
-  const [isSaving, setIsSaving] = useState(false);
 
   const openDiscardDialog = () => {
     setIsDiscardConfirmationDialogOpen(true);
@@ -47,21 +41,6 @@ const PortalSubmissionEditForm = ({
 
   const closeDiscardDialog = () => {
     setIsDiscardConfirmationDialogOpen(false);
-  };
-
-  const onSubmit = async (data) => {
-    setIsSaving(true);
-    try {
-      await api.updateSubmission(submission.id, data);
-      await reloadArtist();
-      setIsSaving(false);
-      navigate(`/portal/response${search}`, {
-        viewTransition: true,
-      });
-    } catch (e) {
-      alert("Saving failed. Please try again.");
-      setIsSaving(false);
-    }
   };
 
   return (
@@ -85,7 +64,14 @@ const PortalSubmissionEditForm = ({
               inputProps={register("dimensions")}
             />
             <hr className={styles.divider} />
-            <ImageFocalPointSelector submission={submission} />
+            <ImageFocalPointSelector
+              submission={submission}
+              onChange={(x, y) => {
+                setValue("focal_x", x);
+                setValue("focal_y", y);
+              }}
+              value={{ x: watchFocalPoint[0], y: watchFocalPoint[1] }}
+            />
             <hr className={styles.divider} />
             <ImagePreview submission={submission} />
           </>
@@ -134,8 +120,6 @@ const PortalSubmissionEditForm = ({
         onCancel={closeDiscardDialog}
         onConfirm={closeDiscardDialog}
       />
-
-      <LoadingOverlay isLoading={isSaving} message="Saving..." />
     </form>
   );
 };
