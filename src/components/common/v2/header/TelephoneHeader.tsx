@@ -6,7 +6,7 @@ import styles from "./styles.module.scss"
 const TelephoneHeader = () => {
   return (
     <div className={styles.root}>
-      <div>
+      <div className={styles.logo}>
         TELEPHONE
       </div>
       <div>

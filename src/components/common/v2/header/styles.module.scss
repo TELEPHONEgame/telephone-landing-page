@@ -15,4 +15,12 @@
   @include mixins.breakpoint-below(variables.$breakpoint-1024) {
     padding: 0 24px;
   }
+
+  .logo {
+    color: #101318;
+    font-family: "Crimson Pro";
+    font-size: variables.$fs-24;
+    font-weight: bold;
+    letter-spacing: -1px;
+  }
 }
