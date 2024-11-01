@@ -6,9 +6,9 @@ import styles from "./styles.module.scss"
 const TelephoneHeader = () => {
   return (
     <div className={styles.root}>
-      <div className={styles.logo}>
+      <PortalLink to="/" className={styles.logo}>
         TELEPHONE
-      </div>
+      </PortalLink>
       <div>
         <PortalLink to="/portal">Artist Portal</PortalLink>
       </div>
