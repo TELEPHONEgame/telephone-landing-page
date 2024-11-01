@@ -24,4 +24,15 @@
     letter-spacing: -1px;
     @include mixins.link-reset;
   }
+
+  .navbar {
+    a {
+      color: variables.$color-gray-blue;
+      font-family: 'Inter';
+      font-size: variables.$fs-16;
+      letter-spacing: -1px;;
+      margin-left: 24px;
+      @include mixins.link-reset;
+    }
+  }
 }

@@ -12,9 +12,16 @@ const TelephoneHeader = () => {
       <PortalLink to="/" className={styles.logo}>
         TELEPHONE
       </PortalLink>
-      <div>
+      <nav className={styles.navbar}>
         {token ? <PortalLink to="/portal">Artist Portal</PortalLink> : null}
-      </div>
+        <a href="https://phonebook.gallery/" target="_blank">
+          Our last game
+        </a>
+        <PortalLink to="/faq">FAQ</PortalLink>
+        <a href="https://www.psychopompprojects.com/telephone" target="_blank">
+          Introduction and Theory Group
+        </a>
+      </nav>
     </div>
   );
 }
