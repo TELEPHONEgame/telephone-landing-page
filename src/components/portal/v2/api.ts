@@ -115,7 +115,7 @@ export async function deleteSubmission(submissionId: number) {
 
 export async function updateSubmission(
   submissionId: number,
-  submission: MutableSubmissionFields
+  submission: Partial<MutableSubmissionFields>
 ) {
   const response = await fetch(
     `${SERVER_URL}api/submissions/${submissionId}/`,

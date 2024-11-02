@@ -27,6 +27,7 @@ const PortalSubmissionEditForm = ({
         focal_x: submission.focal_x ?? 50,
         focal_y: submission.focal_y ?? 50,
         materials: submission.materials,
+        order: submission.order,
         title: submission.title,
       },
     });

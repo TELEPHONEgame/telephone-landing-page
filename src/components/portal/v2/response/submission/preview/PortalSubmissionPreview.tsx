@@ -11,20 +11,24 @@ import LoadingOverlay from "@/components/portal/LoadingOverlay";
 
 interface PortalSubmissionPreviewProps {
   readonly listIndex: number;
+  readonly listLength: number;
   readonly showListInfo: boolean;
   readonly submission: Submission;
+  readonly onSort: (direction: "up" | "down") => void;
 }
 
 const PortalSubmissionPreview = ({
   listIndex,
+  listLength,
   showListInfo,
   submission,
+  onSort,
 }: PortalSubmissionPreviewProps) => {
   const { reloadArtist } = useArtist();
   const [isDiscardConfirmationDialogOpen, setIsDiscardConfirmationDialogOpen] =
     useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  
+
   const openDiscardDialog = () => {
     setIsDiscardConfirmationDialogOpen(true);
   };
@@ -45,17 +49,23 @@ const PortalSubmissionPreview = ({
     }
 
     setIsDeleting(false);
-  }
-  
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.header}>
         <span className={styles.ordinal}>{listIndex + 1}</span>
-        <span className={styles.title}>{submission.title ? submission.title : "Untitled"}</span>
+        <span className={styles.title}>
+          {submission.title ? submission.title : "Untitled"}
+        </span>
         {showListInfo ? (
           <div className={styles.sortButtons}>
-            <SortButton direction="up" />
-            <SortButton direction="down" />
+            {listIndex === 0 ? null : (
+              <SortButton direction="up" onClick={() => onSort("up")} />
+            )}
+            {listIndex === listLength - 1 ? null : (
+              <SortButton direction="down" onClick={() => onSort("down")} />
+            )}
           </div>
         ) : null}
       </div>
@@ -124,9 +134,15 @@ const PortalSubmissionPreview = ({
   );
 };
 
-const SortButton = ({ direction }: { direction: "up" | "down" }) => {
+const SortButton = ({
+  direction,
+  onClick,
+}: {
+  direction: "up" | "down";
+  onClick: () => void;
+}) => {
   return (
-    <button className={styles.sortButton}>
+    <button className={styles.sortButton} onClick={onClick}>
       <svg
         className={direction === "down" ? styles.flipIcon : null}
         width="22"

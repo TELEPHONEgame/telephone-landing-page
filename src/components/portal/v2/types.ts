@@ -5,13 +5,14 @@ export interface Submission {
   readonly focal_x: number;
   readonly focal_y: number;
   readonly materials: string;
+  readonly order: number;
   readonly title: string;
   readonly type: "audio" | "image" | "video" | "file";
 }
 
 export type MutableSubmissionFields = Pick<
   Submission,
-  "dimensions" | "id" | "focal_x" | "focal_y" | "materials" | "title"
+  "dimensions" | "id" | "focal_x" | "focal_y" | "materials" | "order" | "title"
 >;
 
 export interface Artist {
