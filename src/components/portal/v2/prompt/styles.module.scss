@@ -1,0 +1,17 @@
+@use "../common/styles/mixins";
+@use "../common/styles/variables";
+
+.content {
+  color: variables.$color-gray-blue;
+  @include mixins.centered-container($pad-mobile: true);
+}
+
+.accordion {
+  margin-block-start: 32px;
+}
+
+.downloadButton {
+  @include mixins.filled-btn;
+  margin-block-start: 32px;
+  margin-inline-start: auto;
+}
