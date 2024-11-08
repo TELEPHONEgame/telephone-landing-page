@@ -20,7 +20,7 @@ export interface Artist {
   readonly first_name: string;
   readonly last_name: string;
   readonly accepted: Date;
-  readonly due: Date;
+  readonly due: string;
   readonly parent: Artist;
   readonly submissions: Array<Submission>;
 }
