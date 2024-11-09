@@ -3,13 +3,16 @@ import { useForm, useWatch } from "react-hook-form";
 
 import styles from "./styles.module.scss";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
-import { Submission, MutableSubmissionFields } from "@components/portal/v2/types";
+import {
+  Submission,
+  MutableSubmissionFields,
+} from "@components/portal/v2/types";
 import AudioPreview from "./AudioPreviewField";
 import ImagePreview from "./ImagePreviewField";
 import VideoPreview from "./VideoPreviewField";
 import ImageFocalPointSelector from "./ImageFocalPointSelector";
 import TextFormField from "./TextFormField";
-
+import RichTextField from "./RichTextField";
 
 interface PortalSubmissionEditFormProps {
   readonly onSubmit?: (updatedData: MutableSubmissionFields) => void;
@@ -29,6 +32,7 @@ const PortalSubmissionEditForm = ({
         materials: submission.materials,
         order: submission.order,
         title: submission.title,
+        written_work: submission.written_work ?? "",
       },
     });
   const watchFocalPoint = watch(["focal_x", "focal_y"]);
@@ -95,6 +99,18 @@ const PortalSubmissionEditForm = ({
             />
             <hr className={styles.divider} />
             <VideoPreview submission={submission} />
+          </>
+        ) : typeof submission.written_work === "string" ? (
+          <>
+            <TextFormField
+              label="Title (optional)"
+              placeholder="Enter artwork title"
+              inputProps={register("title")}
+            />
+            <hr className={styles.divider} />
+            <RichTextField submission={submission} onChange={(value) => {
+              setValue("written_work", value);
+            }} />
           </>
         ) : null}
       </div>

@@ -1,9 +1,8 @@
 @use "../../../../common/styles/mixins";
 @use "../../../../common/styles/variables";
 
-
 .divider {
-  border-top: 2px solid rgba(0,0,0,.1);
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
   margin-block: 36px;
 }
 
@@ -42,8 +41,8 @@
 }
 
 .formFieldInput {
-  background-color: #F4FAFF;
-  border: 1px solid #D9D9D9;
+  background-color: #f4faff;
+  border: 1px solid #d9d9d9;
   border-radius: 4px;
   color: variables.$color-gray-blue;
   font-size: 16px;
@@ -73,7 +72,7 @@
 }
 
 .marker {
-  background-color: #FF0000;
+  background-color: #ff0000;
   border: 2px solid variables.$color-white;
   border-radius: 50%;
   height: 18px;
@@ -82,4 +81,16 @@
   position: absolute;
   transition: left 200ms, top 200ms;
   width: 18px;
+}
+
+.richTextEditor [contenteditable] {
+  background-color: #f4faff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  color: variables.$color-gray-blue;
+  min-height: 200px;
+  min-width: 100%;
+  padding: 18px;
+  width: fit-content;
+  @include mixins.rich-text-styles;
 }

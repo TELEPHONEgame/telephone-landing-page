@@ -21,50 +21,82 @@ const PortalResponseUpload = () => {
   const [savePercentage, setSavePercentage] = useState(0);
 
   useEffect(() => {
-    if (submissionType === "file") {
-      initFilePickerFlow();
-    }
+    // The setTimeout is a workaround for the double rendering that React.StrictMode
+    // does in development. Without it, the filepicker will show twice.
+    initFilePickerTimeout.current = setTimeout(() => {
+      if (submissionType === "file") {
+        initFilePickerFlow();
+      } else if (submissionType === "text") {
+        initWrittenWorkFlow();
+      } else {
+        redirectToSubmissionsList();
+      }
+    }, 50);
 
     return () => {
       clearTimeout(initFilePickerTimeout.current);
     };
   }, []);
 
-  const initFilePickerFlow = () => {
-    // The setTimeout is a workaround for the double rendering that React.StrictMode
-    // does in development. Without it, the filepicker will show twice.
-    initFilePickerTimeout.current = setTimeout(async () => {
-      const { file, error } = await displayMediaFilePicker();
+  const initWrittenWorkFlow = async () => {
+    const submission = await api.createSubmission({
+      order: artist.submissions.length + 1,
+      written_work: "New work"
+    });
 
-      if (error) {
-        // TODO: make a better error state.
-        alert(getUserVisibleFileUploadError(error));
-      }
+    await reloadArtist();
 
-      if (!file) {
-        navigate(`/portal/response${search}`, {
-          replace: true,
-          viewTransition: true,
-        });
-      }
-
-      const uploadPromise = api.createSubmission(artist.id, file);
-
-      uploadPromise.onProgress(progress => {
-        setSavePercentage(progress);
-      });
-
-      const submission = await uploadPromise;
-      await reloadArtist();
-
-      navigate(`/portal/response/${submission.id}/edit${search}`, {
-        replace: true,
-        viewTransition: true,
-      });
-    }, 50);
+    navigate(`/portal/response/${submission.id}/edit${search}`, {
+      replace: true,
+      viewTransition: true,
+    });
   };
 
-  return <LoadingOverlay isLoading={true} message={`Uploading (${Math.round(savePercentage * 100)}%)...`} />;
+  const initFilePickerFlow = async () => {
+    const { file, error } = await displayMediaFilePicker();
+
+    if (error) {
+      // TODO: make a better error state.
+      alert(getUserVisibleFileUploadError(error));
+    }
+
+    if (!file) {
+      redirectToSubmissionsList();
+      return;
+    }
+
+    uploadFileAndRedirectToSubmission(file);
+  };
+
+  const uploadFileAndRedirectToSubmission = async (file: File) => {
+    const uploadPromise = api.createSubmissionFromFile(artist.id, file);
+
+    uploadPromise.onProgress((progress) => {
+      setSavePercentage(progress);
+    });
+
+    const submission = await uploadPromise;
+    await reloadArtist();
+
+    navigate(`/portal/response/${submission.id}/edit${search}`, {
+      replace: true,
+      viewTransition: true,
+    });
+  };
+
+  const redirectToSubmissionsList = () => {
+    navigate(`/portal/response${search}`, {
+      replace: true,
+      viewTransition: true,
+    });
+  };
+
+  return (
+    <LoadingOverlay
+      isLoading={true}
+      message={`Uploading (${Math.round(savePercentage * 100)}%)...`}
+    />
+  );
 };
 
 export default PortalResponseUpload;

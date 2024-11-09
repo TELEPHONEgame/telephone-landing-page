@@ -8,11 +8,19 @@ export interface Submission {
   readonly order: number;
   readonly title: string;
   readonly type: "audio" | "image" | "video" | "file";
+  readonly written_work: string;
 }
 
 export type MutableSubmissionFields = Pick<
   Submission,
-  "dimensions" | "id" | "focal_x" | "focal_y" | "materials" | "order" | "title"
+  | "dimensions"
+  | "id"
+  | "focal_x"
+  | "focal_y"
+  | "materials"
+  | "order"
+  | "title"
+  | "written_work"
 >;
 
 export interface Artist {

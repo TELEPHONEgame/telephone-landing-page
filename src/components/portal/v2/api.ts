@@ -22,7 +22,20 @@ export async function getArtist(): Promise<Artist> {
   return (await response.json()) as Artist;
 }
 
-export function createSubmission(
+export async function createSubmission(
+  submission: Partial<MutableSubmissionFields>
+) {
+  const response = await fetch(`${SERVER_URL}api/submissions/`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    credentials: "include", // This sends cookies with the request
+    body: JSON.stringify(submission),
+  });
+
+  return (await response.json()) as Submission;
+}
+
+export function createSubmissionFromFile(
   artistId: number,
   file: File
 ): PProgress<Submission> {
@@ -33,12 +46,18 @@ export function createSubmission(
     // trims it if it's over the max length.
     if (fileName.length > FILE_NAME_MAX_LENGTH) {
       const fileNameParts = fileName.split(".");
-      const fileExt = fileNameParts.length > 1 ? `.${fileNameParts[fileNameParts.length - 1]}` : "";
+      const fileExt =
+        fileNameParts.length > 1
+          ? `.${fileNameParts[fileNameParts.length - 1]}`
+          : "";
       fileName = `${fileName.substring(0, 80 - fileExt.length)}${fileExt}`;
     }
 
     // Step 1: Get the signed URL for the file upload
-    const signedUrlResponse = await generateSignedUrlForFileUpload(file, fileName);
+    const signedUrlResponse = await generateSignedUrlForFileUpload(
+      file,
+      fileName
+    );
 
     if (!signedUrlResponse.ok) {
       throw new Error("Failed to get signed URL");
@@ -79,7 +98,9 @@ export function createSubmission(
             throw new Error("Failed to save file reference in Django model");
           }
 
-          const savedSubmission = (await saveResponse.json()) as {submission: Submission};
+          const savedSubmission = (await saveResponse.json()) as {
+            submission: Submission;
+          };
           resolve(savedSubmission.submission);
         } else {
           throw new Error("Failed to upload file to Google Cloud Storage");
@@ -87,7 +108,7 @@ export function createSubmission(
       };
 
       xhr.onerror = () => {
-        reject('An error occurred during file upload');
+        reject("An error occurred during file upload");
       };
 
       // Send the file

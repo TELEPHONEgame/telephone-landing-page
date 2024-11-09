@@ -98,6 +98,16 @@
   }
 }
 
+@mixin rich-text-styles {
+  font-family: "Roboto Serif", serif;
+  font-size: 16px;
+  line-height: 1.25;
+
+  * {
+    font-size: inherit;
+  }
+}
+
 /* Media query mixins */
 
 @mixin _check-breakpoint-args($args...) {
