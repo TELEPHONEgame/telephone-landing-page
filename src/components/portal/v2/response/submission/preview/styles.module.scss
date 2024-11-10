@@ -20,6 +20,7 @@ $divider-border: 2px solid rgba(0, 0, 0, 0.1);
   border-top: $divider-border;
   display: flex;
   gap: 20px;
+  justify-content: space-between;
   padding-top: 20px;
 }
 
@@ -35,10 +36,6 @@ $divider-border: 2px solid rgba(0, 0, 0, 0.1);
   height: 32px;
   padding-inline: 18px;
   white-space: nowrap;
-
-  &:first-child {
-    margin-inline-end: auto;
-  }
 }
 
 .footerButtonIcon {

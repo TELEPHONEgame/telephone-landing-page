@@ -74,17 +74,6 @@ const PortalSubmissionPreview = ({
         <FilePreview submission={submission} />
       </div>
       <div className={styles.footer}>
-        <button className={styles.footerButton}>
-          <svg
-            className={styles.footerButtonIcon}
-            height="12"
-            viewBox="0 0 14 12"
-            width="14"
-          >
-            <path d="M7.89717 11.5376C7.39051 11.9976 6.61051 11.9976 6.10384 11.531L6.03051 11.4643C2.53051 8.29762 0.243839 6.22429 0.330506 3.63762C0.370506 2.50429 0.950506 1.41762 1.89051 0.777624C3.65051 -0.422376 5.82384 0.137624 6.99717 1.51096C8.17051 0.137624 10.3438 -0.429043 12.1038 0.777624C13.0438 1.41762 13.6238 2.50429 13.6638 3.63762C13.7572 6.22429 11.4638 8.29762 7.96384 11.4776L7.89717 11.5376Z" />
-          </svg>
-          Main Thumbnail
-        </button>
         <PortalLink
           to={`/portal/response/${submission.id}/edit`}
           className={styles.footerButton}
