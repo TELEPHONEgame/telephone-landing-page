@@ -1,7 +1,6 @@
 @use "sass:meta";
 @use "./variables";
 
-
 @mixin btn-reset {
   appearance: none;
   background: transparent;
@@ -59,7 +58,7 @@
 @mixin centered-container($pad-mobile: false) {
   margin-inline: auto;
   max-width: variables.$desktop-container-max-width;
-  
+
   @include wide-screen {
     width: 95vw;
   }
@@ -72,11 +71,11 @@
 }
 
 @mixin shadow-container {
-  background-color: variables.$color-white;;
+  background-color: variables.$color-white;
   border: 1px solid #d9d9d9;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  
+
   @include wide-screen {
     border-radius: 8px;
   }
@@ -89,7 +88,7 @@
   color: white;
   display: flex;
   font-size: 16px;
-  font-weight: bold; 
+  font-weight: bold;
   line-height: 12px;
   padding: 16px 20px;
 
@@ -104,7 +103,26 @@
   line-height: 1.25;
 
   * {
+    font-family: inherit;
     font-size: inherit;
+  }
+
+  p,
+  ul,
+  ol {
+    &:not(:first-child) {
+      margin-block-start: 1em;
+    }
+  }
+
+  p[style*="justify"] {
+    text-align-last: justify;
+  }
+
+  p[style*="justify"]::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
   }
 }
 

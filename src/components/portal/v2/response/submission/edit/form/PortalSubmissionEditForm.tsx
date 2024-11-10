@@ -107,7 +107,6 @@ const PortalSubmissionEditForm = ({
               placeholder="Enter artwork title"
               inputProps={register("title")}
             />
-            <hr className={styles.divider} />
             <RichTextField submission={submission} onChange={(value) => {
               setValue("written_work", value);
             }} />

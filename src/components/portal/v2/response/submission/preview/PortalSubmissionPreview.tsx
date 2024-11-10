@@ -169,7 +169,11 @@ const FilePreview = ({ submission }: { submission: Submission }) => {
     case "video":
       return <video src={submission.file} controls={true} />;
     default:
-      return submission.file;
+      return submission.written_work ? (
+        <WrittenWorkPreview submission={submission} />
+      ) : (
+        submission.file
+      );
   }
 };
 
@@ -177,6 +181,14 @@ const ImagePreview = ({ submission }: { submission: Submission }) => {
   return (
     <div>
       <img src={submission.file} />
+    </div>
+  );
+};
+
+const WrittenWorkPreview = ({ submission }: { submission: Submission }) => {
+  return (
+    <div className={styles.writtenWorkPreview}>
+      <strong>{submission.title ?? "Untitled"}</strong>
     </div>
   );
 };
