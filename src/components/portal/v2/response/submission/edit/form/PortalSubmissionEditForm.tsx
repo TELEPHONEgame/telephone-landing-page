@@ -15,12 +15,14 @@ import TextFormField from "./TextFormField";
 import RichTextField from "./RichTextField";
 
 interface PortalSubmissionEditFormProps {
+  readonly onDelete?: () => void;
   readonly onSubmit?: (updatedData: MutableSubmissionFields) => void;
   readonly submission: Submission;
 }
 
 const PortalSubmissionEditForm = ({
   submission,
+  onDelete,
   onSubmit,
 }: PortalSubmissionEditFormProps) => {
   const { register, handleSubmit, setValue, watch } =
@@ -134,7 +136,7 @@ const PortalSubmissionEditForm = ({
         confirmText="Discard Artwork"
         isOpen={isDiscardConfirmationDialogOpen}
         onCancel={closeDiscardDialog}
-        onConfirm={closeDiscardDialog}
+        onConfirm={onDelete}
       />
     </form>
   );

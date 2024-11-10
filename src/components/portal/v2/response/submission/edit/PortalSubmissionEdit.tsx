@@ -17,6 +17,7 @@ const PortalSubmissionEdit = () => {
   const { search } = useLocation();
   const { reloadArtist } = useArtist();
   const navigate = useNavigate();
+  const [isDeleting, setIsDeleting] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const submission = artist.submissions.find(
     (submission) => submission.id === Number(submissionId)
@@ -25,6 +26,22 @@ const PortalSubmissionEdit = () => {
   if (!submission) {
     return <div>Not found</div>;
   }
+
+  const onDelete = async () => {
+    setIsDeleting(true);
+
+    try {
+      await api.deleteSubmission(submission.id);
+      await reloadArtist();
+    } catch (e) {
+      // TODO: better alerts
+      alert("Delete failed. Please try again.");
+    }
+
+    navigate(`/portal/response${search}`, {
+      viewTransition: true,
+    });
+  };
 
   const onSubmit = async (data: MutableSubmissionFields) => {
     setIsSaving(true);
@@ -61,9 +78,10 @@ const PortalSubmissionEdit = () => {
         </PortalAccordion>
       </div>
 
-      <PortalSubmissionEditForm submission={submission} onSubmit={onSubmit} />
+      <PortalSubmissionEditForm submission={submission} onSubmit={onSubmit} onDelete={onDelete} />
 
       <LoadingOverlay isLoading={isSaving} message="Saving..." />
+      <LoadingOverlay isLoading={isDeleting} message="Deleting..." />
     </div>
   );
 };
