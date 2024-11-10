@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Tooltip } from 'react-tooltip';
 
 import styles from "./styles.module.scss";
 
@@ -130,6 +131,8 @@ const PortalSubmissionPreview = ({
       />
 
       <LoadingOverlay isLoading={isDeleting} message="Deleting..." />
+
+      <Tooltip id="order-tooltip" />
     </div>
   );
 };
@@ -142,7 +145,13 @@ const SortButton = ({
   onClick: () => void;
 }) => {
   return (
-    <button className={styles.sortButton} onClick={onClick}>
+    <button
+      aria-label={direction === "down" ? "Move down" : "Move up"}
+      className={styles.sortButton}
+      data-tooltip-id="order-tooltip"
+      data-tooltip-content={direction === "down" ? "Move down" : "Move up"}
+      onClick={onClick}
+    >
       <svg
         className={direction === "down" ? styles.flipIcon : null}
         width="22"
