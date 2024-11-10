@@ -8,7 +8,7 @@ import PortalSubmissionList from "@components/portal/v2/response/submission/list
 import { PortalLink } from "@components/portal/v2/common/PortalLink";
 
 const PortalResponse = () => {
-  const {artist} = useArtist();
+  const { artist } = useArtist();
 
   return (
     <>
@@ -41,7 +41,14 @@ const PortalResponse = () => {
         <PortalSubmissionList artist={artist} />
 
         <div className={styles.footer}>
-          <AddButton label="Upload a file" submissionType="file" />
+          <AddButton
+            label={
+              artist.submissions?.length
+                ? "Upload another file"
+                : "Upload a file"
+            }
+            submissionType="file"
+          />
           <AddButton label="Written work" submissionType="text" />
 
           <div className={styles.fileLimitWarning}>
@@ -68,12 +75,15 @@ const PortalResponse = () => {
 
 interface AddButtonProps {
   readonly label: string;
-  readonly submissionType: "file"|"text";
+  readonly submissionType: "file" | "text";
 }
 
-const AddButton = ({label, submissionType}: AddButtonProps) => {
+const AddButton = ({ label, submissionType }: AddButtonProps) => {
   return (
-    <PortalLink className={styles.addButton} to={`/portal/response/upload/${submissionType}`}>
+    <PortalLink
+      className={styles.addButton}
+      to={`/portal/response/upload/${submissionType}`}
+    >
       {label}
       <svg
         className={styles.addButtonIcon}
