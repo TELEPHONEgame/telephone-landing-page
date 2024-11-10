@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import mammoth from "mammoth";
 
 import * as api from "@components/portal/v2/api";
 import {
@@ -38,10 +39,10 @@ const PortalResponseUpload = () => {
     };
   }, []);
 
-  const initWrittenWorkFlow = async () => {
+  const initWrittenWorkFlow = async (content?: string) => {
     const submission = await api.createSubmission({
       order: artist.submissions.length + 1,
-      written_work: "New work"
+      written_work: content ?? "New work"
     });
 
     await reloadArtist();
@@ -53,7 +54,7 @@ const PortalResponseUpload = () => {
   };
 
   const initFilePickerFlow = async () => {
-    const { file, error } = await displayMediaFilePicker();
+    const { file, error } = await displayMediaFilePicker(true);
 
     if (error) {
       // TODO: make a better error state.
@@ -62,6 +63,13 @@ const PortalResponseUpload = () => {
 
     if (!file) {
       redirectToSubmissionsList();
+      return;
+    }
+
+    if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+      const arrayBuffer = await file.arrayBuffer();
+      const content = await mammoth.convertToHtml({arrayBuffer});
+      await initWrittenWorkFlow(content.value);
       return;
     }
 

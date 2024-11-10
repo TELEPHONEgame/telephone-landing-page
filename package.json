@@ -19,6 +19,7 @@
     "clsx": "^2.1.1",
     "focus-trap-react": "^10.3.0",
     "html2pdf.js": "^0.10.2",
+    "mammoth": "^1.8.0",
     "p-progress": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -43,14 +43,21 @@ export function displayFilePicker(
   });
 }
 
-export function displayMediaFilePicker() {
+export function displayMediaFilePicker(allowDocs?: boolean) {
   return displayFilePicker(
-    [...AUDIO_MIME_TYPES, ...IMAGE_MIME_TYPES, ...VIDEO_MIME_TYPES],
+    [
+      ...AUDIO_MIME_TYPES,
+      ...IMAGE_MIME_TYPES,
+      ...VIDEO_MIME_TYPES,
+      ...(allowDocs ? DOCUMENT_MIME_TYPES : []),
+    ],
     MAX_MEDIA_FILE_SIZE_MB
   );
 }
 
-export function getSubmissionTypeFromFileMimeType(mimeType: string): Submission["type"] {
+export function getSubmissionTypeFromFileMimeType(
+  mimeType: string
+): Submission["type"] {
   switch (true) {
     case AUDIO_MIME_TYPES.includes(mimeType):
       return "audio";
@@ -69,6 +76,10 @@ const AUDIO_MIME_TYPES = [
   "audio/ogg",
   "audio/wav",
   "audio/webm",
+];
+
+const DOCUMENT_MIME_TYPES = [
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
 
 const IMAGE_MIME_TYPES = ["image/gif", "image/jpeg", "image/png", "image/webp"];
