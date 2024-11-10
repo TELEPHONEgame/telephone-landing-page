@@ -9,6 +9,7 @@ export interface Submission {
   readonly title: string;
   readonly type: "audio" | "image" | "video" | "file";
   readonly written_work: string;
+  readonly written_work_line_wrap_disabled: boolean
 }
 
 export type MutableSubmissionFields = Pick<
@@ -21,6 +22,7 @@ export type MutableSubmissionFields = Pick<
   | "order"
   | "title"
   | "written_work"
+  | "written_work_line_wrap_disabled"
 >;
 
 export interface Artist {

@@ -35,9 +35,11 @@ const PortalSubmissionEditForm = ({
         order: submission.order,
         title: submission.title,
         written_work: submission.written_work ?? "",
+        written_work_line_wrap_disabled: submission.written_work_line_wrap_disabled ?? false,
       },
     });
   const watchFocalPoint = watch(["focal_x", "focal_y"]);
+  const watchLineWrapDisabled = watch("written_work_line_wrap_disabled");
 
   const [isDiscardConfirmationDialogOpen, setIsDiscardConfirmationDialogOpen] =
     useState(false);
@@ -115,7 +117,11 @@ const PortalSubmissionEditForm = ({
             />
             <RichTextField
               submission={submission}
-              onChange={(value) => {
+              usePoemFormatting={watchLineWrapDisabled}
+              onFormatChange={(usePoemFormatting) => {
+                setValue("written_work_line_wrap_disabled", usePoemFormatting)
+              }}
+              onTextChange={(value) => {
                 setValue("written_work", value);
               }}
             />

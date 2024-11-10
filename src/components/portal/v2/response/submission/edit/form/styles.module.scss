@@ -4,6 +4,14 @@
 $field-border: 1px solid #d9d9d9;
 $field-border-radius: 4px;
 
+.checkboxField {
+  margin-block: 10px;
+}
+
+.checkboxFieldInput {
+  margin-inline-end: 10px;
+}
+
 .divider {
   border-top: 2px solid rgba(0, 0, 0, 0.1);
   margin-block: 36px;
@@ -65,7 +73,11 @@ $field-border-radius: 4px;
 .formFieldHelpText {
   color: variables.$color-gray-blue;
   font-size: 16px;
-  margin-block-start: 16px;
+  margin-block: 16px;
+
+  &:last-child {
+    margin-block-end: 0;
+  }
 }
 
 .imageContainer {
@@ -95,11 +107,19 @@ $field-border-radius: 4px;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   color: variables.$color-gray-blue;
+  // Let's the editor grow for wide content, but prevents it from getting too large.
+  // Will scroll if the content is wider than the width.
+  max-width: 70vw;
   min-height: 200px;
   min-width: 100%;
+  overflow-x: auto;
   padding: 18px;
   width: fit-content;
   @include mixins.rich-text-styles;
+}
+
+.richTextEditor[data-is-poem="true"] [contenteditable] {
+  white-space: pre;
 }
 
 .richTextToolbar {

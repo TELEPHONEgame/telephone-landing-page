@@ -1,9 +1,6 @@
 import React from "react";
-import {
-  useEditor,
-  EditorContent,
-} from "@tiptap/react";
-import { Tooltip } from 'react-tooltip';
+import { useEditor, EditorContent } from "@tiptap/react";
+import { Tooltip } from "react-tooltip";
 import { Bold } from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-bullet-list";
 import { Document } from "@tiptap/extension-document";
@@ -24,10 +21,14 @@ import { Submission } from "@/components/portal/v2/types";
 
 const RichTextField = ({
   submission,
-  onChange,
+  usePoemFormatting,
+  onFormatChange,
+  onTextChange,
 }: {
   submission: Submission;
-  onChange: (value: string) => void;
+  usePoemFormatting: boolean,
+  onFormatChange: (usePoemFormatting: boolean) => void;
+  onTextChange: (value: string) => void;
 }) => {
   const editor = useEditor({
     extensions: [
@@ -53,14 +54,26 @@ const RichTextField = ({
   });
 
   editor.on("update", () => {
-    onChange(editor.getHTML());
+    onTextChange(editor.getHTML());
   });
 
   return (
     <div className={styles.formField}>
       <h2 className={styles.formFieldLabel}>Written work</h2>
+      <div className={styles.checkboxField}>
+        <input
+          className={styles.checkboxFieldInput}
+          onChange={e => onFormatChange(e.target.checked)}
+          id="poem-format-checkbox"
+          type="checkbox"
+          checked={usePoemFormatting}
+        />
+        <label htmlFor="poem-format-checkbox">
+          Use poem formatting (disable auto line wrapping)?
+        </label>
+      </div>
       <div className={styles.richTextContainer}>
-        <EditorContent editor={editor} className={styles.richTextEditor} />
+        <EditorContent editor={editor} className={styles.richTextEditor} data-is-poem={usePoemFormatting} />
         <div className={styles.richTextToolbar}>
           {/* Bold */}
           <button
