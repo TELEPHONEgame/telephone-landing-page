@@ -150,3 +150,9 @@ $field-border-radius: 4px;
   height: 13px;
   margin-inline: 8px;
 }
+
+.thumbnailPreview {
+  height: 250px;
+  transition: object-position 200ms;
+  width: 250px;
+}

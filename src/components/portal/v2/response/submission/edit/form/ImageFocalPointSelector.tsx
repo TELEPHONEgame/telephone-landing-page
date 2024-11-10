@@ -24,7 +24,7 @@ const ImageFocalPointSelector = ({
 
   return (
     <div className={styles.formField}>
-      <h2 className={styles.formFieldLabel}>Thumbnail (optional)</h2>
+      <h2 className={styles.formFieldLabel}>Artwork</h2>
       <div>
         <div className={styles.imageContainer}>
           <img src={submission.file} onPointerDown={onImageClick} />

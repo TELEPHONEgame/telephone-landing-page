@@ -80,7 +80,11 @@ const PortalSubmissionEditForm = ({
               value={{ x: watchFocalPoint[0], y: watchFocalPoint[1] }}
             />
             <hr className={styles.divider} />
-            <ImagePreview submission={submission} />
+            <ImagePreview
+              submission={submission}
+              focalX={watchFocalPoint[0]}
+              focalY={watchFocalPoint[1]}
+            />
           </>
         ) : submission.type === "audio" ? (
           <>
@@ -109,9 +113,12 @@ const PortalSubmissionEditForm = ({
               placeholder="Enter artwork title"
               inputProps={register("title")}
             />
-            <RichTextField submission={submission} onChange={(value) => {
-              setValue("written_work", value);
-            }} />
+            <RichTextField
+              submission={submission}
+              onChange={(value) => {
+                setValue("written_work", value);
+              }}
+            />
           </>
         ) : null}
       </div>
