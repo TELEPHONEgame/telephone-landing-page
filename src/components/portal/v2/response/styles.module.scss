@@ -42,3 +42,10 @@
   padding-block: 36px;
   @include mixins.centered-container($pad-mobile: true);
 }
+
+.submitButton {
+  @include mixins.filled-btn();
+  margin-left: auto;
+  margin-top: 36px;
+  width: 168px;
+}

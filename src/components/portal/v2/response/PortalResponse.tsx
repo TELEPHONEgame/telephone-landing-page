@@ -67,6 +67,11 @@ const PortalResponse = () => {
             </svg>
             <span className={styles.fileLimitWarningText}>10 file limit</span>
           </div>
+
+          {/* TODO: Hook up to actually work and add some description above. */}
+          <button className={styles.submitButton}>
+            Submit
+          </button>
         </div>
       </div>
     </>
