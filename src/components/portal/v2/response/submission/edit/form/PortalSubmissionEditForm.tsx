@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useBlocker } from "react-router-dom";
 
 import styles from "./styles.module.scss";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
@@ -25,19 +26,27 @@ const PortalSubmissionEditForm = ({
   onDelete,
   onSubmit,
 }: PortalSubmissionEditFormProps) => {
-  const { register, handleSubmit, setValue, watch } =
-    useForm<MutableSubmissionFields>({
-      defaultValues: {
-        dimensions: submission.dimensions,
-        focal_x: submission.focal_x ?? 50,
-        focal_y: submission.focal_y ?? 50,
-        materials: submission.materials,
-        order: submission.order,
-        title: submission.title,
-        written_work: submission.written_work ?? "",
-        written_work_line_wrap_disabled: submission.written_work_line_wrap_disabled ?? false,
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { isDirty },
+    getValues,
+    reset,
+  } = useForm<MutableSubmissionFields>({
+    defaultValues: {
+      dimensions: submission.dimensions,
+      focal_x: submission.focal_x ?? 50,
+      focal_y: submission.focal_y ?? 50,
+      materials: submission.materials,
+      order: submission.order,
+      title: submission.title,
+      written_work: submission.written_work ?? "",
+      written_work_line_wrap_disabled:
+        submission.written_work_line_wrap_disabled ?? false,
+    },
+  });
   const watchFocalPoint = watch(["focal_x", "focal_y"]);
   const watchLineWrapDisabled = watch("written_work_line_wrap_disabled");
 
@@ -51,6 +60,8 @@ const PortalSubmissionEditForm = ({
   const closeDiscardDialog = () => {
     setIsDiscardConfirmationDialogOpen(false);
   };
+
+  const blocker = useBlocker(() => isDirty);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -76,8 +87,8 @@ const PortalSubmissionEditForm = ({
             <ImageFocalPointSelector
               submission={submission}
               onChange={(x, y) => {
-                setValue("focal_x", x);
-                setValue("focal_y", y);
+                setValue("focal_x", x, { shouldDirty: true });
+                setValue("focal_y", y, { shouldDirty: true });
               }}
               value={{ x: watchFocalPoint[0], y: watchFocalPoint[1] }}
             />
@@ -119,10 +130,12 @@ const PortalSubmissionEditForm = ({
               submission={submission}
               usePoemFormatting={watchLineWrapDisabled}
               onFormatChange={(usePoemFormatting) => {
-                setValue("written_work_line_wrap_disabled", usePoemFormatting)
+                setValue("written_work_line_wrap_disabled", usePoemFormatting, {
+                  shouldDirty: true,
+                });
               }}
               onTextChange={(value) => {
-                setValue("written_work", value);
+                setValue("written_work", value, { shouldDirty: true });
               }}
             />
           </>
@@ -146,10 +159,24 @@ const PortalSubmissionEditForm = ({
         title="Discard Artwork"
         body="Are you sure you want to Discard artwork? This action cannot be undone."
         cancelText="Cancel"
-        confirmText="Discard Artwork"
+        confirmText="Discard artwork"
         isOpen={isDiscardConfirmationDialogOpen}
         onCancel={closeDiscardDialog}
         onConfirm={onDelete}
+      />
+
+      <PortalConfirmationDialog
+        title="Unsaved changes"
+        body="Would you like to save your changes?"
+        cancelText="Discard"
+        confirmText="Save changes"
+        isOpen={blocker.state === "blocked"}
+        onCancel={() => void blocker.proceed()}
+        onConfirm={() => {
+          onSubmit(getValues());
+          // Calling reset lets the next attempt to navigate work.
+          reset(getValues());
+        }}
       />
     </form>
   );
