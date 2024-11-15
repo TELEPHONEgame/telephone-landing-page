@@ -1,4 +1,4 @@
-import { Artist } from "./types";
+import { Artist, MutableArtistFields } from "./types";
 import {
   MutableSubmissionFields,
   Submission,
@@ -20,6 +20,24 @@ export async function getArtist(): Promise<Artist> {
   }
 
   return (await response.json()) as Artist;
+}
+
+export async function updateArtist(artistId: number, artist: Partial<MutableArtistFields>) {
+  const response = await fetch(
+    `${SERVER_URL}api/artists/${artistId}/`,
+    {
+      method: "PATCH",
+      headers: getAuthHeaders(),
+      credentials: "include", // This sends cookies with the request
+      body: JSON.stringify(artist),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("");
+  }
+
+  return;
 }
 
 export async function createSubmission(

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { updateArtist } from "@components/portal/v2/api";
 import { useArtist } from "@components/portal/v2/Portal";
 import { PortalLink } from "@components/portal/v2/common/PortalLink";
 import { SubmissionCountdown } from "@components/portal/v2/countdown/SubmissionCountdown";
@@ -7,7 +8,7 @@ import styles from "./styles.module.scss";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 
 const PortalLanding = () => {
-  const {artist} = useArtist();
+  const {artist, reloadArtist} = useArtist();
 
   const artistHasUploads = artist.submissions.length > 0;
   const dueDateMs = new Date(artist.due).getTime();
@@ -29,10 +30,20 @@ const PortalLanding = () => {
     return () => clearInterval(interval);
   }, [dueDateMs]);
 
+  const submit = () => {
+    updateArtist(
+      artist.id, 
+      {submitted: new Date().toISOString()}
+    ).then(() => reloadArtist());
+  };
+
   return (
     <div className={styles.root}>
       <PortalSectionHeader title="Artist Portal" />
-      <SubmissionCountdown firstName={artist.first_name} timeLeftMs={timeLeftMs} />
+      {artist.submitted ?
+        null :
+        <SubmissionCountdown firstName={artist.first_name} timeLeftMs={timeLeftMs} /> 
+      }
       <h2>Tasks</h2>
       <div className={styles.tasksSubtitle}>
         There are 2 things that we need from you.
@@ -52,6 +63,7 @@ const PortalLanding = () => {
       <button
         className={styles.submitButton}
         disabled={timesUp}
+        onClick={submit}
       >
         Submit
       </button>

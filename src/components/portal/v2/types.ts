@@ -29,11 +29,17 @@ export interface Artist {
   readonly id: number;
   readonly first_name: string;
   readonly last_name: string;
+  readonly submitted: string;
   readonly accepted: Date;
   readonly due: string;
   readonly parent: Artist;
   readonly submissions: Array<Submission>;
 }
+
+export type MutableArtistFields = Pick<
+  Artist,
+  | "submitted"
+>
 
 export interface Countdown {
   readonly days: number;
