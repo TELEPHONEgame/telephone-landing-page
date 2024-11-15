@@ -16,6 +16,10 @@
     margin-top: 36px;
   }
 
+  .successCallout {
+    @include mixins.success-callout;
+  }
+
   .tasksSubtitle {
     color: variables.$color-gray-blue;
     font-size: variables.$fs-16;

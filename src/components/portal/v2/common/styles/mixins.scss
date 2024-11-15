@@ -81,9 +81,8 @@
   }
 }
 
-@mixin error-callout {
+@mixin callout {
   align-items: center;
-  background-color: variables.$color-error;
   border-radius: 10px;
   color: white;
   display: flex;
@@ -95,6 +94,16 @@
   svg {
     margin-right: 20px;
   }
+}
+
+@mixin success-callout {
+  @include callout;
+  background-color: variables.$color-success;
+}
+
+@mixin error-callout {
+  @include callout;
+  background-color: variables.$color-error;
 }
 
 @mixin rich-text-styles {
