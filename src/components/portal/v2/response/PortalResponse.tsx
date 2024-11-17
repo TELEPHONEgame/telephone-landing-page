@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
 
 import { updateArtist } from "@components/portal/v2/api";
-import LoadingOverlay from "@components/portal/LoadingOverlay";
+import LoadingOverlay from "@components/portal/v2/LoadingOverlay";
 import { useArtist } from "@components/portal/v2/Portal";
 import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";

@@ -5,7 +5,7 @@ import * as api from "@components/portal/v2/api";
 import { useArtist } from "@components/portal/v2/Portal";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MutableSubmissionFields } from "@components/portal/v2/types";
-import LoadingOverlay from "@components/portal/LoadingOverlay";
+import LoadingOverlay from "@components/portal/v2/LoadingOverlay";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 import PortalSubmissionEditForm from "@components/portal/v2/response/submission/edit/form/PortalSubmissionEditForm";

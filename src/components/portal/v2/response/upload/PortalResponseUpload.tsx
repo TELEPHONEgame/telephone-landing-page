@@ -9,7 +9,7 @@ import {
 } from "@components/portal/v2/common/file/filepicker";
 import { useArtist } from "@components/portal/v2/Portal";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import LoadingOverlay from "@/components/portal/LoadingOverlay";
+import LoadingOverlay from "@/components/portal/v2/LoadingOverlay";
 
 const PortalResponseUpload = () => {
   const { search } = useLocation();

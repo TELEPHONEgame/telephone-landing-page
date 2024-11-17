@@ -5,7 +5,7 @@ import { useArtist } from "@components/portal/v2/Portal";
 import * as api from "@components/portal/v2/api";
 import { Artist } from "@components/portal/v2/types";
 import PortalSubmissionPreview from "@components/portal/v2/response/submission/preview/PortalSubmissionPreview";
-import LoadingOverlay from "@/components/portal/LoadingOverlay";
+import LoadingOverlay from "@/components/portal/v2/LoadingOverlay";
 
 const PortalSubmissionList = ({ artist }: { artist: Artist }) => {
   const { reloadArtist } = useArtist();

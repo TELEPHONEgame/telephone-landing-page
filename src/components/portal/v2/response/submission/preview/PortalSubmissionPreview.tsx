@@ -8,7 +8,7 @@ import { useArtist } from "@components/portal/v2/Portal";
 import { Submission } from "@components/portal/v2/types";
 import { PortalLink } from "@components/portal/v2/common/PortalLink";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
-import LoadingOverlay from "@/components/portal/LoadingOverlay";
+import LoadingOverlay from "@/components/portal/v2/LoadingOverlay";
 import PortalSubmissionPreviewDialog from "./PortalSubmissionPreviewDialog";
 
 interface PortalSubmissionPreviewProps {
