@@ -121,7 +121,7 @@ const PortalSubmissionPreview = ({
 
       <PortalConfirmationDialog
         title="Discard Artwork"
-        body="Are you sure you want to Discard artwork? This action cannot be undone."
+        body="Are you sure you want to discard your artwork? This action cannot be undone."
         cancelText="Cancel"
         confirmText="Discard Artwork"
         isOpen={isDiscardConfirmationDialogOpen}
