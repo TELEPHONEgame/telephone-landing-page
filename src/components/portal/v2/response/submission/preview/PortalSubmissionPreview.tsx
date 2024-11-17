@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tooltip } from 'react-tooltip';
+import { Tooltip } from "react-tooltip";
 
 import styles from "./styles.module.scss";
 
@@ -9,19 +9,20 @@ import { Submission } from "@components/portal/v2/types";
 import { PortalLink } from "@components/portal/v2/common/PortalLink";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
 import LoadingOverlay from "@/components/portal/LoadingOverlay";
+import PortalSubmissionPreviewDialog from "./PortalSubmissionPreviewDialog";
 
 interface PortalSubmissionPreviewProps {
   readonly listIndex: number;
   readonly listLength: number;
-  readonly showListInfo: boolean;
+  readonly isEditable: boolean;
   readonly submission: Submission;
-  readonly onSort: (direction: "up" | "down") => void;
+  readonly onSort?: (direction: "up" | "down") => void;
 }
 
 const PortalSubmissionPreview = ({
   listIndex,
   listLength,
-  showListInfo,
+  isEditable,
   submission,
   onSort,
 }: PortalSubmissionPreviewProps) => {
@@ -29,6 +30,7 @@ const PortalSubmissionPreview = ({
   const [isDiscardConfirmationDialogOpen, setIsDiscardConfirmationDialogOpen] =
     useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isPreviewDialogOpen, setIsPreviewDialogOpen] = useState(false);
 
   const openDiscardDialog = () => {
     setIsDiscardConfirmationDialogOpen(true);
@@ -55,11 +57,13 @@ const PortalSubmissionPreview = ({
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        <span className={styles.ordinal}>{listIndex + 1}</span>
+        {isEditable ? (
+          <span className={styles.ordinal}>{listIndex + 1}</span>
+        ) : null}
         <span className={styles.title}>
           {submission.title ? submission.title : "Untitled"}
         </span>
-        {showListInfo ? (
+        {isEditable && listLength > 1 && onSort ? (
           <div className={styles.sortButtons}>
             {listIndex === 0 ? null : (
               <SortButton direction="up" onClick={() => onSort("up")} />
@@ -71,43 +75,49 @@ const PortalSubmissionPreview = ({
         ) : null}
       </div>
       <div className={styles.content}>
-        <FilePreview submission={submission} />
+        <FilePreview
+          submission={submission}
+          onShowFullscreen={() => setIsPreviewDialogOpen(true)}
+        />
       </div>
-      <div className={styles.footer}>
-        <PortalLink
-          to={`/portal/response/${submission.id}/edit`}
-          className={styles.footerButton}
-        >
-          <svg
-            className={styles.footerButtonIcon}
-            height="12"
-            viewBox="0 0 12 12"
-            width="12"
+
+      {isEditable ? (
+        <div className={styles.footer}>
+          <PortalLink
+            to={`/portal/response/${submission.id}/edit`}
+            className={styles.footerButton}
           >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M11.8067 1.75499C12.0667 2.01499 12.0667 2.43499 11.8067 2.69499L10.5867 3.91499L8.08667 1.41499L9.30667 0.19499C9.43122 0.0701553 9.60032 0 9.77667 0C9.95301 0 10.1221 0.0701553 10.2467 0.19499L11.8067 1.75499ZM0 11.6683V9.64166C0 9.54832 0.0333334 9.46832 0.1 9.40166L7.37333 2.12832L9.87333 4.62832L2.59333 11.9017C2.53333 11.9683 2.44667 12.0017 2.36 12.0017H0.333333C0.146667 12.0017 0 11.855 0 11.6683Z"
-            />
-          </svg>
-          Edit
-        </PortalLink>
-        <button className={styles.footerButton} onClick={openDiscardDialog}>
-          <svg
-            className={styles.footerButtonIcon}
-            height="12"
-            viewBox="0 0 10 12"
-            width="10"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M7.33594 0.666667H9.0026C9.36927 0.666667 9.66927 0.966667 9.66927 1.33333C9.66927 1.7 9.36927 2 9.0026 2H1.0026C0.635937 2 0.335938 1.7 0.335938 1.33333C0.335938 0.966667 0.635937 0.666667 1.0026 0.666667H2.66927L3.1426 0.193333C3.2626 0.0733333 3.43594 0 3.60927 0H6.39594C6.56927 0 6.7426 0.0733333 6.8626 0.193333L7.33594 0.666667ZM2.33594 12C1.6026 12 1.0026 11.4 1.0026 10.6667V4C1.0026 3.26667 1.6026 2.66667 2.33594 2.66667H7.66927C8.4026 2.66667 9.0026 3.26667 9.0026 4V10.6667C9.0026 11.4 8.4026 12 7.66927 12H2.33594Z"
-            />
-          </svg>
-          Delete
-        </button>
-      </div>
+            <svg
+              className={styles.footerButtonIcon}
+              height="12"
+              viewBox="0 0 12 12"
+              width="12"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M11.8067 1.75499C12.0667 2.01499 12.0667 2.43499 11.8067 2.69499L10.5867 3.91499L8.08667 1.41499L9.30667 0.19499C9.43122 0.0701553 9.60032 0 9.77667 0C9.95301 0 10.1221 0.0701553 10.2467 0.19499L11.8067 1.75499ZM0 11.6683V9.64166C0 9.54832 0.0333334 9.46832 0.1 9.40166L7.37333 2.12832L9.87333 4.62832L2.59333 11.9017C2.53333 11.9683 2.44667 12.0017 2.36 12.0017H0.333333C0.146667 12.0017 0 11.855 0 11.6683Z"
+              />
+            </svg>
+            Edit
+          </PortalLink>
+          <button className={styles.footerButton} onClick={openDiscardDialog}>
+            <svg
+              className={styles.footerButtonIcon}
+              height="12"
+              viewBox="0 0 10 12"
+              width="10"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M7.33594 0.666667H9.0026C9.36927 0.666667 9.66927 0.966667 9.66927 1.33333C9.66927 1.7 9.36927 2 9.0026 2H1.0026C0.635937 2 0.335938 1.7 0.335938 1.33333C0.335938 0.966667 0.635937 0.666667 1.0026 0.666667H2.66927L3.1426 0.193333C3.2626 0.0733333 3.43594 0 3.60927 0H6.39594C6.56927 0 6.7426 0.0733333 6.8626 0.193333L7.33594 0.666667ZM2.33594 12C1.6026 12 1.0026 11.4 1.0026 10.6667V4C1.0026 3.26667 1.6026 2.66667 2.33594 2.66667H7.66927C8.4026 2.66667 9.0026 3.26667 9.0026 4V10.6667C9.0026 11.4 8.4026 12 7.66927 12H2.33594Z"
+              />
+            </svg>
+            Delete
+          </button>
+        </div>
+      ) : null}
 
       <PortalConfirmationDialog
         title="Discard Artwork"
@@ -117,6 +127,12 @@ const PortalSubmissionPreview = ({
         isOpen={isDiscardConfirmationDialogOpen}
         onCancel={closeDiscardDialog}
         onConfirm={deleteSubmission}
+      />
+
+      <PortalSubmissionPreviewDialog
+        isOpen={isPreviewDialogOpen}
+        onClose={() => setIsPreviewDialogOpen(false)}
+        submission={submission}
       />
 
       <LoadingOverlay isLoading={isDeleting} message="Deleting..." />
@@ -158,37 +174,84 @@ const SortButton = ({
   );
 };
 
-const FilePreview = ({ submission }: { submission: Submission }) => {
+const FilePreview = ({
+  submission,
+  onShowFullscreen,
+}: {
+  submission: Submission;
+  onShowFullscreen: () => void;
+}) => {
   switch (submission.type) {
     case "audio":
       return <audio src={submission.file} controls={true} />;
     case "image":
-      return <ImagePreview submission={submission} />;
+      return (
+        <ImagePreview
+          submission={submission}
+          onShowFullscreen={onShowFullscreen}
+        />
+      );
     case "video":
       return <video src={submission.file} controls={true} />;
     default:
       return submission.written_work ? (
-        <WrittenWorkPreview submission={submission} />
+        <WrittenWorkPreview
+          submission={submission}
+          onShowFullscreen={onShowFullscreen}
+        />
       ) : (
         submission.file
       );
   }
 };
 
-const ImagePreview = ({ submission }: { submission: Submission }) => {
+const ImagePreview = ({
+  submission,
+  onShowFullscreen,
+}: {
+  submission: Submission;
+  onShowFullscreen: () => void;
+}) => {
   return (
-    <div>
+    <div className={styles.imagePreview}>
       <img src={submission.file} />
+      <FullscreenButton onShowFullscreen={onShowFullscreen} />
     </div>
   );
 };
 
-const WrittenWorkPreview = ({ submission }: { submission: Submission }) => {
+const WrittenWorkPreview = ({
+  submission,
+  onShowFullscreen,
+}: {
+  submission: Submission;
+  onShowFullscreen: () => void;
+}) => {
   return (
     <div className={styles.writtenWorkPreview}>
-      <strong>{submission.title ?? "Untitled"}</strong>
+      <strong className={styles.writtenWorkPreviewTitle}>
+        {submission.title ?? "Untitled"}
+      </strong>
+      <FullscreenButton onShowFullscreen={onShowFullscreen} />
     </div>
   );
 };
+
+const FullscreenButton = ({
+  onShowFullscreen,
+}: {
+  onShowFullscreen: () => void;
+}) => (
+  <button className={styles.previewFullScreenButton} onClick={onShowFullscreen}>
+    <svg width="24" height="24" viewBox="0 0 24 24">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M7 9C7 9.55 6.55 10 6 10C5.45 10 5 9.55 5 9V6C5 5.45 5.45 5 6 5H9C9.55 5 10 5.45 10 6C10 6.55 9.55 7 9 7H7V9ZM5 15C5 14.45 5.45 14 6 14C6.55 14 7 14.45 7 15V17H9C9.55 17 10 17.45 10 18C10 18.55 9.55 19 9 19H6C5.45 19 5 18.55 5 18V15ZM17 17H15C14.45 17 14 17.45 14 18C14 18.55 14.45 19 15 19H18C18.55 19 19 18.55 19 18V15C19 14.45 18.55 14 18 14C17.45 14 17 14.45 17 15V17ZM15 7C14.45 7 14 6.55 14 6C14 5.45 14.45 5 15 5H18C18.55 5 19 5.45 19 6V9C19 9.55 18.55 10 18 10C17.45 10 17 9.55 17 9V7H15Z"
+      />
+    </svg>
+    Full Screen
+  </button>
+);
 
 export default PortalSubmissionPreview;

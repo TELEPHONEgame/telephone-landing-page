@@ -63,7 +63,7 @@ const PortalSubmissionList = ({ artist }: { artist: Artist }) => {
             <PortalSubmissionPreview
               listIndex={index}
               listLength={artist.submissions.length}
-              showListInfo={artist.submissions.length > 1}
+              isEditable={artist.submissions.length > 1}
               submission={submission}
               onSort={(direction) => onSubmissionSorted(index, direction)}
             />

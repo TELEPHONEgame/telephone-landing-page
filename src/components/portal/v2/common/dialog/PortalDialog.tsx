@@ -4,10 +4,15 @@ import { createPortal } from "react-dom";
 import styles from "./base.module.scss";
 
 interface PortalDialogProps extends React.PropsWithChildren {
+  readonly disableDialogContentStyles?: boolean;
   readonly isOpen: boolean;
 }
 
-const PortalDialog = ({ children, isOpen }: PortalDialogProps) => {
+const PortalDialog = ({
+  children,
+  disableDialogContentStyles,
+  isOpen,
+}: PortalDialogProps) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [wasOpen, setWasOpen] = useState(isOpen);
 
@@ -16,12 +21,22 @@ const PortalDialog = ({ children, isOpen }: PortalDialogProps) => {
   }
 
   useEffect(() => {
+    const appRoot = document.getElementById("root");
+    if (appRoot) {
+      appRoot.style.transition = "filter 200ms";
+      appRoot.style.filter = isOpen ? "blur(21px)" : null;
+    }
+
     document.body.style.overflow = isOpen ? "hidden" : null;
     if (isOpen !== wasOpen) {
       setWasOpen(isOpen);
     }
 
     return () => {
+      if (appRoot) {
+        appRoot.style.transition = null;
+        appRoot.style.filter = null;
+      }
       document.body.style.overflow = null;
     };
   }, [isOpen]);
@@ -40,7 +55,11 @@ const PortalDialog = ({ children, isOpen }: PortalDialogProps) => {
           <div>
             <div className={styles.backdrop} />
             <div className={styles.contents}>
-              <div className={styles.dialog}>{children}</div>
+              {disableDialogContentStyles ? (
+                children
+              ) : (
+                <div className={styles.dialog}>{children}</div>
+              )}
             </div>
           </div>
         </FocusTrap>

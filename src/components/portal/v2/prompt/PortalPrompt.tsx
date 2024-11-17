@@ -4,6 +4,7 @@ import styles from "./styles.module.scss";
 import { useArtist } from "@components/portal/v2/Portal";
 import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
+import PortalPromptList from "@components/portal/v2/prompt/list/PortalPromptList";
 
 const PortalPrompt = () => {
   const {artist} = useArtist();
@@ -33,12 +34,18 @@ const PortalPrompt = () => {
             posuere ac proin dictum mollis malesuada orci. Laoreet justo tristique diam dis
             odio sem consectetur ridiculus. Porta consequat suscipit placerat conubia proin
             at platea. Ex fringilla nibh ullamcorper volutpat amet nibh eros torquent.
+
+            <div className={styles.promptList}>
+              <PortalPromptList artist={artist} />
+            </div>
           </PortalAccordion>
         </div>
 
-        <button className={styles.downloadButton}>
-          Download your assignment
-        </button>
+        <div className={styles.footer}>
+          <button className={styles.downloadButton}>
+            Download your assignment
+          </button>
+        </div>
       </div>
     </>
   );

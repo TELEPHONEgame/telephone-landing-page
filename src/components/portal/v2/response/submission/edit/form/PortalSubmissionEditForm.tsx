@@ -52,6 +52,7 @@ const PortalSubmissionEditForm = ({
 
   const [isDiscardConfirmationDialogOpen, setIsDiscardConfirmationDialogOpen] =
     useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const openDiscardDialog = () => {
     setIsDiscardConfirmationDialogOpen(true);
@@ -61,10 +62,15 @@ const PortalSubmissionEditForm = ({
     setIsDiscardConfirmationDialogOpen(false);
   };
 
-  const blocker = useBlocker(() => isDirty);
+  const blocker = useBlocker(() => isDirty && !isSubmitting);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={(e) => {
+        setIsSubmitting(true);
+        return handleSubmit(onSubmit)(e);
+      }}
+    >
       <div className={styles.editor}>
         {submission.type === "image" ? (
           <>
@@ -173,9 +179,8 @@ const PortalSubmissionEditForm = ({
         isOpen={blocker.state === "blocked"}
         onCancel={() => void blocker.proceed()}
         onConfirm={() => {
+          setIsSubmitting(true);
           onSubmit(getValues());
-          // Calling reset lets the next attempt to navigate work.
-          reset(getValues());
         }}
       />
     </form>
