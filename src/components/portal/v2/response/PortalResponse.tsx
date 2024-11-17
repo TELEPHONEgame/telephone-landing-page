@@ -1,6 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import styles from "./styles.module.scss";
+
+import { updateArtist } from "@components/portal/v2/api";
+import LoadingOverlay from "@components/portal/LoadingOverlay";
 import { useArtist } from "@components/portal/v2/Portal";
 import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
@@ -8,7 +12,21 @@ import PortalSubmissionList from "@components/portal/v2/response/submission/list
 import { PortalLink } from "@components/portal/v2/common/PortalLink";
 
 const PortalResponse = () => {
-  const { artist } = useArtist();
+  const { artist, reloadArtist } = useArtist();
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submit = async () => {
+    setIsSubmitting(true);
+    await updateArtist(artist.id, { submitted: new Date().toISOString() });
+    await reloadArtist();
+    setIsSubmitting(false);
+
+    navigate(`/portal${search}`, {
+      viewTransition: true,
+    });
+  };
 
   return (
     <>
@@ -68,12 +86,21 @@ const PortalResponse = () => {
             <span className={styles.fileLimitWarningText}>10 file limit</span>
           </div>
 
-          {/* TODO: Hook up to actually work and add some description above. */}
-          <button className={styles.submitButton}>
-            Submit
-          </button>
+          <div>
+            <p className={styles.submitDescription}>Finished uploading? Submit your work so it can be sent to the next artist.</p>
+
+            <button
+              className={styles.submitButton}
+              disabled={artist.submissions.length < 1}
+              onClick={submit}
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
+
+      <LoadingOverlay isLoading={isSubmitting} message="Submitting..." />
     </>
   );
 };
