@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import styles from "./styles.module.scss";
@@ -28,11 +28,40 @@ const PortalResponse = () => {
     });
   };
 
+  const submitSuccessCallout = (
+    <div className={styles.successCallout}>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="0.75"
+          y="0.75"
+          width="22.5"
+          height="22.5"
+          rx="11.25"
+          stroke="white"
+          stroke-width="1.5"
+        />
+        <path
+          d="M8.55353 15.9464L5.49877 12.8916C5.33429 12.7268 5.111 12.6341 4.87813 12.6341C4.64527 12.6341 4.42197 12.7268 4.2575 12.8916C3.91417 13.235 3.91417 13.7896 4.2575 14.1329L7.93729 17.8127C8.28063 18.156 8.83524 18.156 9.17857 17.8127L18.4925 8.49876C18.8358 8.15543 18.8358 7.60082 18.4925 7.25749C18.328 7.09264 18.1047 7 17.8719 7C17.639 7 17.4157 7.09264 17.2512 7.25749L8.55353 15.9464Z"
+          fill="white"
+        />
+      </svg>
+      Success, you have submitted your artwork
+    </div>
+  );
+
   return (
     <>
       <PortalSectionHeader showBackButton={true} title="Artwork Response" />
 
       <div className={styles.content}>
+        {artist.submitted ? submitSuccessCallout : null}
+
         <div className={styles.accordion}>
           <PortalAccordion title="Upload your artwork">
             Upload your artwork, you can upload up to 10 files. Feel free to
@@ -59,17 +88,21 @@ const PortalResponse = () => {
         <PortalSubmissionList artist={artist} />
 
         <div className={styles.footer}>
-          <AddButton
-            label={
-              artist.submissions?.length
-                ? "Upload another file"
-                : "Upload a file"
-            }
-            submissionType="file"
-          />
-          <AddButton label="Written work" submissionType="text" />
+          {artist.submissions.length < 10 ? (
+            <>
+              <AddButton
+                label={
+                  artist.submissions?.length
+                    ? "Upload another file"
+                    : "Upload a file"
+                }
+                submissionType="file"
+              />
+              <AddButton label="Written work" submissionType="text" />
+            </>
+          ) : null}
 
-          <div className={styles.fileLimitWarning}>
+          <div className={artist.submissions.length < 10 ? styles.fileLimitWarning : styles.fileLimitWarningMax}>
             <svg
               className={styles.fileLimitWarningIcon}
               height="20"
@@ -80,23 +113,29 @@ const PortalResponse = () => {
                 fillRule="evenodd"
                 clipRule="evenodd"
                 d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 15C9.45 15 9 14.55 9 14V10C9 9.45 9.45 9 10 9C10.55 9 11 9.45 11 10V14C11 14.55 10.55 15 10 15ZM9 7H11V5H9V7Z"
-                fill="#2D4663"
               />
             </svg>
-            <span className={styles.fileLimitWarningText}>10 file limit</span>
+            <span className={styles.fileLimitWarningText}>
+              {artist.submissions.length < 10 ? "10 file limit" : "Max files uploaded"}
+            </span>
           </div>
 
-          <div>
-            <p className={styles.submitDescription}>Finished uploading? Submit your work so it can be sent to the next artist.</p>
+          {artist.submitted ? null : (
+            <div>
+              <p className={styles.submitDescription}>
+                Finished uploading? Submit your work so it can be sent to the
+                next artist.
+              </p>
 
-            <button
-              className={styles.submitButton}
-              disabled={artist.submissions.length < 1}
-              onClick={submit}
-            >
-              Submit
-            </button>
-          </div>
+              <button
+                className={styles.submitButton}
+                disabled={artist.submissions.length < 1 || !!artist.submitted}
+                onClick={submit}
+              >
+                Submit
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

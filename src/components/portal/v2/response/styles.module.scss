@@ -26,8 +26,17 @@
 }
 
 .fileLimitWarningIcon {
+  fill: variables.$color-gray-blue;
   flex: 0 0 auto;
   margin-inline-end: 10px;
+}
+
+.fileLimitWarningMax {
+  composes: fileLimitWarning;
+
+  .fileLimitWarningIcon {
+    fill: variables.$color-error;
+  }
 }
 
 .fileLimitWarningText {
@@ -53,4 +62,9 @@
 .submitDescription {
   margin-top: 36px;
   font-size: variables.$fs-16;
+}
+
+.successCallout {
+  @include mixins.success-callout;
+  margin-block-end: 36px;
 }
