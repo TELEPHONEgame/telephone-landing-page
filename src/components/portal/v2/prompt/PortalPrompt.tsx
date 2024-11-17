@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 import { useArtist } from "@components/portal/v2/Portal";
+import * as api from "@components/portal/v2/api";
 import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 import PortalPromptList from "@components/portal/v2/prompt/list/PortalPromptList";
@@ -42,7 +43,7 @@ const PortalPrompt = () => {
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.downloadButton}>
+          <button className={styles.downloadButton} onClick={() => api.downloadAssignment(artist.submissions)}>
             Download your assignment
           </button>
         </div>

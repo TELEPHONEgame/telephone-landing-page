@@ -4,9 +4,87 @@ import {
   Submission,
 } from "@/components/portal/v2/types";
 import pProgress, { PProgress } from "p-progress";
+import { downloadZip } from "client-zip";
 
 const SERVER_URL = "https://telephonegame.art/";
 const FILE_NAME_MAX_LENGTH = 80;
+
+export async function downloadAssignment(submissions: Submission[]) {
+  let untitledCount = 0;
+
+  const files = await Promise.all(
+    submissions.map((submission) => {
+      if (submission.written_work) {
+        if (!submission.title) {
+          untitledCount++;
+        }
+
+        return {
+          input: outputWrittenWorkHtml(submission),
+          name: submission.title
+            ? `${slugify(submission.title)}.html`
+            : `untitled-${untitledCount}.html`,
+        };
+      }
+
+      return fetch(submission.file);
+    })
+  );
+
+  // get the ZIP stream in a Blob
+  const blob = await downloadZip(files).blob();
+
+  // make and click a temporary link to download the Blob
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "test.zip";
+  link.click();
+  link.remove();
+}
+
+function outputWrittenWorkHtml(submission: Submission): File {
+  const contents = `
+    <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+  
+      <style>
+      .root {
+        font-family: "Roboto Serif", serif;
+        font-size: 18px;
+        line-height: 1.5;
+        margin: 120px auto;
+        max-width: 95%;
+        width: 680px;
+      }
+  
+      * {
+        font-family: inherit;
+        font-size: inherit;
+      }
+  
+      [data-is-poem="true"] {
+        white-space: pre;
+      }
+  
+      p:not(:first-child),
+      ul:not(:first-child),
+      ol:not(:first-child) {
+        margin-block-start: 1em;
+      }
+  
+      </style>
+    </head>
+
+    <div
+      class="root"
+      data-is-poem="${submission.written_work_line_wrap_disabled}"
+    >${submission.written_work}</div>
+  `;
+
+  return new File([contents], "text.html");
+}
 
 export async function getArtist(): Promise<Artist> {
   const response = await fetch(`${SERVER_URL}api/artists/me/`, {
@@ -22,16 +100,16 @@ export async function getArtist(): Promise<Artist> {
   return (await response.json()) as Artist;
 }
 
-export async function updateArtist(artistId: number, artist: Partial<MutableArtistFields>) {
-  const response = await fetch(
-    `${SERVER_URL}api/artists/${artistId}/`,
-    {
-      method: "PATCH",
-      headers: getAuthHeaders(),
-      credentials: "include", // This sends cookies with the request
-      body: JSON.stringify(artist),
-    }
-  );
+export async function updateArtist(
+  artistId: number,
+  artist: Partial<MutableArtistFields>
+) {
+  const response = await fetch(`${SERVER_URL}api/artists/${artistId}/`, {
+    method: "PATCH",
+    headers: getAuthHeaders(),
+    credentials: "include", // This sends cookies with the request
+    body: JSON.stringify(artist),
+  });
 
   if (!response.ok) {
     throw new Error("");
@@ -195,4 +273,29 @@ async function generateSignedUrlForFileUpload(file: File, fileName: string) {
       credentials: "include",
     }
   );
+}
+
+/**
+ * Convert a string to a url-friendly format
+ *
+ * @param string The string to format
+ */
+function slugify(string) {
+  string = string.trim();
+  string = string.toLowerCase();
+
+  // remove accents, swap ñ for n, etc
+  const from = "åàáãäâèéëêìíïîòóöôùúüûñç·/_,:;";
+  const to = "aaaaaaeeeeiiiioooouuuunc------";
+
+  for (let i = 0, l = from.length; i < l; i++) {
+    string = string.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+  }
+
+  return string
+    .replace(/[^a-z0-9 -]/g, "") // Remove invalid chars.
+    .replace(/\s+/g, "-") // Collapse whitespace and replace with "-".
+    .replace(/-+/g, "-") // Collapse dashes.
+    .replace(/^-+/, "") // Trim "-" from start of text.
+    .replace(/-+$/, ""); // Trim "-" from end of text.
 }

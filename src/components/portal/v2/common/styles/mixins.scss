@@ -141,16 +141,6 @@
       margin-block-start: 1em;
     }
   }
-
-  p[style*="justify"] {
-    text-align-last: justify;
-  }
-
-  p[style*="justify"]::after {
-    content: "";
-    display: inline-block;
-    width: 100%;
-  }
 }
 
 /* Media query mixins */
