@@ -6,15 +6,12 @@ type LoadingOverlayProps = {
 };
 
 const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ isLoading, message }) => {
-  if (!isLoading) {
-    return null;
-  }
-
   return (
     <div
+      aria-hidden={!isLoading}
       style={{
         alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        backgroundColor: "rgba(0, 0, 0, 0.65)",
         color: "#fff",
         display: "flex",
         fontSize: "24px",
