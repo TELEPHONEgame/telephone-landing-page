@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./styles.module.scss";
 import { useArtist } from "@components/portal/v2/Portal";
@@ -6,9 +6,17 @@ import * as api from "@components/portal/v2/api";
 import PortalAccordion from "@components/portal/v2/common/accordion/PortalAccordion";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 import PortalPromptList from "@components/portal/v2/prompt/list/PortalPromptList";
+import LoadingOverlay from "@components/portal/v2/LoadingOverlay";
 
 const PortalPrompt = () => {
   const { artist } = useArtist();
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const downloadAssignment = async () => {
+    setIsDownloading(true);
+    await api.downloadAssignment(artist.parent.submissions);
+    setIsDownloading(false);
+  };
 
   return (
     <>
@@ -46,12 +54,17 @@ const PortalPrompt = () => {
         <div className={styles.footer}>
           <button
             className={styles.downloadButton}
-            onClick={() => api.downloadAssignment(artist.parent.submissions)}
+            onClick={downloadAssignment}
           >
             Download your assignment
           </button>
         </div>
       </div>
+
+      <LoadingOverlay
+        isLoading={isDownloading}
+        message="Preparing download..."
+      />
     </>
   );
 };
