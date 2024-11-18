@@ -5,9 +5,10 @@ import { Artist } from "@components/portal/v2/types";
 import PortalSubmissionPreview from "@components/portal/v2/response/submission/preview/PortalSubmissionPreview";
 
 const PortalPromptList = ({ artist }: { artist: Artist }) => {
-  const sortedSubmissions = [...artist.parent.submissions].sort(
-    (a, b) => (a.order ?? Infinity) - (b.order ?? Infinity)
-  );
+  const sortedSubmissions = [...artist.parent.submissions]
+    // Filter out any submissions that have no content
+    .filter((submission) => submission.file || submission.written_work)
+    .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
 
   return (
     <>
