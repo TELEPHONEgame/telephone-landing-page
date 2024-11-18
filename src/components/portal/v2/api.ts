@@ -3,6 +3,7 @@ import {
   MutableSubmissionFields,
   Submission,
 } from "@/components/portal/v2/types";
+import { sanitize } from "@components/portal/v2/common/sanitize-html";
 import pProgress, { PProgress } from "p-progress";
 import { downloadZip } from "client-zip";
 
@@ -97,7 +98,17 @@ export async function getArtist(): Promise<Artist> {
     throw new Error("");
   }
 
-  return (await response.json()) as Artist;
+  const artist = (await response.json()) as Artist;
+
+  return {
+    ...artist,
+    submissions: artist.submissions.map((submission) => ({
+      ...submission,
+      written_work: submission.written_work
+        ? sanitize(submission.written_work)
+        : null,
+    })),
+  };
 }
 
 export async function updateArtist(
@@ -125,7 +136,12 @@ export async function createSubmission(
     method: "POST",
     headers: getAuthHeaders(),
     credentials: "include", // This sends cookies with the request
-    body: JSON.stringify(submission),
+    body: JSON.stringify({
+      ...submission,
+      written_work: submission.written_work
+        ? sanitize(submission.written_work)
+        : null,
+    }),
   });
 
   return (await response.json()) as Submission;
@@ -240,7 +256,12 @@ export async function updateSubmission(
       method: "PATCH",
       headers: getAuthHeaders(),
       credentials: "include", // This sends cookies with the request
-      body: JSON.stringify(submission),
+      body: JSON.stringify({
+        ...submission,
+        written_work: submission.written_work
+          ? sanitize(submission.written_work)
+          : null,
+      }),
     }
   );
 
