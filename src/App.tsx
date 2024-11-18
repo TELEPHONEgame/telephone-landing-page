@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import TelephoneHeader from "@components/common/v2/header/TelephoneHeader";
 import { ConfigProvider } from "antd";
 import "./App.css";
 
@@ -21,7 +20,6 @@ function App() {
           },
         }}
       >
-        <TelephoneHeader />
         <Outlet />
       </ConfigProvider>
     </div>

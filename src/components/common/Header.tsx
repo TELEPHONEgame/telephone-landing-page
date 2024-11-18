@@ -56,8 +56,7 @@ const Header = ({ step, title }: { step?: number; title?: string }) => {
   return (
     <header className={headerClasses}>
       <span
-        className="main_text"
-        style={{ fontStyle: "normal", overflow: "hidden" }}
+        className="logo"
       >
         {title ?? "TELEPHONE"}
       </span>

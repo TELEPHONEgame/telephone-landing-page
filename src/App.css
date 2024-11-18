@@ -42,13 +42,17 @@ html * {
   content: "";
   background-color: rgb(0, 0, 0);
 }
+
 .main_section {
-  height: 100vh;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  height: 100vh;
   justify-content: space-between;
+  margin: 0 auto;
+  max-width: 95%;
   padding: 2vh;
-  border-radius: 10px;
+  width: 800px;
 }
 
 .fields_box {
@@ -121,11 +125,6 @@ html * {
   font-size: var(--desktop-font-size);
 }
 
-.main_text {
-  font-family: "Crimson Pro";
-  font-style: italic;
-  width: 80%;
-}
 .bold_text {
   font-weight: 620;
 }
@@ -133,24 +132,20 @@ html * {
 /* header  */
 .header {
   font-size: 22px;
-  /* width: 350px; */
   height: 24px;
-  /* height: 4%; */
   display: flex;
   width: 100%;
 }
-.main_text {
+.logo {
+  flex: 1 1 auto;
   font-family: "Crimson Pro";
-  font-style: italic;
+  overflow: hidden;
 }
 .bold_text {
   font-weight: 620;
 }
 .ham_menu {
-  /* right: 25%;
-  position: absolute; */
-  height: inherit;
-  width: 20%;
+  flex: 0 0 auto;
 }
 .ham_menu:hover {
   cursor: pointer;

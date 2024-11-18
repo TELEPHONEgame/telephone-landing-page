@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import TelephoneHeader from "@components/common/v2/header/TelephoneHeader";
 import { Artist } from "@components/portal/v2/types";
 import LoadingOverlay from "@components/portal/v2/LoadingOverlay";
 import { getArtist } from "@components/portal/v2/api";
@@ -20,6 +21,7 @@ const Portal = () => {
 
   return (
     <>
+      <TelephoneHeader />
       <LoadingOverlay isLoading={isLoading} />
       {artist ? (
         <Outlet
