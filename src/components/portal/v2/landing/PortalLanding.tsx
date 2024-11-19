@@ -6,9 +6,12 @@ import { PortalLink } from "@components/portal/v2/common/PortalLink";
 import { SubmissionCountdown } from "@components/portal/v2/countdown/SubmissionCountdown";
 import styles from "./styles.module.scss";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
+import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
 
 const PortalLanding = () => {
   const { artist, reloadArtist } = useArtist();
+  const [isSubmissionConfirmationDialogOpen, setIsSubmissionConfirmationDialogOpen] = 
+    useState(false); 
 
   const artistHasUploads = artist.submissions.length > 0;
   const dueDateMs = new Date(artist.due).getTime();
@@ -31,9 +34,18 @@ const PortalLanding = () => {
   }, [dueDateMs]);
 
   const submit = () => {
-    updateArtist(artist.id, { submitted: new Date().toISOString() }).then(() =>
-      reloadArtist()
-    );
+    updateArtist(artist.id, { submitted: new Date().toISOString() }).then(() => {
+      reloadArtist();
+      closeSubmissionDialog();
+    });
+  };
+
+  const openSubmissionDialog = () => {
+    setIsSubmissionConfirmationDialogOpen(true);
+  };
+
+  const closeSubmissionDialog = () => {
+    setIsSubmissionConfirmationDialogOpen(false);
   };
 
   const submitSuccessCallout = (
@@ -87,10 +99,20 @@ const PortalLanding = () => {
       <button
         className={styles.submitButton}
         disabled={timesUp || !!artist.submitted}
-        onClick={submit}
+        onClick={openSubmissionDialog}
       >
         Submit
       </button>
+
+      <PortalConfirmationDialog
+        title="Submit artist application"
+        body="Are you sure you want to submit the artist application? This action can't be undone."
+        cancelText="Back"
+        confirmText="Submit"
+        isOpen={isSubmissionConfirmationDialogOpen}
+        onCancel={closeSubmissionDialog}
+        onConfirm={submit}
+      />
     </div>
   );
 };
