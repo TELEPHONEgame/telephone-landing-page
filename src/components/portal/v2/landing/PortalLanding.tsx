@@ -80,13 +80,10 @@ const PortalLanding = () => {
           timeLeftMs={timeLeftMs}
         />
       )}
-      <h2>Tasks</h2>
-      <div className={styles.tasksSubtitle}>
-        There are 2 things that we need from you.
-      </div>
+      <h2 className={styles.tasksTitle}>Tasks</h2>
       <TaskButton
         isDisabled={timesUp}
-        label="View your artistic prompt"
+        label="1. View your artistic prompt"
         route="/portal/prompt"
       />
       <TaskButton
@@ -94,7 +91,7 @@ const PortalLanding = () => {
         isDisabled={timesUp}
         isDone={artistHasUploads}
         route="/portal/response"
-        label="Upload your artwork response"
+        label="2. Upload your artwork response"
       />
       <button
         className={styles.submitButton}

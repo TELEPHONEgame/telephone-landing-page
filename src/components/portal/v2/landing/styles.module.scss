@@ -14,6 +14,7 @@
     font-weight: normal;
     line-height: 16px;
     margin-top: 36px;
+    margin-bottom: 20px;
   }
 
   .successCallout {
@@ -24,7 +25,6 @@
     color: variables.$color-gray-blue;
     font-size: variables.$fs-16;
     line-height: 12px;
-    margin: 20px 0;
   }
 
   .submitButton {
