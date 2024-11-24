@@ -30,12 +30,7 @@ const PortalResponse = () => {
 
   const submitSuccessCallout = (
     <div className={styles.successCallout}>
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <rect
           x="0.75"
           y="0.75"
@@ -78,9 +73,9 @@ const PortalResponse = () => {
             .
           </PortalAccordion>
           <PortalAccordion title="Artwork Order and Main Thumbnail">
-            After uploading your artwork, it's important to review the order and
-            select your main thumbnail favorite. You can use the up and down
-            arrows to change the order of your artwork.
+            After uploading your artwork, it's important to review the order,
+            which reflects how it will be displayed on the exhibit. You can use
+            the up and down arrows to change the order of your artwork.
           </PortalAccordion>
         </div>
 
@@ -101,7 +96,13 @@ const PortalResponse = () => {
             </>
           ) : null}
 
-          <div className={artist.submissions.length < 10 ? styles.fileLimitWarning : styles.fileLimitWarningMax}>
+          <div
+            className={
+              artist.submissions.length < 10
+                ? styles.fileLimitWarning
+                : styles.fileLimitWarningMax
+            }
+          >
             <svg
               className={styles.fileLimitWarningIcon}
               height="20"
@@ -115,7 +116,9 @@ const PortalResponse = () => {
               />
             </svg>
             <span className={styles.fileLimitWarningText}>
-              {artist.submissions.length < 10 ? "10 file limit" : "Max files uploaded"}
+              {artist.submissions.length < 10
+                ? "10 file limit"
+                : "Max files uploaded"}
             </span>
           </div>
 
