@@ -54,7 +54,9 @@ const PortalResponse = () => {
       <PortalSectionHeader showBackButton={true} title="Artwork Response" />
 
       <div className={styles.content}>
-        {artist.submitted ? submitSuccessCallout : null}
+        <div className={styles.successCalloutContainer}>
+          {artist.submitted ? submitSuccessCallout : null}
+        </div>
 
         <div className={styles.accordion}>
           <PortalAccordion title="Upload your artwork">

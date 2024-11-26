@@ -68,3 +68,7 @@
   @include mixins.success-callout;
   margin-block-end: 36px;
 }
+
+.successCalloutContainer {
+  @include mixins.centered-container($pad-mobile: true);
+}
