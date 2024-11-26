@@ -13,6 +13,14 @@
 .content {
   line-height: 1.25;
   padding-block-end: 16px;
+
+  p, ul, ol {
+    font-size: inherit;
+
+    &:not(:first-child) {
+      margin-block-start: 1em;
+    }
+  }
 }
 
 .toggle {
