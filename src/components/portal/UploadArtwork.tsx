@@ -110,6 +110,7 @@ const UploadArtwork = ({artist}) => {
       alert('No file to upload');
       return;
     }
+    fileName = fileName.replace(/[^a-zA-Z0-9.]/g, '_');
 
     try {
       // Disable inputs during the upload process
