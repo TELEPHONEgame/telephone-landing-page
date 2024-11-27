@@ -7,5 +7,11 @@ export default defineConfig(() => {
       outDir: "build",
     },
     plugins: [react()],
+    resolve: {
+      alias: {
+        '@': '/src',
+        '@components': '/src/components',
+      },
+    },
   };
 });

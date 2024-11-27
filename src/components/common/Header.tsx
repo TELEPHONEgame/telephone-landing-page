@@ -4,9 +4,9 @@ import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 
 import { IoMenu } from "react-icons/io5";
-import { FaArrowLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const Header = ({ displayFaq, setDisplayFaq, step, page, task, setTask }) => {
+const Header = ({ step, title }: { step?: number; title?: string }) => {
   const [displayDropdown, setDisplayDropdown] = useState(false);
 
   const items: MenuProps["items"] = [
@@ -23,12 +23,9 @@ const Header = ({ displayFaq, setDisplayFaq, step, page, task, setTask }) => {
     },
     {
       label: (
-        <div
-          style={{ width: "100%" }}
-          onClick={() => setDisplayFaq(!displayFaq)}
-        >
+        <Link style={{ width: "100%" }} to="/faq">
           FAQ
-        </div>
+        </Link>
       ),
       key: "1",
     },
@@ -44,19 +41,13 @@ const Header = ({ displayFaq, setDisplayFaq, step, page, task, setTask }) => {
       key: "2",
     },
   ];
-  // console.log("HEADER step--", step);
-  // console.log("HEADER page--", page);
 
   const getHeaderClasses = () => {
     let headerClasses = "header ";
     if (step === 5) {
       headerClasses += "final_card_header";
     }
-    if (!step) {
-      // console.log("add header PORTAL classes");
-    }
 
-    // console.log("headerClasses--", headerClasses);
     return headerClasses;
   };
 
@@ -64,14 +55,10 @@ const Header = ({ displayFaq, setDisplayFaq, step, page, task, setTask }) => {
 
   return (
     <header className={headerClasses}>
-      {task !== 0 ? (
-        <FaArrowLeft onClick={() => setTask(0)} className="arrow_icon_portal" />
-      ) : null}
       <span
-        className="main_text"
-        style={{ fontStyle: "normal", overflow: "hidden" }}
+        className="logo"
       >
-        {page === "portal" ? "TELEPHONE: Artist Portal" : "TELEPHONE"}
+        {title ?? "TELEPHONE"}
       </span>
       <div
         className="ham_menu"

@@ -1,0 +1,187 @@
+@use "sass:meta";
+@use "./variables";
+
+@mixin btn-reset {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 100%;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}
+
+@mixin standard-btn {
+  @include btn-reset;
+  align-items: center;
+  border-radius: 10px;
+  display: flex;
+  font-size: variables.$fs-16;
+  font-weight: 700;
+  justify-content: center;
+  min-height: 48px;
+  padding-block: 10px;
+  padding-inline: 20px;
+  text-align: center;
+
+  &[disabled] {
+    background-color: variables.$color-disabled-button;
+    border-color: variables.$color-disabled-button;
+    color: variables.$color-disabled-button-text;
+    pointer-events: none;
+  }
+}
+
+@mixin filled-btn {
+  @include standard-btn;
+  background-color: variables.$color-gray-blue;
+  color: variables.$color-white;
+}
+
+@mixin outlined-btn {
+  @include standard-btn;
+  border: 2px solid variables.$color-gray-blue;
+  color: variables.$color-gray-blue;
+}
+
+@mixin link-reset {
+  text-decoration: none;
+}
+
+@mixin list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin centered-container($pad-mobile: false) {
+  margin-inline: auto;
+  max-width: variables.$desktop-container-max-width;
+
+  @include wide-screen {
+    width: 95vw;
+  }
+
+  @if ($pad-mobile) {
+    @include narrow-screen {
+      padding-inline: 20px;
+    }
+  }
+}
+
+@mixin constrain-flex-grow($heightOrWidth: "width") {
+  @if ($heightOrWidth == "width") {
+    max-width: 100%;
+    min-width: 0;
+  } @else {
+    max-height: 100%;
+    min-height: 0;
+  }
+}
+
+@mixin unset-centered-container-margins-mobile {
+  @include narrow-screen {
+    margin-inline: -20px;
+  }
+}
+
+@mixin shadow-container {
+  background-color: variables.$color-white;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+
+  @include wide-screen {
+    border-radius: 8px;
+  }
+}
+
+@mixin callout {
+  align-items: center;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.25;
+  padding: 16px 20px;
+
+  svg {
+    flex: 0 0 auto;
+    margin-right: 20px;
+  }
+}
+
+@mixin success-callout {
+  @include callout;
+  background-color: variables.$color-success;
+}
+
+@mixin error-callout {
+  @include callout;
+  background-color: variables.$color-error;
+}
+
+@mixin rich-text-styles($font-size: 16px) {
+  font-family: "Roboto Serif", serif;
+  font-size: $font-size;
+  line-height: 1.25;
+
+  * {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  p,
+  ul,
+  ol {
+    &:not(:first-child) {
+      margin-block-start: 1em;
+    }
+  }
+}
+
+/* Media query mixins */
+
+@mixin _check-breakpoint-args($args...) {
+  @each $arg in $args {
+    @if meta.type-of($arg) != number {
+      @error "breakpoint mixin args should be a number. Received #{$arg}.";
+    }
+  }
+}
+
+@mixin breakpoint-above($min) {
+  @include _check-breakpoint-args($min);
+  @media only screen and (min-width: $min + 1) {
+    @content;
+  }
+}
+
+@mixin breakpoint-below($max) {
+  @include _check-breakpoint-args($max);
+  @media only screen and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin breakpoint-between($min, $max) {
+  @include _check-breakpoint-args($min, $max);
+  @media only screen and (min-width: $min + 1) and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin narrow-screen {
+  @media only screen and (max-width: variables.$desktop-container-max-width) {
+    @content;
+  }
+}
+
+@mixin wide-screen {
+  @media only screen and (min-width: variables.$desktop-container-max-width + 1) {
+    @content;
+  }
+}

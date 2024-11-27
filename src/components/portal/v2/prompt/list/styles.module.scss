@@ -1,0 +1,10 @@
+@use "../../common/styles/mixins";
+@use "../../common/styles/variables";
+
+.root {
+  @include mixins.list-reset;
+}
+
+.listItem:not(:first-child) {
+  margin-top: 32px;
+}

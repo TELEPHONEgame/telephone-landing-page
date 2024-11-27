@@ -1,0 +1,33 @@
+@use "../../styles/mixins";
+@use "../../styles/variables";
+
+.root {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  padding-block: 64px;
+  @include mixins.centered-container($pad-mobile: true);
+  
+  @include mixins.narrow-screen {
+    padding-block: 52px;
+  }
+}
+
+.backButton {
+  @include mixins.btn-reset;
+  align-items: center;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
+}
+
+.title {
+  color: variables.$color-gray-blue;
+  font-size: variables.$fs-32;
+  text-align: center;
+
+  @include mixins.narrow-screen {
+    font-size: 22px;
+  }
+}

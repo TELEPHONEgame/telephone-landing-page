@@ -1,0 +1,71 @@
+@use "../common/styles/mixins";
+@use "../common/styles/variables";
+
+.root {
+  @include mixins.centered-container($pad-mobile: true);
+
+  h1 {
+    text-align: center;
+  }
+
+  h2 {
+    color: variables.$color-gray-blue;
+    font-size: variables.$fs-22;
+    font-weight: normal;
+    line-height: 16px;
+    margin-top: 36px;
+    margin-bottom: 20px;
+  }
+
+  .successCallout {
+    @include mixins.success-callout;
+  }
+
+  .tasksSubtitle {
+    color: variables.$color-gray-blue;
+    font-size: variables.$fs-16;
+    line-height: 12px;
+  }
+
+  .submitButton {
+    @include mixins.filled-btn();
+    margin-left: auto;
+    margin-top: 36px;
+    width: 168px;
+  }
+}
+
+.taskContainer {
+  margin-bottom: 12px;
+
+  .taskButton {
+    @include mixins.outlined-btn();
+    justify-content: space-between;
+    width: 100%;
+
+    &[disabled] svg path {
+      stroke: variables.$color-disabled-button-text;
+    }
+  }
+  
+  .taskDoneIndicator {
+    align-items: center;
+    color: variables.$color-gray-blue;
+    display: flex;
+    font-size: variables.$fs-14;
+    margin-top: 8px;
+  }
+
+  .doneIcon {
+    $done-icon-size: 16px; 
+
+    align-items: center;
+    background-color: #2BF43F;
+    border-radius: 50%;
+    display: flex;
+    height: $done-icon-size;
+    justify-content: center;
+    margin-right: 12px;
+    width: $done-icon-size;
+  }
+}

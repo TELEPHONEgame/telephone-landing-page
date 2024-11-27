@@ -1,0 +1,35 @@
+/* Breakpoints */
+$breakpoint-320: 320px;
+$breakpoint-480: 480px;
+$breakpoint-768: 768px;
+$breakpoint-1024: 1024px;
+
+$breakpoint-sm: $breakpoint-320;
+$breakpoint-md: $breakpoint-768;
+$breakpoint-lg: $breakpoint-1024;
+$breakpoint-short: 580px;
+
+/* Colors */
+$color-black: #000;
+$color-gray-blue: #2D4663;
+$color-gray-blue-light: #AFBCCF;
+$color-pink: #FF00F5;
+$color-white: #FFF;
+
+$color-error: #FF0000;
+$color-disabled-button: #DBDBDB;
+$color-disabled-button-text: #79747E;
+$color-success: #41B21A;
+
+/* Font sizes */
+$fs-36: 36px;
+$fs-32: 32px;
+$fs-24: 24px;
+$fs-22: 22px;
+$fs-16: 16px;
+$fs-14: 14px;
+$fs-12: 12px;
+$fs-11: 11px;
+
+/* Content widths */
+$desktop-container-max-width: 552px;

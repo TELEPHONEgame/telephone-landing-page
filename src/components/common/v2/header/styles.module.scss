@@ -1,0 +1,141 @@
+@use "../../../portal/v2/common/styles/mixins";
+@use "../../../portal/v2/common/styles/variables";
+
+.root {
+  background-color: #f6f6f6;
+
+  @include mixins.breakpoint-above(variables.$breakpoint-1024) {
+    padding: 0 156px;
+  }
+
+  @include mixins.breakpoint-below(variables.$breakpoint-1024) {
+    padding: 0 24px;
+  }
+}
+
+.root,
+.desktopNav {
+  align-items: center;
+  display: flex;
+  height: 72px;
+  justify-content: space-between;
+}
+
+.desktopNav {
+  .navbar {
+    a {
+      color: variables.$color-gray-blue;
+      font-family: "Inter";
+      font-size: variables.$fs-16;
+      letter-spacing: -1px;
+      margin-left: 24px;
+      @include mixins.link-reset;
+    }
+
+    .navbarActiveLink {
+      font-weight: 700;
+      position: relative;
+
+      &::after {
+        background-color: currentColor;
+        border-radius: 5px;
+        content: "";
+        display: block;
+        height: 4px;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        bottom: -12px;
+        width: 24px;
+      }
+    }
+  }
+
+  @include mixins.breakpoint-below(variables.$breakpoint-md) {
+    display: none;
+  }
+}
+
+.logo {
+  color: #101318;
+  font-family: "Crimson Pro";
+  font-size: variables.$fs-24;
+  font-weight: bold;
+  letter-spacing: -1px;
+  @include mixins.link-reset;
+}
+
+.mobileNav {
+  animation-delay: 200ms;
+  animation-duration: 400ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-name: slide-in;
+  background: white;
+  border-radius: 20px 0 0 20px;
+  height: 100%;
+  max-width: 100%;
+  padding-inline: 46px 20px;
+  position: fixed;
+  left: 100%;
+  top: 0;
+  width: 324px;
+
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    a {
+      color: variables.$color-gray-blue;
+      font-size: variables.$fs-24;
+      line-height: 1.2;
+      text-decoration: none;
+    }
+    
+    .navbarActiveLink {
+      font-weight: 700;
+      position: relative;
+
+      &::after {
+        background-color: currentColor;
+        border-radius: 5px;
+        content: "";
+        display: block;
+        height: 12px;
+        left: -20px;
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        width: 4px;
+      }
+    }
+  }
+}
+
+.mobileNavHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-block: 20px 66px;
+}
+
+.mobileNavCloseButton,
+.mobileNavToggle {
+  @include mixins.btn-reset;
+}
+
+.mobileNavToggle {
+  @include mixins.breakpoint-above(variables.$breakpoint-md) {
+    display: none;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

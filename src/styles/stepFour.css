@@ -13,7 +13,6 @@
   border-radius: 6px;
   margin-top: 1rem;
   min-height: 49px;
-  min-width: 350px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -32,7 +31,7 @@
 .media_text_input {
   display: flex;
   flex-direction: column;
-  width: 85%;
+  flex: 1 1 auto;
   padding-right: 1rem;
 }
 

@@ -1,0 +1,74 @@
+@use "../common/styles/mixins";
+@use "../common/styles/variables";
+
+.content {
+  @include mixins.centered-container;
+}
+
+.accordion {
+  margin-block-end: 32px;
+  @include mixins.centered-container($pad-mobile: true);
+}
+
+.addButton {
+  @include mixins.outlined-btn;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.addButtonIcon {
+  fill: variables.$color-gray-blue;
+}
+
+.fileLimitWarning {
+  align-items: center;
+  display: flex;
+}
+
+.fileLimitWarningIcon {
+  fill: variables.$color-gray-blue;
+  flex: 0 0 auto;
+  margin-inline-end: 10px;
+}
+
+.fileLimitWarningMax {
+  composes: fileLimitWarning;
+
+  .fileLimitWarningIcon {
+    fill: variables.$color-error;
+  }
+}
+
+.fileLimitWarningText {
+  color: rgba(0,0,0,.54);
+  font-size: variables.$fs-16;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-block: 36px;
+  @include mixins.centered-container($pad-mobile: true);
+}
+
+.submitButton {
+  @include mixins.filled-btn();
+  margin-left: auto;
+  margin-top: 36px;
+  width: 168px;
+}
+
+.submitDescription {
+  margin-top: 36px;
+  font-size: variables.$fs-16;
+}
+
+.successCallout {
+  @include mixins.success-callout;
+  margin-block-end: 36px;
+}
+
+.successCalloutContainer {
+  @include mixins.centered-container($pad-mobile: true);
+}

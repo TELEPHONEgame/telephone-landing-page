@@ -1,0 +1,75 @@
+@use "../common/styles/mixins";
+@use "../common/styles/variables";
+
+.errorCallout {
+  @include mixins.error-callout();
+  margin-bottom: 12px;
+}
+
+.timer {
+  background-color: #F8F8F8;
+  border: 1px solid #D9D9D9;
+  border-radius: 16px;
+  color: variables.$color-black;
+  font-size: variables.$fs-16;
+  line-height: 20px;
+  padding: 20px;
+
+  &.expired {
+    background-color: rgba(255, 0, 0, 0.2);
+    border-color: variables.$color-error;
+
+    .cell {
+      background-color: variables.$color-error;
+    }
+
+    .colon {
+      color: variables.$color-error;
+    }
+  }
+}
+
+.timeDisplay {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr min-content 1fr min-content 1fr;
+  margin: 20px 0;
+  width: 100%;
+
+  .colon {
+    font-size: variables.$fs-22;
+    margin: 0 6px;
+
+    &::after {
+      content: ":";
+    }
+  }
+}
+
+.cell {
+  align-items: center;
+  background-color: variables.$color-black;
+  border-radius: 8px;
+  color: variables.$color-white;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 88px;
+  justify-content: center;
+
+  .value {
+    font-size: variables.$fs-36;
+    line-height: 26px;
+    margin-bottom: 7px;
+  }
+
+  .denomination {
+    font-size: variables.$fs-14;
+    line-height: 10px;
+  }
+}
+
+.extensionButton {
+  @include mixins.filled-btn();
+  width: 100%;
+}

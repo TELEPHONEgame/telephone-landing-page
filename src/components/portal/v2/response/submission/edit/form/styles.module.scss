@@ -1,0 +1,178 @@
+@use "../../../../common/styles/mixins";
+@use "../../../../common/styles/variables";
+
+$field-border: 1px solid #d9d9d9;
+$field-border-radius: 4px;
+
+.checkboxField {
+  margin-block: 10px;
+}
+
+.checkboxFieldInput {
+  margin-inline-end: 10px;
+}
+
+.divider {
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  margin-block: 36px;
+}
+
+.editor {
+  @include mixins.shadow-container;
+}
+
+.footer {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  justify-content: end;
+  padding-block: 36px;
+  @include mixins.centered-container(true);
+}
+
+.footerButton {
+  flex: 1 1 50%;
+  max-width: 168px;
+}
+
+.footerButtonFilled {
+  composes: footerButton;
+  @include mixins.filled-btn;
+}
+
+.footerButtonOutlined {
+  composes: footerButton;
+  @include mixins.outlined-btn;
+}
+
+.formField {
+  + .formField {
+    margin-block-start: 16px;
+  }
+}
+
+.formFieldInput {
+  background-color: #f4faff;
+  border: $field-border;
+  border-radius: $field-border-radius;
+  color: variables.$color-gray-blue;
+  font-size: 16px;
+  height: 48px;
+  padding-inline: 18px;
+  width: 100%;
+}
+
+.formFieldLabel {
+  color: variables.$color-black;
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-block-end: 8px;
+}
+
+.formFieldHelpText {
+  color: variables.$color-gray-blue;
+  font-size: 16px;
+  margin-block: 16px;
+
+  &:last-child {
+    margin-block-end: 0;
+  }
+}
+
+.imageContainer {
+  cursor: crosshair;
+  display: inline-block;
+  position: relative;
+}
+
+.marker {
+  background-color: #ff0000;
+  border: 2px solid variables.$color-white;
+  border-radius: 50%;
+  height: 18px;
+  margin-left: -9px;
+  margin-top: -9px;
+  position: absolute;
+  transition: left 200ms, top 200ms;
+  width: 18px;
+}
+
+.richTextContainer {
+  position: relative;
+}
+
+.richTextEditor [contenteditable] {
+  background-color: #f4faff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  color: variables.$color-gray-blue;
+  // Let's the editor grow for wide content, but prevents it from getting too large.
+  // Will scroll if the content is wider than the width.
+  max-width: 70vw;
+  min-height: 200px;
+  min-width: 100%;
+  overflow-x: auto;
+  padding: 18px;
+  width: fit-content;
+  @include mixins.rich-text-styles;
+}
+
+.richTextEditor[data-is-poem="true"] [contenteditable] {
+  white-space: pre;
+}
+
+.richTextToolbar {
+  align-items: center;
+  background-color: variables.$color-white;
+  border: $field-border;
+  border-radius: $field-border-radius;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 10px;
+  padding-block: 4px;
+  padding-inline: 10px;
+  position: sticky;
+}
+
+.richTextToolbarButton {
+  @include mixins.btn-reset;
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  height: 24px;
+  width: 28px;
+
+  &:disabled {
+    cursor: default;
+    opacity: .5;
+  }
+}
+
+.richTextToolbarButtonActive {
+  composes: richTextToolbarButton;
+  background-color: variables.$color-gray-blue;
+}
+
+.richTextToolbarButtonIcon {
+  fill: variables.$color-gray-blue;
+
+  .richTextToolbarButtonActive & {
+    fill: variables.$color-white;
+  }
+}
+
+.richTextToolbarDivider {
+  border-left: $field-border;
+  height: 13px;
+  margin-inline: 8px;
+}
+
+.thumbnailPreview {
+  height: 250px;
+  transition: object-position 200ms;
+  width: 250px;
+}

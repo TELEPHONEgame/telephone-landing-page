@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import "../../styles/mainSection.css";
 
@@ -9,12 +10,14 @@ type Props = {
   setJoined: (joined: boolean) => void;
 };
 
-const ProgressBar = ({ step, totalSteps, setStep, setJoined }: Props) => {
+const ProgressBar = ({ step, totalSteps, setStep }: Props) => {
+  const navigate = useNavigate();
+
   const handleStepBack = () => {
     if (step !== 1) {
       setStep(step - 1);
     } else if (step === 1) {
-      setJoined(false);
+      navigate("/");
     }
   };
 

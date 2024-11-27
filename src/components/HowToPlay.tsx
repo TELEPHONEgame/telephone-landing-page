@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { EmailAnchor } from "./EmailAnchor";
 import Faq from "./sign-up/Faq";
 import { IoMdClose } from "react-icons/io";
+import { Link } from "react-router-dom";
 
-const HowToPlay = ({ setDisplayHowToPlay, setDisplayFaq }) => {
-  //const [displayFaq, setDisplayFaq] = useState(false);
+const HowToPlay = () => {
   return (
     <div className="htp">
-      <button
+      <Link
         className="btn_reset close_icon"
-        onClick={() => setDisplayHowToPlay(false)}
+        to="/"
       >
         <IoMdClose size={25} />
-      </button>
+      </Link>
 
       <div className="htp_content">
         <h3 className="htp_title">HOW TO PLAY</h3>
@@ -41,7 +41,7 @@ const HowToPlay = ({ setDisplayHowToPlay, setDisplayFaq }) => {
         </p>
 
         <p className="htp_paragraph">
-          If you have further questions, please read <a href="#" onClick={() => setDisplayFaq(true)}>this.</a>
+          If you have further questions, please read <Link to="/faq">this</Link>.
           {/* <Faq setDisplayFaq={} /> */}
         </p>
 

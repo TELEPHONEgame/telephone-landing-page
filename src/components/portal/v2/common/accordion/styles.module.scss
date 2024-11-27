@@ -1,0 +1,51 @@
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.root {
+  border-bottom: 2px solid variables.$color-gray-blue-light;
+  border-top: 2px solid variables.$color-gray-blue-light;
+
+  + .root {
+    border-top: 0;
+  }
+}
+
+.content {
+  line-height: 1.25;
+  padding-block-end: 16px;
+
+  p, ul, ol {
+    font-size: inherit;
+
+    &:not(:first-child) {
+      margin-block-start: 1em;
+    }
+  }
+}
+
+.toggle {
+  @include mixins.btn-reset;
+  align-items: center;
+  display: flex;
+  min-height: 44px;
+  padding-block: 8px;
+  width: 100%;
+}
+
+.toggleIconOpen,
+.toggleIconClosed {
+  fill: variables.$color-gray-blue;
+  flex: 0 0 auto;
+  margin-inline-end: 8px;
+  margin-inline-start: auto;
+}
+
+.toggleIconOpen {
+  transform: rotate(180deg);
+}
+
+.title {
+  color: variables.$color-black;
+  font-size: variables.$fs-16;
+  font-weight: 700;
+}

@@ -1,0 +1,30 @@
+@use "../common/styles/mixins";
+@use "../common/styles/variables";
+
+.content {
+  color: variables.$color-gray-blue;
+  @include mixins.centered-container($pad-mobile: true);
+}
+
+.accordion {
+  margin-block-start: 32px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-block: 36px;
+}
+
+.downloadButton {
+  @include mixins.filled-btn;
+  margin-inline-start: auto;
+}
+
+.promptList {
+  margin-block-end: 20px;
+  margin-block-start: 32px;
+
+  @include mixins.unset-centered-container-margins-mobile;
+}
