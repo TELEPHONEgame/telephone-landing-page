@@ -17,22 +17,23 @@
     margin-bottom: 20px;
   }
 
-  .successCallout {
-    @include mixins.success-callout;
-  }
-
   .tasksSubtitle {
     color: variables.$color-gray-blue;
     font-size: variables.$fs-16;
     line-height: 12px;
   }
+}
 
-  .submitButton {
-    @include mixins.filled-btn();
-    margin-left: auto;
-    margin-top: 36px;
-    width: 168px;
-  }
+.submitButton {
+  @include mixins.filled-btn();
+  margin-left: auto;
+  margin-top: 36px;
+  width: 168px;
+}
+
+.submitDescription {
+  margin-top: 36px;
+  font-size: variables.$fs-16;
 }
 
 .taskContainer {
@@ -41,6 +42,7 @@
   .taskButton {
     @include mixins.outlined-btn();
     justify-content: space-between;
+    text-align: left;
     width: 100%;
 
     &[disabled] svg path {

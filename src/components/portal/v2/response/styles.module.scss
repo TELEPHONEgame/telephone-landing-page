@@ -70,5 +70,6 @@
 }
 
 .successCalloutContainer {
+  margin-bottom: 36px;
   @include mixins.centered-container($pad-mobile: true);
 }

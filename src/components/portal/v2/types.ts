@@ -26,14 +26,15 @@ export type MutableSubmissionFields = Pick<
 >;
 
 export interface Artist {
-  readonly id: number;
-  readonly first_name: string;
-  readonly last_name: string;
-  readonly submitted: string;
   readonly accepted: Date;
+  readonly completed: string;
   readonly due: string;
+  readonly first_name: string;
+  readonly id: number;
+  readonly last_name: string;
   readonly parent: Artist;
   readonly submissions: Array<Submission>;
+  readonly submitted: string;
 }
 
 export type MutableArtistFields = Pick<

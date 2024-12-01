@@ -1,0 +1,5 @@
+@use "../../styles/mixins";
+
+.successCallout {
+  @include mixins.success-callout;
+}

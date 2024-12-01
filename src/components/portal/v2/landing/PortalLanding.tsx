@@ -7,11 +7,17 @@ import { SubmissionCountdown } from "@components/portal/v2/countdown/SubmissionC
 import styles from "./styles.module.scss";
 import PortalSectionHeader from "@components/portal/v2/common/page/header/PortalPageHeader";
 import PortalConfirmationDialog from "@components/portal/v2/common/dialog/PortalConfirmationDialog";
+import {
+  submittedCallout,
+  assignedCallout,
+} from "@components/portal/v2/common/success/callout/SuccessCallout";
 
 const PortalLanding = () => {
   const { artist, reloadArtist } = useArtist();
-  const [isSubmissionConfirmationDialogOpen, setIsSubmissionConfirmationDialogOpen] = 
-    useState(false); 
+  const [
+    isSubmissionConfirmationDialogOpen,
+    setIsSubmissionConfirmationDialogOpen,
+  ] = useState(false);
 
   const artistHasUploads = artist.submissions.length > 0;
   const dueDateMs = new Date(artist.due).getTime();
@@ -34,10 +40,12 @@ const PortalLanding = () => {
   }, [dueDateMs]);
 
   const submit = () => {
-    updateArtist(artist.id, { submitted: new Date().toISOString() }).then(() => {
-      reloadArtist();
-      closeSubmissionDialog();
-    });
+    updateArtist(artist.id, { submitted: new Date().toISOString() }).then(
+      () => {
+        reloadArtist();
+        closeSubmissionDialog();
+      }
+    );
   };
 
   const openSubmissionDialog = () => {
@@ -48,32 +56,13 @@ const PortalLanding = () => {
     setIsSubmissionConfirmationDialogOpen(false);
   };
 
-  const submitSuccessCallout = (
-    <div className={styles.successCallout}>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <rect
-          x="0.75"
-          y="0.75"
-          width="22.5"
-          height="22.5"
-          rx="11.25"
-          stroke="white"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M8.55353 15.9464L5.49877 12.8916C5.33429 12.7268 5.111 12.6341 4.87813 12.6341C4.64527 12.6341 4.42197 12.7268 4.2575 12.8916C3.91417 13.235 3.91417 13.7896 4.2575 14.1329L7.93729 17.8127C8.28063 18.156 8.83524 18.156 9.17857 17.8127L18.4925 8.49876C18.8358 8.15543 18.8358 7.60082 18.4925 7.25749C18.328 7.09264 18.1047 7 17.8719 7C17.639 7 17.4157 7.09264 17.2512 7.25749L8.55353 15.9464Z"
-          fill="white"
-        />
-      </svg>
-      Success, you have submitted your artwork
-    </div>
-  );
-
   return (
     <div className={styles.root}>
       <PortalSectionHeader title="Artist Portal" />
       {artist.submitted ? (
-        submitSuccessCallout
+        submittedCallout
+      ) : artist.completed ? (
+        assignedCallout
       ) : (
         <SubmissionCountdown
           firstName={artist.first_name}
@@ -88,22 +77,30 @@ const PortalLanding = () => {
       />
       <TaskButton
         doneMessage="Artwork response uploaded"
-        isDisabled={timesUp}
+        isDisabled={timesUp || !!artist.completed}
         isDone={artistHasUploads}
         route="/portal/response"
         label="2. Upload your artwork response"
       />
-      <button
-        className={styles.submitButton}
-        disabled={timesUp || !!artist.submitted}
-        onClick={openSubmissionDialog}
-      >
-        Submit
-      </button>
+      {artist.submitted || artist.submissions.length < 1 ? null : (
+        <div>
+          <p className={styles.submitDescription}>
+            Finished uploading? Submit your work so it can be sent to the next
+            artist.
+          </p>
+
+          <button
+            className={styles.submitButton}
+            onClick={openSubmissionDialog}
+          >
+            Submit
+          </button>
+        </div>
+      )}
 
       <PortalConfirmationDialog
         title="Submit artist application"
-        body="Are you sure you want to submit the artist application? This action can't be undone."
+        body="Are you ready to submit your artwork? Once submitted, we will review it, then pass it on to the next artist. Until then, you can edit your submission."
         cancelText="Back"
         confirmText="Submit"
         isOpen={isSubmissionConfirmationDialogOpen}
