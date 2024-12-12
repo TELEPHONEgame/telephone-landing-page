@@ -200,7 +200,9 @@ const FilePreview = ({
           onShowFullscreen={onShowFullscreen}
         />
       ) : (
-        submission.file
+        <a href={submission.file} target="_blank" rel="noopener noreferrer">
+          {getShortenedFileName(submission.file)}
+        </a>
       );
   }
 };
@@ -253,5 +255,10 @@ const FullscreenButton = ({
     Full Screen
   </button>
 );
+
+function getShortenedFileName(fullFileName: string) {
+  const fileNameParts = fullFileName.split("/");
+  return fileNameParts[fileNameParts.length - 1];
+}
 
 export default PortalSubmissionPreview;
