@@ -38,7 +38,7 @@ export async function downloadAssignment(submissions: Submission[]) {
   // make and click a temporary link to download the Blob
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
-  link.download = "test.zip";
+  link.download = "prompt.zip";
   link.click();
   link.remove();
 }
